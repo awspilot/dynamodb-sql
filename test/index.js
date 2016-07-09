@@ -1,8 +1,8 @@
 require('./lib/common')
 
 require("./tests/010-createTable.js")
+require("./tests/030-insert.js")
 
 
 
-
-require("./tests/999-deleteTable.js")
+//require("./tests/999-deleteTable.js")
