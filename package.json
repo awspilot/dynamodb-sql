@@ -1,0 +1,38 @@
+{
+	"name": "dynamodb-sql",
+	"version": "0.0.1",
+	"description": "Execute queries against Amazon DynamoDB using a SQL-like syntax",
+	"main": "./lib/dynamodb",
+	"scripts": {
+		"test": "mocha --timeout 100000 -S -R spec"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/databank/dynamodb-sql.git"
+	},
+	"keywords": [
+		"dynamodb",
+		"dynamodb sql",
+		"sql"
+	],
+	"author": "Adrian Praja",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/databank/dynamodb-sql/issues"
+	},
+	"homepage": "https://github.com/databank/dynamodb-sql#readme",
+	"dependencies": {
+		"aws-dynamodb": "0.1.53",
+		"aws-sdk": ">=2.3.9"
+	},
+	"devDependencies": {
+		"aws-sdk": ">=2.3.9",
+		"memdown": "*",
+		"dynalite": "1.0.1",
+		"mocha": "*",
+		"chai": "*",
+		"should": "*",
+		"async": "*",
+		"assert": "*"
+	}
+}
