@@ -38,15 +38,25 @@ db.query( $query, callback )
 ```
 
 ```
-db.query("INSERT INTO users SET id='user@host', userame=\"userhost\", password=\"qwert\" ", function(err, data) {
-  console.log( err, data )
-})
+db.query(
+    "   INSERT INTO                 " +
+    "       users                   " +
+    "   SET                         " +
+    "       id='user@host',         " + 
+    "       userame=\"userhost\",   " +
+    "       password=\"qwert\"      ", 
+    function(err, data) {
+        console.log( err, data )
+    })
 ```
 
 ###### Insert
 
 ```
-INSERT INTO tbl_name SET partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
+INSERT INTO 
+    tbl_name 
+SET 
+    partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
 ```
 ```
 INSERT INTO users SET
@@ -68,8 +78,18 @@ INSERT INTO users SET
 
 ###### Update
 ```
-UPDATE tbl_name SET key1=<VALUE> [, key2=<VALUE>, ... ] WHERE partition_key = <VALUE> AND sort_key = <VALUE>
+UPDATE 
+    tbl_name 
+SET 
+    key1=<VALUE> [, key2=<VALUE>, ... ] 
+WHERE 
+    partition_key = <VALUE> AND sort_key = <VALUE>
 ```
 ```
-UPDATE users SET active=true, updated_at=1468137844 WHERE domain = 'test.com' AND user = 'testuser'
+UPDATE 
+    users 
+SET 
+    active=true, updated_at=1468137844 
+WHERE 
+    domain = 'test.com' AND user = 'testuser'
 ```
