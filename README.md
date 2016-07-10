@@ -108,6 +108,9 @@ WHERE
 
 ###### Replace
 
+REPLACE will fail if an item with the same key does not exists
+
+
 ```
 REPLACE INTO 
     tbl_name 
