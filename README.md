@@ -51,6 +51,10 @@ db.query(
 ```
 
 ###### Insert
+VALUE for partition_key and sort_key can be string or number, all other attributes can be string, number, boolean, array, object, null or any nested combination of these
+
+Insert will fail if another item with same key exists 
+
 
 ```
 INSERT INTO 
@@ -77,6 +81,13 @@ INSERT INTO users SET
 ```
 
 ###### Update
+
+VALUE for partition_key and sort_key can be string or number, all other attributes can be string, number, boolean, array, object, null or any nested combination of these
+
+Update will fail if the key specified in WHERE does not exist
+
+WHERE condition must match the exact partition or partition/sort definition, UPDATE will only update one item!
+
 ```
 UPDATE 
     tbl_name 
