@@ -1,6 +1,6 @@
 describe('update', function () {
 	it('should update existing item', function(done) {
-		DynamoSQL.query("update `" + $tableName + "` set `number`=2, `array`= [ 1,2,3,4 ], `new` = 'new_item', object= { key : {subkey: 1 } } where `hash` = 'hash1' and range = 1", {}, function(err, data ) {
+		DynamoSQL.query("update `" + $tableName + "` set `number`=2,`boolean`=false, `array`= [ 1,2,3,4 ], `new` = 'new_item', object= { key : {subkey: 1 } } where `hash` = 'hash1' and range = 1", {}, function(err, data ) {
 			if (err)
 				throw err
 
@@ -13,9 +13,12 @@ describe('update', function () {
 						throw err
 
 					assert.equal(item.number, 2)
+					assert.equal(item.boolean, false)
+					assert.equal(item.nulled, null)
 					assert.deepEqual(item.array, [1,2,3,4])
 					assert.deepEqual(item.object, { key : {subkey: 1 } })
 
+					assert.equal(item.new, 'new_item')
 					done()
 				})
 		})

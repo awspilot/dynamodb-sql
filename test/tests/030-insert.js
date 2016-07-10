@@ -7,6 +7,8 @@ describe('insert', function () {
 						"	hash =  'hash1',      \n" +
 						"	\"range\" =  1,       \n" +
 						"   `number`=1,           \n" +
+						"   `boolean`=true,       \n" +
+						"	`nulled`=null,        \n" +
 						"   array=[1,2, 3 ],      \n" +
 						"   object= { aaa:1,bbb:2, ccc:\" some string \", ddd: {ddd1: 1}, eee: [1,'eee1']}, \n" +
 						"   string_set=:string_set, \n" +
@@ -22,6 +24,10 @@ describe('insert', function () {
 					if (err)
 						throw err
 
+					assert.equal(item.number, 1)
+					assert.equal(item.boolean, true)
+					assert.equal(item.nulled, null)
+					assert.deepEqual(item.array, [1,2,3])
 					done()
 				})
 		})
