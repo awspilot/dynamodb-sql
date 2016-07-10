@@ -93,3 +93,19 @@ SET
 WHERE 
     domain = 'test.com' AND user = 'testuser'
 ```
+
+
+###### Replace
+
+```
+REPLACE INTO 
+    tbl_name 
+SET 
+    partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
+```
+```
+REPLACE INTO users SET
+  domain         = 'test.com',
+  user           = 'testuser',
+  pending_delete = true
+```
