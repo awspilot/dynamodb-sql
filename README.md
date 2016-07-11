@@ -122,3 +122,15 @@ REPLACE INTO users SET
     user           = 'testuser',
     pending_delete = true
 ```
+
+###### Delete
+
+WHERE condition must match the exact partition or partition/sort definition, DELETE will only delete one item!
+
+```
+DELETE FROM 
+    tbl_name 
+WHERE 
+    partition_key = <VALUE> AND sort_key = <VALUE>
+```
+
