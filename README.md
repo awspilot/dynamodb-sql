@@ -115,11 +115,15 @@ REPLACE will fail if an item with the same key does not exists
 REPLACE INTO 
     tbl_name 
 SET 
-    partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
+     some_attribute = <VALUE> [, other_attribute = <VALUE>, ... ]
+WHERE 
+    partition_key = <VALUE> AND sort_key = <VALUE>
+
 ```
 ```
 REPLACE INTO users SET
-  domain         = 'test.com',
-  user           = 'testuser',
-  pending_delete = true
+    pending_delete = true
+WHERE
+    domain         = 'test.com' AND
+    user           = 'testuser',
 ```
