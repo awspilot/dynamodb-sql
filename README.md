@@ -108,22 +108,17 @@ WHERE
 
 ###### Replace
 
-REPLACE will fail if an item with the same key does not exists
-
+Inserts the item if it does not exists or fully replaces it.
 
 ```
 REPLACE INTO 
     tbl_name 
 SET 
-     some_attribute = <VALUE> [, other_attribute = <VALUE>, ... ]
-WHERE 
-    partition_key = <VALUE> AND sort_key = <VALUE>
-
+     partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
 ```
 ```
 REPLACE INTO users SET
-    pending_delete = true
-WHERE
-    domain         = 'test.com' AND
+    domain         = 'test.com',
     user           = 'testuser',
+    pending_delete = true
 ```
