@@ -1,7 +1,7 @@
 
 describe('client.createTable()', function () {
 
-	it('deleting test table if exists', function(done) {
+	it('deleting ' + $tableName + ' table if exists', function(done) {
 		DynamoSQL
 			.client
 			.describeTable({
@@ -26,9 +26,33 @@ describe('client.createTable()', function () {
 				}
 			})
 	});
+	it('deleting ' + $hashTable + ' table if exists', function(done) {
+		DynamoSQL
+			.client
+			.describeTable({
+				TableName: $hashTable
+			}, function(err, data) {
+				if (err) {
+					if (err.code === 'ResourceNotFoundException')
+						done()
+					else
+						throw err
+				} else {
+					DynamoSQL.db
+						.client
+						.deleteTable({
+							TableName: $hashTable
+						}, function(err, data) {
+							if (err)
+								throw 'delete failed'
+							else
+								done()
+						})
+				}
+			})
+	});
 
-
-	it('waiting for table to delete (within 25 seconds)', function(done) {
+	it('waiting for ' + $tableName + ' table to delete (within 25 seconds)', function(done) {
 		var $existInterval = setInterval(function() {
 			DynamoSQL
 				.client
@@ -50,9 +74,30 @@ describe('client.createTable()', function () {
 				})
 		}, 1000)
 	})
+	it('waiting for ' + $hashTable + ' table to delete (within 25 seconds)', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoSQL
+				.client
+				.describeTable({
+					TableName: $hashTable
+				}, function(err, data) {
 
+					if (err && err.code === 'ResourceNotFoundException') {
+						clearInterval($existInterval)
+						return done()
+					}
+					if (err) {
+						clearInterval($existInterval)
+						throw err
+					}
 
-	it('creating the table', function(done) {
+					if (data.TableStatus === 'DELETING')
+						process.stdout.write('.')
+				})
+		}, 1000)
+	})
+
+	it('creating table ' + $tableName + ' ', function(done) {
 		DynamoSQL
 			.client
 			.createTable({
@@ -126,7 +171,40 @@ describe('client.createTable()', function () {
 			})
 	})
 
-	it('waiting for table to become ACTIVE', function(done) {
+	it('creating table ' + $hashTable + ' ', function(done) {
+		DynamoSQL
+			.client
+			.createTable({
+				TableName: $hashTable,
+				ProvisionedThroughput: {
+					ReadCapacityUnits: 1,
+					WriteCapacityUnits: 1
+				},
+				KeySchema: [
+					{
+						AttributeName: "hash",
+						KeyType: "HASH"
+					}
+				],
+				AttributeDefinitions: [
+					{
+						AttributeName: "hash",
+						AttributeType: "S"
+					}
+				],
+			}, function(err, data) {
+				if (err) {
+					throw err
+				} else {
+					if (data.TableDescription.TableStatus === 'CREATING' || data.TableDescription.TableStatus === 'ACTIVE' )
+						done()
+					else
+						throw 'unknown table status after create: ' + data.TableDescription.TableStatus
+				}
+			})
+	})
+
+	it('waiting for table ' + $tableName + ' to become ACTIVE', function(done) {
 		var $existInterval = setInterval(function() {
 			DynamoSQL
 				.client
@@ -146,6 +224,25 @@ describe('client.createTable()', function () {
 				})
 		}, 3000)
 	})
-
+	it('waiting for table ' + $hashTable + ' to become ACTIVE', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoSQL
+				.client
+				.describeTable({
+					TableName: $hashTable
+				}, function(err, data) {
+					if (err) {
+						throw err
+					} else {
+						//process.stdout.write(".");
+						//console.log(data.Table)
+						if (data.Table.TableStatus === 'ACTIVE') {
+							clearInterval($existInterval)
+							done()
+						}
+					}
+				})
+		}, 3000)
+	})
 
 })
