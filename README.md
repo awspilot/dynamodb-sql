@@ -134,3 +134,23 @@ WHERE
     partition_key = <VALUE> AND sort_key = <VALUE>
 ```
 
+###### Select
+
+for sort_key OP can be: =, <, >, <= or >=
+
+```
+SELECT
+    *
+FROM
+    tbl_name 
+WHERE 
+    partition_key = <VALUE> 
+    [ AND sort_key OP <VALUE> ]
+```
+
+```
+SELECT * FROM users WHERE  domain = 'test.com' AND user = 'testuser'
+
+SELECT * FROM stats WHERE  domain = 'test.com' AND date <= '2016-01-01 23:59:59'
+
+```
