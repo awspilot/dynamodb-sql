@@ -27,7 +27,7 @@ var db = require('dynamodb-sql')({
 or 
 
 var AWS = require('aws-sdk');
-var db = require('aws-dynamodb')(new AWS.DynamoDB());
+var db = require('dynamodb-sql')(new AWS.DynamoDB());
 ```
 
 ##### Execute Queries
