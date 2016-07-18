@@ -157,12 +157,20 @@ WHERE
 [ HAVING attribute OP <VALUE> [ AND attribute OP <VALUE> ] ]
 [ DESC ]
 [ LIMIT <number> ]
+[ CONSISTENT_READ ]
 ```
 
 ```
-SELECT * FROM users WHERE  domain = 'test.com' AND user = 'testuser'
+SELECT 
+    * 
+FROM 
+    users 
+WHERE  
+    domain = 'test.com' AND 
+    user = 'testuser'
+```
 
-
+```
 SELECT 
     * 
 FROM 
@@ -175,6 +183,7 @@ HAVING
     visitors > 0
 DESC 
 LIMIT 5
+CONSISTENT_READ
 
 
 ```
