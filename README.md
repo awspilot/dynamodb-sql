@@ -136,7 +136,13 @@ WHERE
 
 ###### Select
 
-for sort_key in WHERE OP can be: =, <, >, <= or >=
+for sort_key in WHERE OP can be: 
+* =  equal
+* <  less than
+* >  greater than 
+* <= less then or equal 
+* >= greater than or equal  
+* ^  begins with
 
 ```
 SELECT
@@ -155,7 +161,19 @@ WHERE
 ```
 SELECT * FROM users WHERE  domain = 'test.com' AND user = 'testuser'
 
-SELECT * FROM stats WHERE  domain = 'test.com' AND date <= '2016-01-01 23:59:59 HAVING pageviews > 0 DESC LIMIT 5'
+
+SELECT 
+    * 
+FROM 
+    stats 
+WHERE  
+    domain = 'test.com' AND 
+    date <= '2016-01-01 23:59:59' 
+HAVING 
+    pageviews > 0 AND
+    visitors > 0
+DESC 
+LIMIT 5
 
 
 ```
