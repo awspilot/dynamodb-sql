@@ -142,7 +142,8 @@ for sort_key in WHERE OP can be:
 * >  greater than 
 * <= less then or equal 
 * >= greater than or equal  
-* ^  begins with
+* BEGINS_WITH
+* BETWEEN
 
 ```
 SELECT
@@ -168,7 +169,7 @@ FROM
     stats 
 WHERE  
     domain = 'test.com' AND 
-    date <= '2016-01-01 23:59:59' 
+    date BETWEEN [ '2016-01-01 00:00:00', '2016-01-01 23:59:59' ]
 HAVING 
     pageviews > 0 AND
     visitors > 0
