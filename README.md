@@ -136,7 +136,13 @@ WHERE
 
 ###### Select
 
-for sort_key in WHERE OP can be: =, <, >, <= or >=
+for sort_key in WHERE OP can be: 
+* =  equal
+* <  less than
+* >  greater than 
+* <= less then or equal 
+* >= greater than or equal  
+* ^  begins with
 
 ```
 SELECT
@@ -154,6 +160,7 @@ WHERE
 
 ```
 SELECT * FROM users WHERE  domain = 'test.com' AND user = 'testuser'
+
 
 SELECT 
     * 
