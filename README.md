@@ -155,7 +155,7 @@ WHERE
 ```
 SELECT * FROM users WHERE  domain = 'test.com' AND user = 'testuser'
 
-SELECT * FROM stats WHERE  domain = 'test.com' AND date <= '2016-01-01 23:59:59 HAVING pageviews > 0 DESC LIMIT 5'
+SELECT * FROM stats WHERE  domain = 'test.com' AND date <= '2016-01-01 23:59:59' HAVING pageviews > 0 DESC LIMIT 5
 
 
 ```
