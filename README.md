@@ -136,7 +136,7 @@ WHERE
 
 ###### Select
 
-for sort_key OP can be: =, <, >, <= or >=
+for sort_key in WHERE OP can be: =, <, >, <= or >=
 
 ```
 SELECT
@@ -146,11 +146,16 @@ FROM
 WHERE 
     partition_key = <VALUE> 
     [ AND sort_key OP <VALUE> ]
+
+[ HAVING attribute OP <VALUE> [ AND attribute OP <VALUE> ] ]
+[ DESC ]
+[ LIMIT <number> ]
 ```
 
 ```
 SELECT * FROM users WHERE  domain = 'test.com' AND user = 'testuser'
 
-SELECT * FROM stats WHERE  domain = 'test.com' AND date <= '2016-01-01 23:59:59'
+SELECT * FROM stats WHERE  domain = 'test.com' AND date <= '2016-01-01 23:59:59 HAVING pageviews > 0 DESC LIMIT 5'
+
 
 ```
