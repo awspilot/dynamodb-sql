@@ -57,12 +57,17 @@ Insert will fail if another item with same key exists
 
 
 ```
+
 INSERT INTO 
     tbl_name 
 SET 
-    partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
+    partition_key = <VALUE>, 
+    sort_key = <VALUE> 
+    [, other_key = <VALUE>, ... ]
+
 ```
 ```
+
 INSERT INTO users SET
   domain     = 'test.com',
   user       = 'testuser',
@@ -78,6 +83,7 @@ INSERT INTO users SET
                   emails: ["testuser@test.com", "demo.test@test.com"] 
                 }
               }
+
 ```
 
 ###### Update
@@ -89,20 +95,25 @@ Update will fail if the key specified in WHERE does not exist
 WHERE condition must match the exact partition or partition/sort definition, UPDATE will only update one item!
 
 ```
+
 UPDATE 
     tbl_name 
 SET 
     key1=<VALUE> [, key2=<VALUE>, ... ] 
 WHERE 
     partition_key = <VALUE> AND sort_key = <VALUE>
+
 ```
+
 ```
+
 UPDATE 
     users 
 SET 
     active=true, updated_at=1468137844 
 WHERE 
     domain = 'test.com' AND user = 'testuser'
+
 ```
 
 
@@ -111,16 +122,21 @@ WHERE
 Inserts the item if it does not exists or fully replaces it.
 
 ```
+
 REPLACE INTO 
     tbl_name 
 SET 
      partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
+
 ```
+
 ```
+
 REPLACE INTO users SET
     domain         = 'test.com',
     user           = 'testuser',
     pending_delete = true
+
 ```
 
 ###### Delete
@@ -128,10 +144,12 @@ REPLACE INTO users SET
 WHERE condition must match the exact partition or partition/sort definition, DELETE will only delete one item!
 
 ```
+
 DELETE FROM 
     tbl_name 
 WHERE 
     partition_key = <VALUE> AND sort_key = <VALUE>
+
 ```
 
 ###### Select
@@ -146,6 +164,7 @@ for sort_key in WHERE OP can be:
 * BETWEEN
 
 ```
+
 SELECT
     *
 FROM
@@ -158,9 +177,11 @@ WHERE
 [ DESC ]
 [ LIMIT <number> ]
 [ CONSISTENT_READ ]
+
 ```
 
 ```
+
 SELECT 
     * 
 FROM 
@@ -168,9 +189,11 @@ FROM
 WHERE  
     domain = 'test.com' AND 
     user = 'testuser'
+
 ```
 
 ```
+
 SELECT 
     * 
 FROM 
@@ -184,6 +207,5 @@ HAVING
 DESC 
 LIMIT 5
 CONSISTENT_READ
-
 
 ```
