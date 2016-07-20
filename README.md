@@ -169,7 +169,8 @@ SELECT
     *
 FROM
     tbl_name 
-WHERE 
+[ USE INDEX index_name ]
+WHERE
     partition_key = <VALUE> 
     [ AND sort_key OP <VALUE> ]
 
