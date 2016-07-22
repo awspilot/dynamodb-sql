@@ -51,7 +51,7 @@ db.query(
 ```
 ## SQL Operations
 
-###### Insert
+### Insert
 VALUE for partition_key and sort_key can be string or number, all other attributes can be string, number, boolean, array, object, null or any nested combination of these
 
 Insert will fail if another item with same key exists 
@@ -87,7 +87,7 @@ INSERT INTO users SET
 
 ```
 
-###### Update
+### Update
 
 VALUE for partition_key and sort_key can be string or number, all other attributes can be string, number, boolean, array, object, null or any nested combination of these
 
@@ -120,7 +120,7 @@ WHERE
 ```
 
 
-###### Replace
+### Replace
 
 Inserts the item if it does not exists or fully replaces it.
 
@@ -142,7 +142,7 @@ REPLACE INTO users SET
 
 ```
 
-###### Delete
+### Delete
 
 WHERE condition must match the exact partition or partition/sort definition, DELETE will only delete one item!
 
@@ -155,7 +155,7 @@ WHERE
 
 ```
 
-###### Select
+### Select
 
 for sort_key in WHERE OP can be: 
 * =  equal
@@ -214,7 +214,7 @@ CONSISTENT_READ
 
 ```
 
-## Missing
+## ToDo
 * support for binary data type
 * support for stringSet and numberSet
 * UPDATE: increment support
