@@ -239,7 +239,7 @@ CONSISTENT_READ
 ## ToDo
 * support for binary data type
 * support for stringSet and numberSet
-* INSERT: batch insert
+* INSERT: batch insert in the form of " INSERT INTO tbl_name VALUES [{},{},{}] "
 * INSERT: conditional insert
 * INSERT: DUPLICATE KEY UPDATE
 * INSERT: placeholder for values
