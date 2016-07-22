@@ -254,9 +254,10 @@ CONSISTENT_READ
 * SELECT: count()
 * get item and batch get item
 * scan
+* LIST TABLES support
+* DESCRIBE TABLE support
 * CREATE TABLE support
 * SHOW CREATE TABLE support
-* DESCRIBE TABLE support
 * etc.
 
 ## Done
