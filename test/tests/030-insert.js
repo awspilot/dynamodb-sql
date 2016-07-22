@@ -2,17 +2,20 @@
 
 describe('insert', function () {
 	it('hash_range: should insert when item does not exist', function(done) {
-		DynamoSQL.query(" INSERT INTO `" + $tableName + "` " +
-						" SET " +
-						"	hash =  'hash1',      \n" +
-						"	\"range\" =  1,       \n" +
-						"   `number`=1,           \n" +
-						"   `boolean`=true,       \n" +
-						"	`nulled`=null,        \n" +
-						"   array=[1,2, 3 ],      \n" +
-						"   object= { aaa:1,bbb:2, ccc:\" some string \", ddd: {ddd1: 1}, eee: [1,'eee1']}, \n" +
-						"   string_set=:string_set, \n" +
-						"   number_set=:number_set  \n", {}, function(err, data ) {
+		DynamoSQL.query("\
+		 				INSERT INTO `" + $tableName + "`	\
+						SET									\
+							hash =  'hash1',				\
+							range =  1,						\
+							number = 1,						\
+							boolean =true,					\
+							nulled = null,					\
+							array = [1,2, 3 ],				\
+							object= { aaa:1,bbb:2, ccc:\" some string \", ddd: {ddd1: 1}, eee: [1,'eee1']}, \
+							string_set=:string_set,			\
+							number_set=:number_set,			\
+							delete_me = 'delete_me'			\
+						", {}, function(err, data ) {
 			if (err)
 				throw err
 
