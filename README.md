@@ -49,6 +49,21 @@ db.query(
         console.log( err, data )
     })
 ```
+
+## Comments
+
+dynamodb-sql supports the following comment style
+```
+
+/* this is an in-line comment */
+
+/*
+this is a
+multiple-line comment
+*/
+
+```
+
 ## SQL Operations
 
 ### Insert
@@ -222,7 +237,6 @@ CONSISTENT_READ
 ```
 
 ## ToDo
-* support for inline single and multiline comments
 * support for binary data type
 * support for stringSet and numberSet
 * INSERT: batch insert
@@ -247,5 +261,6 @@ CONSISTENT_READ
 * etc.
 
 ## Done
+* ~~support for inline single and multiline comments~~
 * ~~UPDATE: increment support~~
 * ~~UPDATE: delete attribute support~~
