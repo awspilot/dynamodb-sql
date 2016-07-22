@@ -95,6 +95,8 @@ Update will fail if the key specified in WHERE does not exist
 
 WHERE condition must match the exact partition or partition/sort definition, UPDATE will only update one item!
 
+Delete an item attribute by setting its value to undefined ( not "undefined" ) 
+
 ```
 
 UPDATE 
@@ -111,7 +113,7 @@ WHERE
 UPDATE 
     users 
 SET 
-    active=true, updated_at=1468137844 
+    active=true, updated_at=1468137844, activation_code = undefined 
 WHERE 
     domain = 'test.com' AND user = 'testuser'
 
@@ -216,7 +218,7 @@ CONSISTENT_READ
 * support for binary data type
 * support for stringSet and numberSet
 * UPDATE: increment support
-* UPDATE: delete attribute support
+* ~~UPDATE: delete attribute support~~
 * UPDATE: conditional update
 * INSERT: batch insert
 * INSERT: conditional insert
