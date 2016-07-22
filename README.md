@@ -239,21 +239,19 @@ CONSISTENT_READ
 ## ToDo
 * support for binary data type
 * support for stringSet and numberSet
+* placeholder for values for all SQL operations ( attribute = :value )
 * INSERT: batch insert in the form of " INSERT INTO tbl_name VALUES [{},{},{}] "
 * INSERT: conditional insert
 * INSERT: DUPLICATE KEY UPDATE
-* INSERT: placeholder for values
 * UPDATE: conditional update
-* UPDATE: placeholder for values
+* UPDATE: placeholder for values ( attribute = :value )
 * REPLACE: conditional replace
 * REPLACE: return all_old/updated_old/all_new/updated_new 
-* REPLACE: placeholder for values
 * SELECT: continue from last item
 * SELECT: OR support for HAVING
 * SELECT: IN support for HAVING
 * SELECT: currently only "*" is supported
 * SELECT: count()
-* SELECT: placeholder for values
 * get item and batch get item
 * scan
 * CREATE TABLE support
