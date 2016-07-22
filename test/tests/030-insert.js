@@ -8,6 +8,7 @@ describe('insert', function () {
 							hash =  'hash1',				\
 							range =  1,						\
 							number = 1,						\
+							test_increment = 1,				\
 							boolean =true,					\
 							nulled = null,					\
 							array = [1,2, 3 ],				\

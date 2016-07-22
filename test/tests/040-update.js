@@ -4,6 +4,7 @@ describe('update', function () {
 			UPDATE `" + $tableName + "` 			\
 			SET 									\
 				number=2,							\
+				test_increment += 5,				\
 				boolean=false,						\
 				array= [ 1,2,3,4 ], 				\
 				new = 'new_item',	 				\
@@ -24,8 +25,9 @@ describe('update', function () {
 					if (err)
 						throw err
 
-					console.log(item,null,"\t")
+					//console.log(item,null,"\t")
 					assert.equal(item.number, 2)
+					assert.equal(item.test_increment, 6)
 					assert.equal(item.boolean, false)
 					assert.equal(item.nulled, null)
 					assert.deepEqual(item.array, [1,2,3,4])
