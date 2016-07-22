@@ -250,6 +250,7 @@ CONSISTENT_READ
 * REPLACE: placeholder for values
 * SELECT: continue from last item
 * SELECT: OR support for HAVING
+* SELECT: IN support for HAVING
 * SELECT: currently only "*" is supported
 * SELECT: count()
 * SELECT: placeholder for values
