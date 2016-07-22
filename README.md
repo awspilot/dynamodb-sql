@@ -215,6 +215,7 @@ CONSISTENT_READ
 ```
 
 ## ToDo
+* support for inline single and multiline comments
 * support for binary data type
 * support for stringSet and numberSet
 * UPDATE: increment support
