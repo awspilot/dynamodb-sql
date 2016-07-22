@@ -8,13 +8,13 @@
 [![Build Status](https://travis-ci.org/databank/dynamodb-sql.svg?branch=master)](https://travis-ci.org/databank/dynamodb-sql)
 [![Chat ](https://badges.gitter.im/databank/dynamodb-sql.png)](https://gitter.im/databank/dynamodb-sql)
 
-##### Install
+## Install
 
 ```
 npm install dynamodb-sql
 ```
 
-##### Init
+## Init
 
 
 ```
@@ -30,7 +30,7 @@ var AWS = require('aws-sdk');
 var db = require('dynamodb-sql')(new AWS.DynamoDB());
 ```
 
-##### Execute Queries
+## Execute Queries
 ```
 db.query($query)
 or
@@ -49,6 +49,7 @@ db.query(
         console.log( err, data )
     })
 ```
+## SQL Operations
 
 ###### Insert
 VALUE for partition_key and sort_key can be string or number, all other attributes can be string, number, boolean, array, object, null or any nested combination of these
@@ -210,3 +211,21 @@ LIMIT 5
 CONSISTENT_READ
 
 ```
+
+## Missing
+* support for binary data type
+* UPDATE: increment support
+* UPDATE: delete attribute support
+* UPDATE: conditional update
+* INSERT: batch insert
+* INSERT: conditional insert
+* REPLACE: conditional replace
+* SELECT: continue from last item
+* SELECT: OR support for HAVING
+* SELECT: currently only "*" is supported
+* get item and batch get item
+* scan
+* CREATE TABLE support
+* SHOW CREATE TABLE support
+* DESCRIBE TABLE support
+* etc.
