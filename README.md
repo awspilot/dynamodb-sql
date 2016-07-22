@@ -97,12 +97,16 @@ WHERE condition must match the exact partition or partition/sort definition, UPD
 
 Delete an item attribute by setting its value to undefined ( not "undefined" ) 
 
+OP can be "=" or "+="
+
+Increment an item's value by using attribute += value, attribute = attribute + value is not supported yet 
+
 ```
 
 UPDATE 
     tbl_name 
 SET 
-    key1=<VALUE> [, key2=<VALUE>, ... ] 
+    key1 OP <VALUE> [, key2 OP <VALUE>, ... ] 
 WHERE 
     partition_key = <VALUE> AND sort_key = <VALUE>
 
@@ -113,7 +117,10 @@ WHERE
 UPDATE 
     users 
 SET 
-    active=true, updated_at=1468137844, activation_code = undefined 
+    active = true, 
+    updated_at = 1468137844, 
+    activation_code = undefined,
+    login_count += 1 
 WHERE 
     domain = 'test.com' AND user = 'testuser'
 
@@ -218,7 +225,7 @@ CONSISTENT_READ
 * support for inline single and multiline comments
 * support for binary data type
 * support for stringSet and numberSet
-* UPDATE: increment support
+* ~~UPDATE: increment support~~
 * ~~UPDATE: delete attribute support~~
 * UPDATE: conditional update
 * INSERT: batch insert
