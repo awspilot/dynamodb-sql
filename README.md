@@ -219,10 +219,13 @@ CONSISTENT_READ
 * UPDATE: conditional update
 * INSERT: batch insert
 * INSERT: conditional insert
+* INSERT: DUPLICATE KEY UPDATE
 * REPLACE: conditional replace
+* REPLACE: return all_old/updated_old/all_new/updated_new 
 * SELECT: continue from last item
 * SELECT: OR support for HAVING
 * SELECT: currently only "*" is supported
+* SELECT: count()
 * get item and batch get item
 * scan
 * CREATE TABLE support
