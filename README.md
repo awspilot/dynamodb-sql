@@ -225,21 +225,27 @@ CONSISTENT_READ
 * support for inline single and multiline comments
 * support for binary data type
 * support for stringSet and numberSet
-* ~~UPDATE: increment support~~
-* ~~UPDATE: delete attribute support~~
-* UPDATE: conditional update
 * INSERT: batch insert
 * INSERT: conditional insert
 * INSERT: DUPLICATE KEY UPDATE
+* INSERT: placeholder for values
+* UPDATE: conditional update
+* UPDATE: placeholder for values
 * REPLACE: conditional replace
 * REPLACE: return all_old/updated_old/all_new/updated_new 
+* REPLACE: placeholder for values
 * SELECT: continue from last item
 * SELECT: OR support for HAVING
 * SELECT: currently only "*" is supported
 * SELECT: count()
+* SELECT: placeholder for values
 * get item and batch get item
 * scan
 * CREATE TABLE support
 * SHOW CREATE TABLE support
 * DESCRIBE TABLE support
 * etc.
+
+## Done
+* ~~UPDATE: increment support~~
+* ~~UPDATE: delete attribute support~~
