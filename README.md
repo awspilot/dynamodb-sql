@@ -214,6 +214,7 @@ CONSISTENT_READ
 
 ## Missing
 * support for binary data type
+* support for stringSet and numberSet
 * UPDATE: increment support
 * UPDATE: delete attribute support
 * UPDATE: conditional update
