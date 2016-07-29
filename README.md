@@ -66,6 +66,64 @@ multiple-line comment
 
 ## SQL Operations
 
+### Create Table
+
+DATA_TYPE can be STRING or NUMBER
+
+provision throughput defaults to 1 1 for both table and GSI 
+
+index projection defaults to all attributes
+
+
+```
+
+CREATE TABLE tbl_name (
+	column_name1 DATA_TYPE, 
+	[ column_name2 DATA_TYPE, ]
+
+	PRIMARY KEY( partition_name [, sort_name] ),
+	[ , INDEX indexname GSI ( partition_name [, sort_name ] ) ]
+)
+
+```
+
+Create table with partition key only
+
+```
+
+CREATE TABLE tbl_name ( 
+    hash_key: STRING, 
+    PRIMARY KEY ( hash_key ) 
+)
+
+```
+
+Create table with partition and sort key
+
+```
+
+CREATE TABLE tbl_name ( 
+    hash_key: STRING, 
+    range_key: NUMBER, 
+    PRIMARY KEY ( hash_key, range_key  ) 
+)
+
+```
+
+Create table with a Global Seconday Index
+```
+
+CREATE TABLE messages ( 
+    user: STRING, 
+    message_id: STRING, 
+    starred: NUMBER,
+    PRIMARY KEY ( mailbox, message_id ), 
+    INDEX starred GSI (user, starred ) 
+)
+
+```
+
+
 ### Insert
 VALUE for partition_key and sort_key can be string or number, all other attributes can be string, number, boolean, array, object, null or any nested combination of these
 
@@ -256,11 +314,14 @@ CONSISTENT_READ
 * scan
 * LIST TABLES support
 * DESCRIBE TABLE support
-* CREATE TABLE support
+* CREATE TABLE support projection definition
+* CREATE TABLE support throughput for both table and GSI
+* CREATE TABLE support LSI
 * SHOW CREATE TABLE support
 * etc.
 
 ## Done
+* ~~CREATE TABLE support~~
 * ~~support for inline single and multiline comments~~
 * ~~UPDATE: increment support~~
 * ~~UPDATE: delete attribute support~~
