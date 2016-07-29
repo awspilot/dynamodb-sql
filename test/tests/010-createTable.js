@@ -98,101 +98,37 @@ describe('client.createTable()', function () {
 	})
 
 	it('creating table ' + $tableName + ' ', function(done) {
-		DynamoSQL
-			.client
-			.createTable({
-				TableName: $tableName,
-				ProvisionedThroughput: {
-					ReadCapacityUnits: 1,
-					WriteCapacityUnits: 1
-				},
-				KeySchema: [
-					{
-						AttributeName: "hash",
-						KeyType: "HASH"
-					},
-					{
-						AttributeName: "range",
-						KeyType: "RANGE"
-					}
-				],
-				AttributeDefinitions: [
-					{
-						AttributeName: "hash",
-						AttributeType: "S"
-					},
-					{
-						AttributeName: "range",
-						AttributeType: "N"
-					},
-					{
-						AttributeName: "gsi_range",
-						AttributeType: "S"
-					},
-				],
-				"GlobalSecondaryIndexes": [
-					{
-						IndexName: "gsi_index",
-						KeySchema: [
-							{
-								AttributeName: "hash",
-								KeyType: "HASH"
-							},
-							{
-								AttributeName: "gsi_range",
-								KeyType: "RANGE"
-							}
-						],
-
-						Projection: {
-						//	"NonKeyAttributes": [
-						//		"string"
-						//	],
-							ProjectionType: "ALL"
-						},
-						ProvisionedThroughput: {
-							ReadCapacityUnits: 1,
-							WriteCapacityUnits: 1
-						}
-					}
-				],
-
-
-
-			}, function(err, data) {
-				if (err) {
+		DynamoSQL.query("\
+						CREATE TABLE " + $tableName + " (			\
+							hash STRING,							\
+							range NUMBER,							\
+							gsi_range STRING,						\
+							PRIMARY KEY ( hash, range ),			\
+							INDEX gsi_index GSI ( hash, gsi_range ) \
+						)											\
+						", {}, function(err, data ) {
+							//console.log("reply from sql create table ",err, JSON.stringify(data,null,"\t"))
+				if (err)
 					throw err
-				} else {
-					if (data.TableDescription.TableStatus === 'CREATING' || data.TableDescription.TableStatus === 'ACTIVE' )
-						done()
-					else
-						throw 'unknown table status after create: ' + data.TableDescription.TableStatus
-				}
-			})
+
+				if (data.TableDescription.TableStatus === 'CREATING' || data.TableDescription.TableStatus === 'ACTIVE' )
+					done()
+				else
+					throw 'unknown table status after create: ' + data.TableDescription.TableStatus
+		})
+
+
+
+
 	})
 
 	it('creating table ' + $hashTable + ' ', function(done) {
-		DynamoSQL
-			.client
-			.createTable({
-				TableName: $hashTable,
-				ProvisionedThroughput: {
-					ReadCapacityUnits: 1,
-					WriteCapacityUnits: 1
-				},
-				KeySchema: [
-					{
-						AttributeName: "hash",
-						KeyType: "HASH"
-					}
-				],
-				AttributeDefinitions: [
-					{
-						AttributeName: "hash",
-						AttributeType: "S"
-					}
-				],
-			}, function(err, data) {
+		DynamoSQL.query("\
+						CREATE TABLE " + $hashTable + " (			\
+							hash STRING,							\
+							PRIMARY KEY ( hash  )					\
+						)											\
+						", {}, function(err, data ) {
 				if (err) {
 					throw err
 				} else {
