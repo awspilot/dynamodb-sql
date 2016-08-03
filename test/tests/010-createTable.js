@@ -1,5 +1,5 @@
 
-describe('client.createTable()', function () {
+describe('CREATE TABLE', function () {
 
 	it('deleting ' + $tableName + ' table if exists', function(done) {
 		DynamoSQL
