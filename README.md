@@ -66,6 +66,15 @@ multiple-line comment
 
 ## SQL Operations
 
+### List Tables
+
+```
+
+SHOW TABLES
+
+```
+
+
 ### Create Table
 
 DATA_TYPE can be STRING or NUMBER
@@ -312,7 +321,6 @@ CONSISTENT_READ
 * SELECT: count()
 * get item and batch get item
 * scan
-* LIST TABLES support
 * DESCRIBE TABLE support
 * CREATE TABLE support projection definition
 * CREATE TABLE support throughput for both table and GSI
@@ -321,6 +329,7 @@ CONSISTENT_READ
 * etc.
 
 ## Done
+* ~~SHOW TABLES support~~
 * ~~CREATE TABLE support~~
 * ~~support for inline single and multiline comments~~
 * ~~UPDATE: increment support~~
