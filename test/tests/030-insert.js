@@ -70,10 +70,11 @@ describe('insert', function () {
 		})
 	})
 	it('hash_range: should throw error on duplicate key', function(done) {
-		DynamoSQL.query(" INSERT INTO `" + $tableName + "` " +
-						" SET " +
-						"	hash =  'hash1',      \n" +
-						"	range =  1            \n",
+		DynamoSQL.query(" INSERT INTO `" + $tableName + "`	\
+						SET 								\
+							hash =  'hash1',      			\
+							range =  1            			\
+						",
 						{}, function(err, data ) {
 
 			if (err && err.code === 'ConditionalCheckFailedException')
