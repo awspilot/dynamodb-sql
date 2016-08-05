@@ -87,11 +87,14 @@ index projection defaults to all attributes
 ```
 
 CREATE TABLE tbl_name (
-	column_name1 DATA_TYPE, 
-	[ column_name2 DATA_TYPE, ]
-
-	PRIMARY KEY( partition_name [, sort_name] ),
-	[ , INDEX indexname GSI ( partition_name [, sort_name ] ) ]
+	partition_key DATA_TYPE, 
+	[ sort_key DATA_TYPE, ]
+	[ gsi_partition_key DATA_TYPE [ , gsi_sort_key DATA_TYPE ] ,]
+	[ lsi_sort_key DATA_TYPE, ]
+	PRIMARY KEY( partition_key [, sort_key ] ),
+	[ , INDEX indexname GSI ( gsi_partition_key [, gsi_sort_key ] ) ]
+	[ , INDEX indexname LSI ( partition_key , lsi_sort_key ) ]
+	[, more index defintions ]
 )
 
 ```
@@ -119,15 +122,17 @@ CREATE TABLE tbl_name (
 
 ```
 
-Create table with a Global Seconday Index
+Create table with Global Seconday Index and Local Secondary Index
 ```
 
 CREATE TABLE messages ( 
     user: STRING, 
     message_id: STRING, 
+    shared_with: STRING,
     starred: NUMBER,
-    PRIMARY KEY ( mailbox, message_id ), 
-    INDEX starred GSI (user, starred ) 
+    PRIMARY KEY ( user, message_id ), 
+    INDEX shared GSI ( shared_with, message_id )
+    INDEX starred LSI ( user, starred )
 )
 
 ```
@@ -324,13 +329,12 @@ CONSISTENT_READ
 * DESCRIBE TABLE support
 * CREATE TABLE support projection definition
 * CREATE TABLE support throughput for both table and GSI
-* CREATE TABLE support LSI
 * SHOW CREATE TABLE support
 * etc.
 
 ## Done
 * ~~SHOW TABLES support~~
-* ~~CREATE TABLE support~~
+* ~~CREATE TABLE support GSI and LSI~~
 * ~~support for inline single and multiline comments~~
 * ~~UPDATE: increment support~~
 * ~~UPDATE: delete attribute support~~
