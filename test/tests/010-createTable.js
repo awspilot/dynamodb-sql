@@ -99,13 +99,19 @@ describe('CREATE TABLE', function () {
 
 	it('creating table ' + $tableName + ' ', function(done) {
 		DynamoSQL.query("\
-						CREATE TABLE " + $tableName + " (			\
-							hash STRING,							\
-							range NUMBER,							\
-							gsi_range STRING,						\
-							PRIMARY KEY ( hash, range ),			\
-							INDEX gsi_index GSI ( hash, gsi_range ) \
-						)											\
+						CREATE TABLE " + $tableName + " (				\
+							hash STRING,								\
+							range NUMBER,								\
+							gsi_string STRING,							\
+							gsi_number NUMBER,							\
+							lsi_string STRING,							\
+							lsi_number NUMBER,							\
+							PRIMARY KEY ( hash, range ),				\
+							INDEX gsi_string GSI ( hash, gsi_string ),	\
+							INDEX gsi_number GSI ( hash, gsi_number ),	\
+							INDEX lsi_string LSI ( hash, lsi_string ), 	\
+							INDEX lsi_number LSI ( hash, lsi_number ) 	\
+						)												\
 						", {}, function(err, data ) {
 							//console.log("reply from sql create table ",err, JSON.stringify(data,null,"\t"))
 				if (err)
