@@ -74,6 +74,14 @@ SHOW TABLES
 
 ```
 
+### Describe Table
+
+```
+
+DESCRIBE TABLE tbl_name
+
+```
+
 
 ### Create Table
 
