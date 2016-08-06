@@ -92,7 +92,7 @@ CREATE TABLE tbl_name (
 	[ gsi_partition_key DATA_TYPE [ , gsi_sort_key DATA_TYPE ] ,]
 	[ lsi_sort_key DATA_TYPE, ]
 	PRIMARY KEY( partition_key [, sort_key ] ),
-	[ , INDEX indexname GSI ( gsi_partition_key [, gsi_sort_key ] ) ]
+	[ , INDEX indexname GSI ( gsi_partition_key [, gsi_sort_key ] ) [ PROJECTION ALL | KEYS_ONLY | ( atr1, atr2 [, atr3 ]) ] ]
 	[ , INDEX indexname LSI ( partition_key , lsi_sort_key ) ]
 	[, more index defintions ]
 )
@@ -131,8 +131,9 @@ CREATE TABLE messages (
     shared_with STRING,
     starred NUMBER,
     PRIMARY KEY ( user, message_id ), 
-    INDEX shared GSI ( shared_with, message_id )
-    INDEX starred LSI ( user, starred )
+    INDEX shared GSI ( shared_with, message_id ) PROJECTION KEYS_ONLY,
+    INDEX starred LSI ( user, starred ),
+    INDEX test GSI ( alternate_partition ) PROJECTION ( starred, folder )
 )
 
 ```
@@ -327,7 +328,6 @@ CONSISTENT_READ
 * get item and batch get item
 * scan
 * DESCRIBE TABLE support
-* CREATE TABLE support projection definition
 * CREATE TABLE support throughput for both table and GSI
 * DELETE TABLE support
 * SHOW CREATE TABLE support
@@ -336,6 +336,7 @@ CONSISTENT_READ
 ## Done
 * ~~SHOW TABLES support~~
 * ~~CREATE TABLE support GSI and LSI~~
+* ~~CREATE TABLE support projection definition~~
 * ~~support for inline single and multiline comments~~
 * ~~UPDATE: increment support~~
 * ~~UPDATE: delete attribute support~~
