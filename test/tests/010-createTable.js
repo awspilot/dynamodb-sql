@@ -1,12 +1,9 @@
 
 describe('CREATE TABLE', function () {
 
-	it('deleting ' + $tableName + ' table if exists', function(done) {
-		DynamoSQL
-			.client
-			.describeTable({
-				TableName: $tableName
-			}, function(err, data) {
+	it('DESCRIBE TABLE ' + $tableName + '; delete table', function(done) {
+		DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
+			", function(err, data) {
 				if (err) {
 					if (err.code === 'ResourceNotFoundException')
 						done()
@@ -26,12 +23,9 @@ describe('CREATE TABLE', function () {
 				}
 			})
 	});
-	it('deleting ' + $hashTable + ' table if exists', function(done) {
-		DynamoSQL
-			.client
-			.describeTable({
-				TableName: $hashTable
-			}, function(err, data) {
+	it('DESCRIBE TABLE ' + $hashTable + '; delete table', function(done) {
+		DynamoSQL.query("DESCRIBE TABLE " + $hashTable + "	\
+			", function(err, data) {
 				if (err) {
 					if (err.code === 'ResourceNotFoundException')
 						done()
@@ -54,12 +48,8 @@ describe('CREATE TABLE', function () {
 
 	it('waiting for ' + $tableName + ' table to delete (within 25 seconds)', function(done) {
 		var $existInterval = setInterval(function() {
-			DynamoSQL
-				.client
-				.describeTable({
-					TableName: $tableName
-				}, function(err, data) {
-
+			DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
+				", function(err, data) {
 					if (err && err.code === 'ResourceNotFoundException') {
 						clearInterval($existInterval)
 						return done()
@@ -76,11 +66,8 @@ describe('CREATE TABLE', function () {
 	})
 	it('waiting for ' + $hashTable + ' table to delete (within 25 seconds)', function(done) {
 		var $existInterval = setInterval(function() {
-			DynamoSQL
-				.client
-				.describeTable({
-					TableName: $hashTable
-				}, function(err, data) {
+			DynamoSQL.query("DESCRIBE TABLE " + $hashTable + "	\
+				", function(err, data) {
 
 					if (err && err.code === 'ResourceNotFoundException') {
 						clearInterval($existInterval)
@@ -144,11 +131,8 @@ describe('CREATE TABLE', function () {
 
 	it('waiting for table ' + $tableName + ' to become ACTIVE', function(done) {
 		var $existInterval = setInterval(function() {
-			DynamoSQL
-				.client
-				.describeTable({
-					TableName: $tableName
-				}, function(err, data) {
+			DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
+				", function(err, data) {
 					if (err) {
 						throw err
 					} else {
@@ -164,11 +148,8 @@ describe('CREATE TABLE', function () {
 	})
 	it('waiting for table ' + $hashTable + ' to become ACTIVE', function(done) {
 		var $existInterval = setInterval(function() {
-			DynamoSQL
-				.client
-				.describeTable({
-					TableName: $hashTable
-				}, function(err, data) {
+			DynamoSQL.query("DESCRIBE TABLE " + $hashTable + "	\
+				", function(err, data) {
 					if (err) {
 						throw err
 					} else {
