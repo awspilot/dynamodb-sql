@@ -97,23 +97,23 @@ describe('CREATE TABLE', function () {
 		}, 1000)
 	})
 
-	it('creating table ' + $tableName + ' ', function(done) {
+	it('CREATE TABLE ' + $tableName + ' ', function(done) {
 		DynamoSQL.query("\
-						CREATE TABLE " + $tableName + " (				\
-							hash STRING,								\
-							range NUMBER,								\
-							gsi_string STRING,							\
-							gsi_number NUMBER,							\
-							lsi_string STRING,							\
-							lsi_number NUMBER,							\
-							PRIMARY KEY ( hash, range ),				\
-							INDEX gsi_string GSI ( hash, gsi_string ),	\
-							INDEX gsi_number GSI ( hash, gsi_number ),	\
-							INDEX lsi_string LSI ( hash, lsi_string ), 	\
-							INDEX lsi_number LSI ( hash, lsi_number ) 	\
-						)												\
-						", {}, function(err, data ) {
-							//console.log("reply from sql create table ",err, JSON.stringify(data,null,"\t"))
+						CREATE TABLE " + $tableName + " (										\
+							hash STRING,														\
+							range NUMBER,														\
+							gsi_string STRING,													\
+							gsi_number NUMBER,													\
+							lsi_string STRING,													\
+							lsi_number NUMBER,													\
+							PRIMARY KEY ( hash, range ),										\
+							INDEX gsi_string GSI ( hash, gsi_string ),							\
+							INDEX gsi_number GSI ( hash, gsi_number ) PROJECTION KEYS_ONLY,		\
+							INDEX lsi_string LSI ( hash, lsi_string ) PROJECTION ALL,		 	\
+							INDEX lsi_number LSI ( hash, lsi_number ) PROJECTION ( at1, at2 )	\
+						)																		\
+			", {}, function(err, data ) {
+				//console.log("reply from sql create table ",err, JSON.stringify(data,null,"\t"))
 				if (err)
 					throw err
 
@@ -122,13 +122,9 @@ describe('CREATE TABLE', function () {
 				else
 					throw 'unknown table status after create: ' + data.TableDescription.TableStatus
 		})
-
-
-
-
 	})
 
-	it('creating table ' + $hashTable + ' ', function(done) {
+	it('CREATE TABLE ' + $hashTable + ' ', function(done) {
 		DynamoSQL.query("\
 						CREATE TABLE " + $hashTable + " (			\
 							hash STRING,							\
