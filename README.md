@@ -115,8 +115,8 @@ Create table with partition and sort key
 ```
 
 CREATE TABLE tbl_name ( 
-    hash_key: STRING, 
-    range_key: NUMBER, 
+    hash_key STRING, 
+    range_key NUMBER, 
     PRIMARY KEY ( hash_key, range_key  ) 
 )
 
@@ -126,10 +126,10 @@ Create table with Global Seconday Index and Local Secondary Index
 ```
 
 CREATE TABLE messages ( 
-    user: STRING, 
-    message_id: STRING, 
-    shared_with: STRING,
-    starred: NUMBER,
+    user STRING, 
+    message_id STRING, 
+    shared_with STRING,
+    starred NUMBER,
     PRIMARY KEY ( user, message_id ), 
     INDEX shared GSI ( shared_with, message_id )
     INDEX starred LSI ( user, starred )
