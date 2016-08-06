@@ -335,13 +335,13 @@ CONSISTENT_READ
 * SELECT: count()
 * get item and batch get item
 * scan
-* DESCRIBE TABLE support
 * CREATE TABLE support throughput for both table and GSI
 * DELETE TABLE support
 * SHOW CREATE TABLE support
 * etc.
 
 ## Done
+* ~~DESCRIBE TABLE support~~
 * ~~SHOW TABLES support~~
 * ~~CREATE TABLE support GSI and LSI~~
 * ~~CREATE TABLE support projection definition~~
