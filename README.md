@@ -330,6 +330,7 @@ CONSISTENT_READ
 * INSERT: batch insert in the form of " INSERT INTO tbl_name VALUES [{},{},{}] "
 * INSERT: conditional insert
 * INSERT: DUPLICATE KEY UPDATE
+* INSERT: INSERT IGNORE support
 * UPDATE: conditional update
 * UPDATE: placeholder for values ( attribute = :value )
 * REPLACE: conditional replace
