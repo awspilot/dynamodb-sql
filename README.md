@@ -338,6 +338,8 @@ CONSISTENT_READ
 * CREATE TABLE support throughput for both table and GSI
 * DELETE TABLE support
 * SHOW CREATE TABLE support
+* ALTER TABLE ADD INDEX support for GSI
+* ALTER TABLE DROP INDEX support for GSI
 * etc.
 
 ## Done
