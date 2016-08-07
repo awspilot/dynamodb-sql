@@ -99,15 +99,22 @@ CREATE TABLE tbl_name (
 	[ sort_key DATA_TYPE, ]
 	[ gsi_partition_key DATA_TYPE [ , gsi_sort_key DATA_TYPE ] ,]
 	[ lsi_sort_key DATA_TYPE, ]
-	PRIMARY KEY( partition_key [, sort_key ] ),
-	[ , INDEX indexname GSI ( gsi_partition_key [, gsi_sort_key ] ) [ PROJECTION ALL | KEYS_ONLY | ( atr1, atr2 [, atr3 ]) ] ]
-	[ , INDEX indexname LSI ( partition_key , lsi_sort_key ) ]
-	[, more index defintions ]
+	PRIMARY KEY( partition_key [, sort_key ] ) [ THROUGHPUT number number ] ,
+	[ , 
+		INDEX indexname GSI ( gsi_partition_key [, gsi_sort_key ] ) 
+		[ PROJECTION ALL | KEYS_ONLY | ( atr1, atr2 [, atr3 ]) ]
+		[ THROUGHPUT NUMBER NUMBER ]
+	]
+	[ , 
+		INDEX indexname LSI ( partition_key , lsi_sort_key ) 
+		[ PROJECTION ALL | KEYS_ONLY | ( atr1, atr2 [, atr3 ]) ]
+	]
+	[ , more index defintions ]
 )
 
 ```
 
-Create table with partition key only
+Create table with partition key only, default throughput is 1 read/s 1 write/s
 
 ```
 
@@ -118,19 +125,20 @@ CREATE TABLE tbl_name (
 
 ```
 
-Create table with partition and sort key
+Create table with partition and sort key, specifying throughput
 
 ```
 
 CREATE TABLE tbl_name ( 
     hash_key STRING, 
     range_key NUMBER, 
-    PRIMARY KEY ( hash_key, range_key  ) 
+    PRIMARY KEY ( hash_key, range_key  ) THROUGHPUT 5 5
 )
 
 ```
 
-Create table with Global Seconday Index and Local Secondary Index
+Create table with Global Seconday Index and Local Secondary Index and throughput for GSI
+
 ```
 
 CREATE TABLE messages ( 
@@ -141,7 +149,7 @@ CREATE TABLE messages (
     PRIMARY KEY ( user, message_id ), 
     INDEX shared GSI ( shared_with, message_id ) PROJECTION KEYS_ONLY,
     INDEX starred LSI ( user, starred ),
-    INDEX test GSI ( alternate_partition ) PROJECTION ( starred, folder )
+    INDEX test GSI ( alternate_partition ) PROJECTION ( starred, folder ) THROUGHPUT 9 9
 )
 
 ```
