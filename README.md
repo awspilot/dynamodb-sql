@@ -145,7 +145,13 @@ CREATE TABLE messages (
 )
 
 ```
+### Delete Table
 
+```
+
+DROP TABLE tbl_name
+
+```
 
 ### Insert
 VALUE for partition_key and sort_key can be string or number, all other attributes can be string, number, boolean, array, object, null or any nested combination of these
@@ -336,13 +342,13 @@ CONSISTENT_READ
 * get item and batch get item
 * scan
 * CREATE TABLE support throughput for both table and GSI
-* DELETE TABLE support
 * SHOW CREATE TABLE support
 * ALTER TABLE ADD INDEX support for GSI
 * ALTER TABLE DROP INDEX support for GSI
 * etc.
 
 ## Done
+* ~~DROP TABLE support~~
 * ~~DESCRIBE TABLE support~~
 * ~~SHOW TABLES support~~
 * ~~CREATE TABLE support GSI and LSI~~
