@@ -1,6 +1,6 @@
 {
 	"name": "dynamodb-sql",
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"description": "Execute queries against Amazon DynamoDB using a SQL-like syntax",
 	"main": "./lib/dynamodb",
 	"scripts": {

@@ -1,7 +1,7 @@
 
 describe('CREATE TABLE', function () {
 
-	it('DESCRIBE TABLE ' + $tableName + '; delete table', function(done) {
+	it('DESCRIBE TABLE ' + $tableName + '; DROP TABLE ' + $tableName, function(done) {
 		DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
 			", function(err, data) {
 				if (err) {
@@ -10,20 +10,17 @@ describe('CREATE TABLE', function () {
 					else
 						throw err
 				} else {
-					DynamoSQL.db
-						.client
-						.deleteTable({
-							TableName: $tableName
-						}, function(err, data) {
+					DynamoSQL.query("DROP TABLE " + $tableName + "	\
+						", function(err, data) {
 							if (err)
-								throw 'delete failed'
+								throw err
 							else
 								done()
 						})
 				}
 			})
 	});
-	it('DESCRIBE TABLE ' + $hashTable + '; delete table', function(done) {
+	it('DESCRIBE TABLE ' + $hashTable + '; DROP TABLE ' + $hashTable, function(done) {
 		DynamoSQL.query("DESCRIBE TABLE " + $hashTable + "	\
 			", function(err, data) {
 				if (err) {
@@ -32,11 +29,8 @@ describe('CREATE TABLE', function () {
 					else
 						throw err
 				} else {
-					DynamoSQL.db
-						.client
-						.deleteTable({
-							TableName: $hashTable
-						}, function(err, data) {
+					DynamoSQL.query("DROP TABLE " + $hashTable + "	\
+						", function(err, data) {
 							if (err)
 								throw 'delete failed'
 							else
@@ -58,9 +52,6 @@ describe('CREATE TABLE', function () {
 						clearInterval($existInterval)
 						throw err
 					}
-
-					if (data.TableStatus === 'DELETING')
-						process.stdout.write('.')
 				})
 		}, 1000)
 	})
@@ -136,8 +127,7 @@ describe('CREATE TABLE', function () {
 					if (err) {
 						throw err
 					} else {
-						//process.stdout.write(".");
-						//console.log(data.Table)
+						//console.log("DESCRIBE TABLE ",err, JSON.stringify(data,null,"\t"))
 						if (data.Table.TableStatus === 'ACTIVE') {
 							clearInterval($existInterval)
 							done()
