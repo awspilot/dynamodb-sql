@@ -84,10 +84,10 @@ describe('CREATE TABLE', function () {
 							gsi_number NUMBER,													\
 							lsi_string STRING,													\
 							lsi_number NUMBER,													\
-							PRIMARY KEY ( hash, range ),										\
-							INDEX gsi_string GSI ( hash, gsi_string ),							\
+							PRIMARY KEY ( hash, range ) THROUGHPUT 5 5,							\
+							INDEX gsi_string GSI ( hash, gsi_string ) THROUGHPUT 5 5,			\
 							INDEX gsi_number GSI ( hash, gsi_number ) PROJECTION KEYS_ONLY,		\
-							INDEX lsi_string LSI ( hash, lsi_string ) PROJECTION ALL,		 	\
+							INDEX lsi_string LSI ( hash, lsi_string ) PROJECTION ALL ,		 	\
 							INDEX lsi_number LSI ( hash, lsi_number ) PROJECTION ( at1, at2 )	\
 						)																		\
 			", {}, function(err, data ) {
