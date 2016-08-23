@@ -1,5 +1,6 @@
 require('./lib/common')
 
+//require("./tests/000-split_sql.js")
 require("./tests/010-createTable.js")
 require("./tests/020-showTables.js")
 require("./tests/030-insert.js")
