@@ -153,6 +153,19 @@ CREATE TABLE messages (
 )
 
 ```
+
+### Delete Index
+
+Only supported for GSI type indexes 
+
+```
+
+DROP index idx_name ON tbl_name 
+
+```
+
+
+
 ### Delete Table
 
 ```
@@ -351,11 +364,11 @@ CONSISTENT_READ
 * get item and batch get item
 * scan
 * SHOW CREATE TABLE support
-* ALTER TABLE ADD INDEX support for GSI
-* ALTER TABLE DROP INDEX support for GSI
+* ADD INDEX support for GSI
 * etc.
 
 ## Done
+* ~~DROP INDEX idx_name ON tbl_name~~
 * ~~CREATE TABLE support throughput for both table and GSI~~
 * ~~DROP TABLE support~~
 * ~~DESCRIBE TABLE support~~
