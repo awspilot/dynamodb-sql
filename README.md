@@ -119,7 +119,7 @@ Create table with partition key only, default throughput is 1 read/s 1 write/s
 ```
 
 CREATE TABLE tbl_name ( 
-    hash_key: STRING, 
+    hash_key STRING, 
     PRIMARY KEY ( hash_key ) 
 )
 
