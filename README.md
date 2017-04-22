@@ -4,7 +4,7 @@
 
 
 
-
+[![npm version](https://badge.fury.io/js/%40awspilot%2Fdynamodb-sql.svg)](https://badge.fury.io/js/%40awspilot%2Fdynamodb-sql)
 [![Build Status](https://travis-ci.org/awspilot/dynamodb-sql.svg?branch=master)](https://travis-ci.org/awspilot/dynamodb-sql)
 
 
