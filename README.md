@@ -1,24 +1,24 @@
-[![npm page](https://nodei.co/npm/dynamodb-sql.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/dynamodb-sql)
+[![npm page](https://nodei.co/npm/@awspilot/dynamodb-sql.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/@awspilot/dynamodb-sql)
 
 #dynamodb-sql
 
 
 
-[![npm version](https://badge.fury.io/js/dynamodb-sql.svg)](https://badge.fury.io/js/dynamodb-sql)
-[![Build Status](https://travis-ci.org/databank/dynamodb-sql.svg?branch=master)](https://travis-ci.org/databank/dynamodb-sql)
-[![Chat ](https://badges.gitter.im/databank/dynamodb-sql.png)](https://gitter.im/databank/dynamodb-sql)
+
+[![Build Status](https://travis-ci.org/awspilot/dynamodb-sql.svg?branch=master)](https://travis-ci.org/awspilot/dynamodb-sql)
+
 
 ## Install
 
 ```
-npm install dynamodb-sql
+npm install @awspilot/dynamodb-sql
 ```
 
 ## Init
 
 
 ```
-var db = require('dynamodb-sql')({
+var db = require('@awspilot/dynamodb-sql')({
     "accessKeyId": "XXXXXXXXXXXXXXXX",
     "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
     "region": "eu-west-1"
@@ -27,7 +27,7 @@ var db = require('dynamodb-sql')({
 or
 
 var AWS = require('aws-sdk');
-var db = require('dynamodb-sql')(new AWS.DynamoDB());
+var db = require('@awspilot/dynamodb-sql')(new AWS.DynamoDB());
 ```
 
 ## Execute Queries
@@ -292,7 +292,7 @@ for sort_key in WHERE OP can be:
 * <  less than
 * >  greater than
 * <= less then or equal
-* >= greater than or equal  
+* >= greater than or equal
 * BEGINS_WITH
 * BETWEEN
 
@@ -320,7 +320,7 @@ SELECT
     *
 FROM
     users
-WHERE  
+WHERE
     domain = 'test.com' AND
     user = 'testuser'
 
@@ -332,7 +332,7 @@ SELECT
     *
 FROM
     stats
-WHERE  
+WHERE
     domain = 'test.com' AND
     date BETWEEN [ '2016-01-01 00:00:00', '2016-01-01 23:59:59' ]
 HAVING
