@@ -1,6 +1,6 @@
 {
-	"name": "dynamodb-sql",
-	"version": "0.9.5",
+	"name": "@awspilot/dynamodb-sql",
+	"version": "1.0.0",
 	"description": "Execute queries against Amazon DynamoDB using a SQL-like syntax",
 	"main": "./lib/dynamodb",
 	"scripts": {
@@ -8,27 +8,25 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/databank/dynamodb-sql.git"
+		"url": "git+https://github.com/awspilot/dynamodb-sql.git"
 	},
 	"keywords": [
 		"dynamodb",
-		"dynamodb sql",
 		"sql"
 	],
 	"author": "Adrian Praja",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/databank/dynamodb-sql/issues"
+		"url": "https://github.com/awspilot/dynamodb-sql/issues"
 	},
-	"homepage": "https://github.com/databank/dynamodb-sql#readme",
+	"homepage": "https://github.com/awspilot/dynamodb-sql#readme",
 	"dependencies": {
 		"@awspilot/dynamodb": "*",
-		"aws-sdk": ">=2.3.9"
+		"aws-sdk": ">=2.45.0"
 	},
 	"devDependencies": {
-		"aws-sdk": ">=2.5.2",
 		"memdown": "*",
-		"dynalite": "1.0.3",
+		"dynalite": "1.2.0",
 		"mocha": "*",
 		"chai": "*",
 		"should": "*",
