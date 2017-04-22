@@ -1,6 +1,6 @@
 {
 	"name": "dynamodb-sql",
-	"version": "0.9.3",
+	"version": "0.9.4",
 	"description": "Execute queries against Amazon DynamoDB using a SQL-like syntax",
 	"main": "./lib/dynamodb",
 	"scripts": {
@@ -22,7 +22,7 @@
 	},
 	"homepage": "https://github.com/databank/dynamodb-sql#readme",
 	"dependencies": {
-		"aws-dynamodb": "0.1.55",
+		"@awspilot/dynamodb": "*",
 		"aws-sdk": ">=2.3.9"
 	},
 	"devDependencies": {
