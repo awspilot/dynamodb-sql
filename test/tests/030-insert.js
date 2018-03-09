@@ -69,6 +69,36 @@ describe('insert', function () {
 				})
 		})
 	})
+
+    it('hash: should insert when item does not exist row2', function(done) {
+        DynamoSQL.query(" INSERT INTO `" + $hashTable + "` " +
+            " SET " +
+            "	hash =  'hash2',      \n" +
+            "   `number`=2,           \n" +
+            "   `boolean`=true,       \n" +
+            "	`nulled`=null,        \n" +
+            "   array=[1,2, 3 ],      \n" +
+            "   object= { aaa:1,bbb:2, ccc:\" some string \", ddd: {ddd1: 1}, eee: [1,'eee1']}, \n" +
+            "   string_set=:string_set, \n" +
+            "   number_set=:number_set  \n", {}, function(err, data ) {
+            if (err)
+                throw err
+
+            DynamoSQL.db
+                .table($hashTable)
+                .where('hash').eq('hash1')
+                .get(function(err, item) {
+                    if (err)
+                        throw err
+
+                    assert.equal(item.number, 1)
+                    assert.equal(item.boolean, true)
+                    assert.equal(item.nulled, null)
+                    assert.deepEqual(item.array, [1,2,3])
+                    done()
+                })
+        })
+    })
 	it('hash_range: should throw error on duplicate key', function(done) {
 		DynamoSQL.query(" INSERT INTO `" + $tableName + "`	\
 						SET 								\

@@ -1,7 +1,7 @@
 
 describe('query', function () {
 
-	xit('prepare data for query', function(done) {
+	it('prepare data for query', function(done) {
 		async.parallel([
 			function(cb) {
 				DynamoSQL.query("\
@@ -71,8 +71,7 @@ describe('query', function () {
 		})
 	})
 
-
-    xit('SELECT * FROM ' + $tableName +' without where', function(done) {
+    it('SELECT * FROM ' + $tableName +' without where', function(done) {
         DynamoSQL.query("						\
 			SELECT *  							\
 			FROM `" + $tableName + "`		\
@@ -84,12 +83,11 @@ describe('query', function () {
         })
     })
 
-
-    it('SELECT * FROM ' + $tableName +' with where with having', function(done) {
+    it('SELECT * FROM ' + $tableName +' with where and having', function(done) {
         DynamoSQL.query("						\
 			SELECT *  							\
-			FROM `" + $tableName + "`		\
-			having lsi_string = 'lsi.com.domain'		\
+			FROM `" + $hashTable + "`		\
+			having number = 2		\
 			", {}, function(err, data ) {
             if (err)
                 throw err
@@ -97,10 +95,10 @@ describe('query', function () {
             	throw "Result not filtered"
 			}
 			done()
-            //console.log(JSON.stringify(data,null,"\t"))
         })
     })
-    xit('SELECT * FROM ' + $tableName, function(done) {
+
+	it('SELECT * FROM ' + $tableName, function(done) {
         DynamoSQL.query("						\
 			SELECT * 							\
 			FROM `" + $tableName + "` 			\
@@ -122,7 +120,7 @@ describe('query', function () {
         })
     })
 
-	xit('SELECT * FROM ' + $tableName + ' USE INDEX gsi_string', function(done) {
+	it('SELECT * FROM ' + $tableName + ' USE INDEX gsi_string', function(done) {
 		DynamoSQL.query("							\
 			SELECT * 								\
 			FROM `" + $tableName + "`				\
@@ -146,7 +144,7 @@ describe('query', function () {
 			})
 	})
 
-	xit('SELECT * FROM ' + $tableName + ' USE INDEX lsi_string', function(done) {
+	it('SELECT * FROM ' + $tableName + ' USE INDEX lsi_string', function(done) {
 		DynamoSQL.query("							\
 			SELECT * 								\
 			FROM `" + $tableName + "`				\
