@@ -1,7 +1,7 @@
 
 describe('query', function () {
 
-	it('prepare data for query', function(done) {
+	xit('prepare data for query', function(done) {
 		async.parallel([
 			function(cb) {
 				DynamoSQL.query("\
@@ -72,8 +72,36 @@ describe('query', function () {
 	})
 
 
-	it('SELECT * FROM ' + $tableName, function(done) {
-		DynamoSQL.query("						\
+    xit('SELECT * FROM ' + $tableName +' without where', function(done) {
+        DynamoSQL.query("						\
+			SELECT *  							\
+			FROM `" + $tableName + "`		\
+			", {}, function(err, data ) {
+            if (err)
+                throw err
+			done();
+            //console.log(JSON.stringify(data,null,"\t"))
+        })
+    })
+
+
+    it('SELECT * FROM ' + $tableName +' with where with having', function(done) {
+        DynamoSQL.query("						\
+			SELECT *  							\
+			FROM `" + $tableName + "`		\
+			having lsi_string = 'lsi.com.domain'		\
+			", {}, function(err, data ) {
+            if (err)
+                throw err
+			if(data.length!=1){
+            	throw "Result not filtered"
+			}
+			done()
+            //console.log(JSON.stringify(data,null,"\t"))
+        })
+    })
+    xit('SELECT * FROM ' + $tableName, function(done) {
+        DynamoSQL.query("						\
 			SELECT * 							\
 			FROM `" + $tableName + "` 			\
 			WHERE 								\
@@ -87,14 +115,14 @@ describe('query', function () {
 			LIMIT 5								\
 			CONSISTENT_READ						\
 			", {}, function(err, data ) {
-				if (err)
-					throw err
-				//console.log(JSON.stringify(data,null,"\t"))
-				done()
-			})
-	})
+            if (err)
+                throw err
+            //console.log(JSON.stringify(data,null,"\t"))
+            done()
+        })
+    })
 
-	it('SELECT * FROM ' + $tableName + ' USE INDEX gsi_string', function(done) {
+	xit('SELECT * FROM ' + $tableName + ' USE INDEX gsi_string', function(done) {
 		DynamoSQL.query("							\
 			SELECT * 								\
 			FROM `" + $tableName + "`				\
@@ -118,7 +146,7 @@ describe('query', function () {
 			})
 	})
 
-	it('SELECT * FROM ' + $tableName + ' USE INDEX lsi_string', function(done) {
+	xit('SELECT * FROM ' + $tableName + ' USE INDEX lsi_string', function(done) {
 		DynamoSQL.query("							\
 			SELECT * 								\
 			FROM `" + $tableName + "`				\
