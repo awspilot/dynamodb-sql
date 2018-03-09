@@ -1,5 +1,5 @@
 {
-	"name": "avizaviz/dynamodb-sql",
+	"name": "@avizaviz/dynamodb-sql",
 	"version": "1.0.2",
 	"description": "Execute queries against Amazon DynamoDB using a SQL-like syntax",
 	"main": "./lib/dynamodb",
