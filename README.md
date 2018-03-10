@@ -35,6 +35,10 @@ var db = require('@awspilot/dynamodb-sql')(new AWS.DynamoDB());
 db.query($query)
 or
 db.query( $query, callback )
+or a promise call
+db.queryp( $query ).then(args=>{
+    var [err,data] = args
+})
 ```
 
 ```
@@ -362,7 +366,6 @@ CONSISTENT_READ
 * SELECT: currently only "*" is supported
 * SELECT: count()
 * get item and batch get item
-* scan
 * SHOW CREATE TABLE support
 * "ALTER TABLE tbl_name ADD INDEX" support for GSI
 * "ALTER TABLE tbl_name DROP INDEX" support for GSI

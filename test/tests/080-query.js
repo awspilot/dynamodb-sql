@@ -1,10 +1,9 @@
-
 describe('query', function () {
 
-	it('prepare data for query', function(done) {
-		async.parallel([
-			function(cb) {
-				DynamoSQL.query("\
+    xit('prepare data for query', function (done) {
+        async.parallel([
+            function (cb) {
+                DynamoSQL.query("\
 							INSERT INTO `" + $tableName + "` 									\
 							SET 																\
 							`hash` =  'query',													\
@@ -19,12 +18,12 @@ describe('query', function () {
 							`nulled`=null,														\
 							`string_set`=:string_set,											\
 							`number_set`=:number_set											\
-							", {}, function(err, data ) {
-								cb(err)
-				})
-			},
-			function(cb) {
-				DynamoSQL.query("\
+							", {}, function (err, data) {
+                    cb(err)
+                })
+            },
+            function (cb) {
+                DynamoSQL.query("\
 							INSERT INTO `" + $tableName + "` 									\
 							SET 																\
 							`hash` =  'query',													\
@@ -39,12 +38,12 @@ describe('query', function () {
 							`nulled`=null,														\
 							`string_set`=:string_set,											\
 							`number_set`=:number_set											\
-							", {}, function(err, data ) {
-								cb(err)
-				})
-			},
-			function(cb) {
-				DynamoSQL.query("\
+							", {}, function (err, data) {
+                    cb(err)
+                })
+            },
+            function (cb) {
+                DynamoSQL.query("\
 							INSERT INTO `" + $tableName + "` 									\
 							SET 																\
 							`hash` =  'query',													\
@@ -59,46 +58,57 @@ describe('query', function () {
 							`nulled`=null,														\
 							`string_set`=:string_set,											\
 							`number_set`=:number_set											\
-							", {}, function(err, data ) {
-								cb(err)
-				})
-			}
-		], function(err) {
-			if (err)
-				throw err
+							", {}, function (err, data) {
+                    cb(err)
+                })
+            }
+        ], function (err) {
+            if (err)
+                throw err
 
-			done()
-		})
-	})
+            done()
+        })
+    })
 
-    it('SELECT * FROM ' + $tableName +' without where', function(done) {
+    it('Promise call', function (done) {
+        DynamoSQL.queryp("						\
+			SELECT *  							\
+			FROM `" + $tableName + "`		\
+			", {}).then(args => {
+				console.log("args",args)
+            done();
+        })
+    })
+
+
+    it('SELECT * FROM ' + $tableName + ' without where', function (done) {
         DynamoSQL.query("						\
 			SELECT *  							\
 			FROM `" + $tableName + "`		\
-			", {}, function(err, data ) {
+			", {}, function (err, data) {
             if (err)
                 throw err
-			done();
+            done();
             //console.log(JSON.stringify(data,null,"\t"))
         })
     })
 
-    it('SELECT * FROM ' + $tableName +' with where and having', function(done) {
+    it('SELECT * FROM ' + $tableName + ' with where and having', function (done) {
         DynamoSQL.query("						\
 			SELECT *  							\
 			FROM `" + $hashTable + "`		\
 			having number = 2		\
-			", {}, function(err, data ) {
+			", {}, function (err, data) {
             if (err)
                 throw err
-			if(data.length!=1){
-            	throw "Result not filtered"
-			}
-			done()
+            if (data.length != 1) {
+                throw "Result not filtered"
+            }
+            done()
         })
     })
 
-	it('SELECT * FROM ' + $tableName, function(done) {
+    it('SELECT * FROM ' + $tableName, function (done) {
         DynamoSQL.query("						\
 			SELECT * 							\
 			FROM `" + $tableName + "` 			\
@@ -112,7 +122,7 @@ describe('query', function () {
 			DESC 								\
 			LIMIT 5								\
 			CONSISTENT_READ						\
-			", {}, function(err, data ) {
+			", {}, function (err, data) {
             if (err)
                 throw err
             //console.log(JSON.stringify(data,null,"\t"))
@@ -120,8 +130,8 @@ describe('query', function () {
         })
     })
 
-	it('SELECT * FROM ' + $tableName + ' USE INDEX gsi_string', function(done) {
-		DynamoSQL.query("							\
+    it('SELECT * FROM ' + $tableName + ' USE INDEX gsi_string', function (done) {
+        DynamoSQL.query("							\
 			SELECT * 								\
 			FROM `" + $tableName + "`				\
 			USE INDEX gsi_string					\
@@ -134,18 +144,18 @@ describe('query', function () {
 				string begins_with 'one' 			\
 			DESC 									\
 			LIMIT 5									\
-			", {}, function(err, data ) {
-				if (err)
-					throw err
+			", {}, function (err, data) {
+            if (err)
+                throw err
 
-				//console.log(JSON.stringify(data,null,"\t"))
-				assert.equal(data.length, 1)
-				done()
-			})
-	})
+            //console.log(JSON.stringify(data,null,"\t"))
+            assert.equal(data.length, 1)
+            done()
+        })
+    })
 
-	it('SELECT * FROM ' + $tableName + ' USE INDEX lsi_string', function(done) {
-		DynamoSQL.query("							\
+    it('SELECT * FROM ' + $tableName + ' USE INDEX lsi_string', function (done) {
+        DynamoSQL.query("							\
 			SELECT * 								\
 			FROM `" + $tableName + "`				\
 			USE INDEX lsi_string					\
@@ -158,207 +168,207 @@ describe('query', function () {
 				string begins_with 'one' 			\
 			DESC 									\
 			LIMIT 5									\
-			", {}, function(err, data ) {
-				if (err)
-					throw err
-				assert.equal(data.length, 1)
-				//console.log(JSON.stringify(data,null,"\t"))
-				done()
-			})
-	})
+			", {}, function (err, data) {
+            if (err)
+                throw err
+            assert.equal(data.length, 1)
+            //console.log(JSON.stringify(data,null,"\t"))
+            done()
+        })
+    })
 
 
-	/*
-	it('.where(RANGE).le()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('query')
-			.where('range').le(99)
-			.query( function(err, data) {
-				if (err)
-					throw err
+    /*
+    it('.where(RANGE).le()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .where('hash').eq('query')
+            .where('range').le(99)
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				if (data.length !== 3)
-					throw "expected 3 got " + data.length
+                if (data.length !== 3)
+                    throw "expected 3 got " + data.length
 
-				done()
-			})
-	})
-	*/
-	/*
-	it('.where(RANGE).lt()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('query')
-			.where('range').lt(99)
-			.query( function(err, data) {
-				if (err)
-					throw err
+                done()
+            })
+    })
+    */
+    /*
+    it('.where(RANGE).lt()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .where('hash').eq('query')
+            .where('range').lt(99)
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				if (data.length !== 2)
-					throw "expected 2 got " + data.length
+                if (data.length !== 2)
+                    throw "expected 2 got " + data.length
 
-				done()
-			})
-	})
-	*/
-	/*
-	it('.where(RANGE).ge()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('query')
-			.where('range').ge(2)
-			//.on('beforeRequest', function(op, payload) {
-			//	console.log(op, JSON.stringify(payload,null,"\t"))
-			//})
-			.query( function(err, data) {
-				if (err)
-					throw err
+                done()
+            })
+    })
+    */
+    /*
+    it('.where(RANGE).ge()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .where('hash').eq('query')
+            .where('range').ge(2)
+            //.on('beforeRequest', function(op, payload) {
+            //	console.log(op, JSON.stringify(payload,null,"\t"))
+            //})
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				if (data.length !== 2)
-					throw "expected 2 got " + data.length
+                if (data.length !== 2)
+                    throw "expected 2 got " + data.length
 
-				done()
-			})
-	})
-	*/
-	/*
-	it('.where(RANGE).gt()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('query')
-			.where('range').gt(2)
-			//.on('beforeRequest', function(op, payload) {
-			//	console.log(op, JSON.stringify(payload,null,"\t"))
-			//})
-			.query( function(err, data) {
-				if (err)
-					throw err
+                done()
+            })
+    })
+    */
+    /*
+    it('.where(RANGE).gt()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .where('hash').eq('query')
+            .where('range').gt(2)
+            //.on('beforeRequest', function(op, payload) {
+            //	console.log(op, JSON.stringify(payload,null,"\t"))
+            //})
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				if (data.length !== 1)
-					throw "expected 1 got " + data.length
+                if (data.length !== 1)
+                    throw "expected 1 got " + data.length
 
-				done()
-			})
-	})
-	*/
-	/*
-	it('.where(RANGE).between()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('query')
-			.where('range').between(2,99)
-			//.on('beforeRequest', function(op, payload) {
-			//	console.log(op, JSON.stringify(payload,null,"\t"))
-			//})
-			.query( function(err, data) {
-				if (err)
-					throw err
+                done()
+            })
+    })
+    */
+    /*
+    it('.where(RANGE).between()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .where('hash').eq('query')
+            .where('range').between(2,99)
+            //.on('beforeRequest', function(op, payload) {
+            //	console.log(op, JSON.stringify(payload,null,"\t"))
+            //})
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				if (data.length !== 2)
-					throw "expected 2 got " + data.length
+                if (data.length !== 2)
+                    throw "expected 2 got " + data.length
 
-				done()
-			})
-	})
-	*/
+                done()
+            })
+    })
+    */
 
-	/* No begins with for type N
-	it('.where(RANGE).begins_with()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('query')
-			.where('range').begins_with(1)
-			.on('beforeRequest', function(op, payload) {
-				console.log(op, JSON.stringify(payload,null,"\t"))
-			})
-			.query( function(err, data) {
-				if (err)
-					throw err
+    /* No begins with for type N
+    it('.where(RANGE).begins_with()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .where('hash').eq('query')
+            .where('range').begins_with(1)
+            .on('beforeRequest', function(op, payload) {
+                console.log(op, JSON.stringify(payload,null,"\t"))
+            })
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				if (data.length !== 2)
-					throw "expected 2 got " + data.length
+                if (data.length !== 2)
+                    throw "expected 2 got " + data.length
 
-				done()
-			})
-	})
-	*/
-	/*
-	it('.select().where().having().query()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.select('hash','range','number','object.ccc','object.ddd', 'object.eee','string_set[0]', 'number_set[0]','array[0]','array[1]','array[2]')
-			.where('hash').eq('query')
-			.where('range').gt(0)
-			.having('object.ccc').eq(3)
-			//.having('number').eq(1)
-			.having('number').ne(99)
-			.having('array[1]').between(0,2)
-			.having('array[2]').in([3,4,'a'])
-			.having('object.eee').not_null()
-			.having('object.fff').null()
-			.having('object.eee[1]').begins_with('eee')
-			.having('object.eee[1]').contains('eee')
-			.having('string_set').contains('aaa')
-			.having('string_set').not_contains('ddd1')
-			//.on('beforeRequest', function(op, payload) {
-			//	console.log(op, JSON.stringify(payload,null,"\t"))
-			//})
-			.query( function(err, data) {
-				if (err)
-					throw err
+                done()
+            })
+    })
+    */
+    /*
+    it('.select().where().having().query()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .select('hash','range','number','object.ccc','object.ddd', 'object.eee','string_set[0]', 'number_set[0]','array[0]','array[1]','array[2]')
+            .where('hash').eq('query')
+            .where('range').gt(0)
+            .having('object.ccc').eq(3)
+            //.having('number').eq(1)
+            .having('number').ne(99)
+            .having('array[1]').between(0,2)
+            .having('array[2]').in([3,4,'a'])
+            .having('object.eee').not_null()
+            .having('object.fff').null()
+            .having('object.eee[1]').begins_with('eee')
+            .having('object.eee[1]').contains('eee')
+            .having('string_set').contains('aaa')
+            .having('string_set').not_contains('ddd1')
+            //.on('beforeRequest', function(op, payload) {
+            //	console.log(op, JSON.stringify(payload,null,"\t"))
+            //})
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				// @todo: check returned value
-				done()
-			})
-	})
-	*/
+                // @todo: check returned value
+                done()
+            })
+    })
+    */
 
-	// having in string
-	/*
-	it('.select().where().having(string).contains().not_contains().query()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.select('number','string')
-			.where('hash').eq('query')
-			.having('string').contains('one')
-			.having('string').contains('two')
-			.having('string').not_contains('four')
-			//.on('beforeRequest', function(op, payload) {
-			//	console.log(op, JSON.stringify(payload,null,"\t"))
-			//})
-			.query( function(err, data) {
-				if (err)
-					throw err
+    // having in string
+    /*
+    it('.select().where().having(string).contains().not_contains().query()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .select('number','string')
+            .where('hash').eq('query')
+            .having('string').contains('one')
+            .having('string').contains('two')
+            .having('string').not_contains('four')
+            //.on('beforeRequest', function(op, payload) {
+            //	console.log(op, JSON.stringify(payload,null,"\t"))
+            //})
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				//console.log(JSON.stringify(data))
-				// @todo: check returned value
-				done()
-			})
-	})
-	*/
-	// having in stringset
+                //console.log(JSON.stringify(data))
+                // @todo: check returned value
+                done()
+            })
+    })
+    */
+    // having in stringset
 
-	/*
-	it('.select().where().having(stringset).contains().not_contains().query()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.select('string_set')
-			.where('hash').eq('query')
-			.having('string_set').contains('aaa')
-			.having('string_set').contains('bbb')
-			.having('string_set').not_contains('ddd1')
-			//.on('beforeRequest', function(op, payload) {
-			//	console.log(op, JSON.stringify(payload,null,"\t"))
-			//})
-			.query( function(err, data) {
-				if (err)
-					throw err
+    /*
+    it('.select().where().having(stringset).contains().not_contains().query()', function(done) {
+        DynamoDB
+            .table($tableName)
+            .select('string_set')
+            .where('hash').eq('query')
+            .having('string_set').contains('aaa')
+            .having('string_set').contains('bbb')
+            .having('string_set').not_contains('ddd1')
+            //.on('beforeRequest', function(op, payload) {
+            //	console.log(op, JSON.stringify(payload,null,"\t"))
+            //})
+            .query( function(err, data) {
+                if (err)
+                    throw err
 
-				//console.log(JSON.stringify(data))
-				// @todo: check returned value
-				done()
-			})
-	})
-	*/
+                //console.log(JSON.stringify(data))
+                // @todo: check returned value
+                done()
+            })
+    })
+    */
 })
