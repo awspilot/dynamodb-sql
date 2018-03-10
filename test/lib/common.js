@@ -16,7 +16,7 @@ if (global.awsdynamo ) {
     )
 } else {
     console.log("**************** Working With Mock Dynamo *********************")
-    var port = 4569
+    var port = 4561
     var dynalite = require('dynalite'),
         dynaliteServer = dynalite({createTableMs: 50, db: require('memdown')})
     dynaliteServer.listen(port, function (err) {
@@ -32,7 +32,7 @@ if (global.awsdynamo ) {
 
 function awsDynamo(){
     return process.argv.filter(function (v,u){
-        return v=='awsDynamo'
+        return v=='--awsDynamo'
     }).length
 }
 

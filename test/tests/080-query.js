@@ -1,6 +1,6 @@
 describe('query', function () {
 
-    xit('prepare data for query', function (done) {
+    it('prepare data for query', function (done) {
         async.parallel([
             function (cb) {
                 DynamoSQL.query("\
@@ -70,16 +70,29 @@ describe('query', function () {
         })
     })
 
+    it('where without index field - show error use `having`', () => {
+        return DynamoSQL.queryp(`
+                select * from ${$tableName} where a=1
+        `).then(args => {
+            var [err, data] = args
+            if (err && err.stack && (err.stack.indexOf("Use 'having' insted of 'where'") != -1)) {
+                return true
+            } else {
+                throw "wrong error message"
+            }
+
+        })
+    })
+
     it('Promise call', function (done) {
         DynamoSQL.queryp("						\
 			SELECT *  							\
 			FROM `" + $tableName + "`		\
 			", {}).then(args => {
-				console.log("args",args)
+            console.log("args", args)
             done();
         })
     })
-
 
     it('SELECT * FROM ' + $tableName + ' without where', function (done) {
         DynamoSQL.query("						\

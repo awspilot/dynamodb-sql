@@ -5,7 +5,7 @@
 	"main": "./lib/dynamodb",
 	"scripts": {
 		"test": "mocha --timeout 100000 -S -R spec"
-		"testAwsDynano": "mocha --timeout 100000 -S -R spec awsDynamo"
+		"testAwsDynano": "mocha --timeout 100000 -S -R spec --awsDynamo"
 	},
 	"repository": {
 		"type": "git",
