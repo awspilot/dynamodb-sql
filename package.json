@@ -27,7 +27,7 @@
 	"devDependencies": {
 		"memdown": "*",
 		"dynalite": "1.2.0",
-		"mocha": "*",
+		"mocha": "3.5.3",
 		"chai": "*",
 		"should": "*",
 		"async": "*",
