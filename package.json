@@ -31,8 +31,6 @@
 		"memdown": "*",
 		"dynalite": "1.2.0",
 		"mocha": "3.5.3",
-		"chai": "*",
-		"should": "*",
 		"async": "*",
 		"assert": "*"
 	},
