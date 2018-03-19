@@ -1,11 +1,15 @@
-[![npm page](https://nodei.co/npm/@awspilot/dynamodb-sql.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/@awspilot/dynamodb-sql)
+
 
 #dynamodb-sql
 
 
 
-[![npm version](https://badge.fury.io/js/%40awspilot%2Fdynamodb-sql.svg)](https://badge.fury.io/js/%40awspilot%2Fdynamodb-sql)
-[![Build Status](https://travis-ci.org/awspilot/dynamodb-sql.svg?branch=master)](https://travis-ci.org/awspilot/dynamodb-sql)
+[![npm version](https://badge.fury.io/js/%40awspilot%2Fdynamodb-sql.svg)](https://badge.fury.io/js/%40awspilot%2Fdynamodb-sql) 
+[![Build Status](https://travis-ci.org/awspilot/dynamodb-sql.svg?branch=master)](https://travis-ci.org/awspilot/dynamodb-sql) 
+[![Downloads](https://img.shields.io/npm/dm/@awspilot/dynamodb-sql.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb-sql) 
+[![Downloads](https://img.shields.io/npm/dy/@awspilot/dynamodb-sql.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb-sql) 
+[![Downloads](https://img.shields.io/npm/dt/@awspilot/dynamodb-sql.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb-sql) 
+
 
 
 ## Install
