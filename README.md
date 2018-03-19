@@ -357,41 +357,76 @@ SCAN username,password FROM users_table
 
 
 ## ToDo
+- General
+	- [ ] support for binary data type
+	- [ ] support for stringSet and numberSet
+	- [ ] placeholder for values for all SQL operations ( attribute = :value )
+	- [x] support for inline single and multiline comments
+	- [ ] promises
 
-- [ ] support for binary data type
-- [ ] support for stringSet and numberSet
-- [ ] placeholder for values for all SQL operations ( attribute = :value )
-- [ ] INSERT: batch insert in the form of " INSERT INTO tbl_name VALUES [{},{},{}] "
-- [ ] INSERT: conditional insert
-- [ ] INSERT: DUPLICATE KEY UPDATE
-- [ ] INSERT: INSERT IGNORE support
-- [ ] UPDATE: conditional update
-- [ ] UPDATE: placeholder for values ( attribute = :value )
-- [ ] REPLACE: conditional replace
-- [ ] REPLACE: return all_old/updated_old/all_new/updated_new
-- [ ] SELECT: continue from last item
-- [ ] SELECT: OR support for HAVING
-- [ ] SELECT: IN support for HAVING
-- [ ] SELECT: currently only "*" is supported
-- [ ] SELECT: count()
-- [ ] get item and batch get item
-- [ ] SCAN: support for FILTER k=v
-- [ ] SCAN: support for LIMIT
-- [ ] SCAN: support for CONTINUE
-- [ ] SHOW CREATE TABLE support
-- [ ] "ALTER TABLE tbl_name ADD INDEX" support for GSI
-- [ ] "ALTER TABLE tbl_name DROP INDEX" support for GSI
+- CREATE TABLE
+	- [x] CREATE TABLE support
+	- [x] support GSI and LSI
+	- [x] support projection definition
+	- [x] THROUGHPUT support
 
-- [x] DROP INDEX idx_name ON tbl_name
-- [x] CREATE TABLE support throughput for both table and GSI
-- [x] DROP TABLE support
-- [x] DESCRIBE TABLE support
-- [x] SHOW TABLES support
-- [x] CREATE TABLE support GSI and LSI
-- [x] CREATE TABLE support projection definition
-- [x] support for inline single and multiline comments
-- [x] UPDATE: increment support
-- [x] SCAN support (basic)
-- [x] UPDATE: delete attribute support
+- INSERT
+	- [ ] batch insert in the form of " INSERT INTO tbl_name VALUES [{},{},{}] "
+	- [ ] conditional insert
+	- [ ] ON DUPLICATE KEY UPDATE
+	- [ ] INSERT IGNORE support
+
+- UPDATE  
+	- [ ] conditional update
+	- [ ] placeholder for values ( attribute = :value )
+	- [x] increment support
+	- [x] UPDATE: delete attribute support
+
+- REPLACE
+	- [ ] REPLACE: conditional replace
+	- [ ] REPLACE: return all_old/updated_old/all_new/updated_new
+
+- SELECT
+	- [ ] SELECT: continue from last item
+	- [ ] SELECT: OR support for HAVING
+	- [ ] SELECT: IN support for HAVING
+	- [ ] SELECT: currently only "*" is supported
+	- [ ] SELECT: count()
+
+- GET
+	- [ ] get item and batch get item
+
+- SCAN
+	- [x] SCAN support (basic)
+	- [ ] SCAN: support for FILTER k=v
+	- [ ] SCAN: support for LIMIT
+	- [ ] SCAN: support for CONTINUE
+
+- SHOW CREATE TABLE
+	- [ ] SHOW CREATE TABLE support
+
+- ALTER TABLE
+	- [ ] "ALTER TABLE tbl_name ADD INDEX" support for GSI
+	- [ ] "ALTER TABLE tbl_name DROP INDEX" support for GSI
+
+- DESCRIBE TABLE
+	- [x] 'DESCRIBE TABLE' support
+
+- SHOW TABLES
+	- [x] SHOW TABLES support
+
+- DROP table
+	- [x] 'DROP TABLE' support
+	- [x] DROP INDEX idx_name ON tbl_name
+
+
+
+
+
+
+
+
+
+
 
 
