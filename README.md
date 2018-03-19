@@ -387,24 +387,28 @@ SCAN username,password FROM users_table
 	- [ ] REPLACE: return all_old/updated_old/all_new/updated_new
 
 - SELECT
-	- [ ] SELECT: continue from last item
-	- [ ] SELECT: OR support for HAVING
-	- [ ] SELECT: IN support for HAVING
-	- [ ] SELECT: currently only "*" is supported
-	- [ ] SELECT: count()
+	- [ ] `SELECT * FROM tbl_name`
+	- [ ] `SELECT * FROM tbl_name  CONTINUE { hash: 'aaa', range: 5 }`
+	- [x] `SELECT * FROM tbl_name HAVING key1=val AND key2 >= 5`
+	- [ ] `SELECT * FROM tbl_name HAVING key1=val OR key2 >= 5` - OR support
+	- [ ] `SELECT * FROM tbl_name HAVING key1=val AND key2 IN [ 3,4,5 ] ` - IN support
+	- [ ] `SELECT field1, field2 FROM tbl_name`
+	- [ ] `SELECT count(*) FROM tbl_name`
+	- [ ] `SELECT * FROM tbl_name CONSISTENT_READ`
+	- [ ] `SELECT * FROM tbl_name USE INDEX index_name`
 
 - GET
 	- [ ] get item and batch get item
 
 - SCAN
-	- [x] 'SCAN * FROM tbl_name'
-	- [ ] 'SCAN * FROM tbl_name FILTER key1=val AND key2 >= 5' - FILTER support
-	- [ ] 'SCAN * FROM tbl_name LIMIT 10'
-	- [ ] 'SCAN * FROM tbl_name CONTINUE { hash: 'aaa', range: 5 }'
-	- [x] 'SCAN field1, field2 FROM tbl_name'
+	- [x] `SCAN * FROM tbl_name`
+	- [ ] `SCAN * FROM tbl_name HAVING key1=val AND key2 >= 5` FILTER support
+	- [ ] `SCAN * FROM tbl_name LIMIT 10`
+	- [ ] `SCAN * FROM tbl_name CONTINUE { hash: 'aaa', range: 5 }`
+	- [x] `SCAN field1, field2 FROM tbl_name`
 
 - SHOW CREATE TABLE
-	- [ ] 'SHOW CREATE TABLE tbl_name'
+	- [ ] `SHOW CREATE TABLE tbl_name`
 
 - ALTER TABLE
 	- [ ] `ALTER TABLE tbl_name ADD INDEX` support for GSI
