@@ -348,6 +348,14 @@ CONSISTENT_READ
 
 ```
 
+### Scan
+
+```
+SCAN * FROM users_table
+SCAN username,password FROM users_table
+```
+
+
 ## ToDo
 * support for binary data type
 * support for stringSet and numberSet
@@ -366,20 +374,24 @@ CONSISTENT_READ
 * SELECT: currently only "*" is supported
 * SELECT: count()
 * get item and batch get item
-* scan
+* SCAN: support for FILTER k=v
+* SCAN: support for LIMIT
+* SCAN: support for CONTINUE
 * SHOW CREATE TABLE support
 * "ALTER TABLE tbl_name ADD INDEX" support for GSI
 * "ALTER TABLE tbl_name DROP INDEX" support for GSI
 * etc.
 
-## Done
-* ~~DROP INDEX idx_name ON tbl_name~~
-* ~~CREATE TABLE support throughput for both table and GSI~~
-* ~~DROP TABLE support~~
-* ~~DESCRIBE TABLE support~~
-* ~~SHOW TABLES support~~
-* ~~CREATE TABLE support GSI and LSI~~
-* ~~CREATE TABLE support projection definition~~
-* ~~support for inline single and multiline comments~~
-* ~~UPDATE: increment support~~
-* ~~UPDATE: delete attribute support~~
+- [x] DROP INDEX idx_name ON tbl_name
+- [x] CREATE TABLE support throughput for both table and GSI
+- [x] DROP TABLE support
+- [x] DESCRIBE TABLE support
+- [x] SHOW TABLES support
+- [x] CREATE TABLE support GSI and LSI
+- [x] CREATE TABLE support projection definition
+- [x] support for inline single and multiline comments
+- [x] UPDATE: increment support
+- [x] SCAN support (basic)
+- [x] UPDATE: delete attribute support
+
+
