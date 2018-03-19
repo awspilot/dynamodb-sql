@@ -357,30 +357,30 @@ SCAN username,password FROM users_table
 
 
 ## ToDo
-* support for binary data type
-* support for stringSet and numberSet
-* placeholder for values for all SQL operations ( attribute = :value )
-* INSERT: batch insert in the form of " INSERT INTO tbl_name VALUES [{},{},{}] "
-* INSERT: conditional insert
-* INSERT: DUPLICATE KEY UPDATE
-* INSERT: INSERT IGNORE support
-* UPDATE: conditional update
-* UPDATE: placeholder for values ( attribute = :value )
-* REPLACE: conditional replace
-* REPLACE: return all_old/updated_old/all_new/updated_new
-* SELECT: continue from last item
-* SELECT: OR support for HAVING
-* SELECT: IN support for HAVING
-* SELECT: currently only "*" is supported
-* SELECT: count()
-* get item and batch get item
-* SCAN: support for FILTER k=v
-* SCAN: support for LIMIT
-* SCAN: support for CONTINUE
-* SHOW CREATE TABLE support
-* "ALTER TABLE tbl_name ADD INDEX" support for GSI
-* "ALTER TABLE tbl_name DROP INDEX" support for GSI
-* etc.
+
+- [ ] support for binary data type
+- [ ] support for stringSet and numberSet
+- [ ] placeholder for values for all SQL operations ( attribute = :value )
+- [ ] INSERT: batch insert in the form of " INSERT INTO tbl_name VALUES [{},{},{}] "
+- [ ] INSERT: conditional insert
+- [ ] INSERT: DUPLICATE KEY UPDATE
+- [ ] INSERT: INSERT IGNORE support
+- [ ] UPDATE: conditional update
+- [ ] UPDATE: placeholder for values ( attribute = :value )
+- [ ] REPLACE: conditional replace
+- [ ] REPLACE: return all_old/updated_old/all_new/updated_new
+- [ ] SELECT: continue from last item
+- [ ] SELECT: OR support for HAVING
+- [ ] SELECT: IN support for HAVING
+- [ ] SELECT: currently only "*" is supported
+- [ ] SELECT: count()
+- [ ] get item and batch get item
+- [ ] SCAN: support for FILTER k=v
+- [ ] SCAN: support for LIMIT
+- [ ] SCAN: support for CONTINUE
+- [ ] SHOW CREATE TABLE support
+- [ ] "ALTER TABLE tbl_name ADD INDEX" support for GSI
+- [ ] "ALTER TABLE tbl_name DROP INDEX" support for GSI
 
 - [x] DROP INDEX idx_name ON tbl_name
 - [x] CREATE TABLE support throughput for both table and GSI
