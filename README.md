@@ -397,27 +397,28 @@ SCAN username,password FROM users_table
 	- [ ] get item and batch get item
 
 - SCAN
-	- [x] SCAN support (basic)
-	- [ ] SCAN: support for FILTER k=v
-	- [ ] SCAN: support for LIMIT
-	- [ ] SCAN: support for CONTINUE
+	- [x] 'SCAN * FROM tbl_name'
+	- [ ] 'SCAN * FROM tbl_name FILTER key1=val AND key2 >= 5' - FILTER support
+	- [ ] 'SCAN * FROM tbl_name LIMIT 10'
+	- [ ] 'SCAN * FROM tbl_name CONTINUE { hash: 'aaa', range: 5 }'
+	- [x] 'SCAN field1, field2 FROM tbl_name'
 
 - SHOW CREATE TABLE
-	- [ ] SHOW CREATE TABLE support
+	- [ ] 'SHOW CREATE TABLE tbl_name'
 
 - ALTER TABLE
-	- [ ] "ALTER TABLE tbl_name ADD INDEX" support for GSI
-	- [ ] "ALTER TABLE tbl_name DROP INDEX" support for GSI
+	- [ ] `ALTER TABLE tbl_name ADD INDEX` support for GSI
+	- [ ] `ALTER TABLE tbl_name DROP INDEX` support for GSI
 
 - DESCRIBE TABLE
-	- [x] 'DESCRIBE TABLE' support
+	- [x] `DESCRIBE TABLE tbl_name`
 
 - SHOW TABLES
-	- [x] SHOW TABLES support
+	- [x] `SHOW TABLES`
 
 - DROP table
-	- [x] 'DROP TABLE' support
-	- [x] DROP INDEX idx_name ON tbl_name
+	- [x] `DROP TABLE tbl_name`
+	- [x] `DROP INDEX idx_name ON tbl_name`
 
 
 
