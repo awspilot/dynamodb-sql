@@ -1,7 +1,6 @@
 require('./lib/common')
 if(global.awsdynamo){
-    // require("./tests/030-insert.js")
-    require("./tests/080-query.js")
+  require("./tests/020-showTables.js")
 }else{
     require("./tests/000-split_sql.js")
     require("./tests/010-createTable.js")

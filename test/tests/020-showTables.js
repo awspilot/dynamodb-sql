@@ -8,7 +8,7 @@ describe('SHOW TABLES; DROP INDEX', function () {
 				done()
 			})
 	});
-	it('DROP INDEX gsi_string ON '+$tableName, function(done) {
+	xit('DROP INDEX gsi_string ON '+$tableName, function(done) {
 		DynamoSQL
 			.query("DROP INDEX gsi_string ON "+$tableName, function(err, data) {
 				if (err)
