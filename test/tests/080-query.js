@@ -121,6 +121,8 @@ describe('query', function () {
         })
     })
 
+
+
     it('SELECT * FROM ' + $tableName, function (done) {
         DynamoSQL.query("						\
 			SELECT * 							\
@@ -190,6 +192,20 @@ describe('query', function () {
         })
     })
 
+    xit('SELECT * Fand scan multiple pages (integration test in remark)', function (done) {
+        DynamoSQL.query(`						
+			SELECT *  							
+			FROM projects		
+					
+			`, {}, function (err, data) {
+            if (err)
+                throw err
+            // if (data.length != 1) {
+            //     throw "Result not filtered"
+            // }
+            done()
+        })
+    })
 
     /*
     it('.where(RANGE).le()', function(done) {
