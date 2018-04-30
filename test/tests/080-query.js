@@ -1,6 +1,6 @@
 describe('query', function () {
 
-    it('prepare data for query', function (done) {
+    xit('prepare data for query', function (done) {
         async.parallel([
             function (cb) {
                 DynamoSQL.query("\
@@ -70,7 +70,7 @@ describe('query', function () {
         })
     })
 
-    it('where without index field - show error use `having`', () => {
+    xit('where without index field - show error use `having`', () => {
         return DynamoSQL.queryp(`
                 select * from ${$tableName} where a=1
         `).then(args => {
@@ -84,7 +84,7 @@ describe('query', function () {
         })
     })
 
-    it('Promise call', function (done) {
+    xit('Promise call', function (done) {
         DynamoSQL.queryp("						\
 			SELECT *  							\
 			FROM `" + $tableName + "`		\
@@ -94,7 +94,7 @@ describe('query', function () {
         })
     })
 
-    it('SELECT * FROM ' + $tableName + ' without where', function (done) {
+    xit('SELECT * FROM ' + $tableName + ' without where', function (done) {
         DynamoSQL.query("						\
 			SELECT *  							\
 			FROM `" + $tableName + "`		\
@@ -106,7 +106,7 @@ describe('query', function () {
         })
     })
 
-    it('SELECT * FROM ' + $tableName + ' with where and having', function (done) {
+    xit('SELECT * FROM ' + $tableName + ' with where and having', function (done) {
         DynamoSQL.query("						\
 			SELECT *  							\
 			FROM `" + $hashTable + "`		\
@@ -121,9 +121,7 @@ describe('query', function () {
         })
     })
 
-
-
-    it('SELECT * FROM ' + $tableName, function (done) {
+    xit('SELECT * FROM ' + $tableName, function (done) {
         DynamoSQL.query("						\
 			SELECT * 							\
 			FROM `" + $tableName + "` 			\
@@ -145,7 +143,7 @@ describe('query', function () {
         })
     })
 
-    it('SELECT * FROM ' + $tableName + ' USE INDEX gsi_string', function (done) {
+    xit('SELECT * FROM ' + $tableName + ' USE INDEX gsi_string', function (done) {
         DynamoSQL.query("							\
 			SELECT * 								\
 			FROM `" + $tableName + "`				\
@@ -169,7 +167,7 @@ describe('query', function () {
         })
     })
 
-    it('SELECT * FROM ' + $tableName + ' USE INDEX lsi_string', function (done) {
+    xit('SELECT * FROM ' + $tableName + ' USE INDEX lsi_string', function (done) {
         DynamoSQL.query("							\
 			SELECT * 								\
 			FROM `" + $tableName + "`				\
@@ -192,12 +190,16 @@ describe('query', function () {
         })
     })
 
-    xit('SELECT * Fand scan multiple pages (integration test in remark)', function (done) {
+    it('SELECT * Fand scan multiple pages (integration test in remark)', function (done) {
         DynamoSQL.query(`						
 			SELECT *  							
-			FROM projects		
+			FROM projects
+			having projectName = 'ga-api' 
 					
 			`, {}, function (err, data) {
+            //			having ExpressionAttributeValues = 'error'
+
+            //mgoyal@zendesk.com
             if (err)
                 throw err
             // if (data.length != 1) {
