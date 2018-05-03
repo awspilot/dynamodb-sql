@@ -2,7 +2,8 @@
 async = require('async')
 assert = require('assert')
 
-$rangeTable = $tableName = 'test_hash_range'
+$rangeTable = $tableName = 'table_hash_string_range_number'
+
 $hashTable = 'test_hash'
 
 var dynalite = require('dynalite'),
