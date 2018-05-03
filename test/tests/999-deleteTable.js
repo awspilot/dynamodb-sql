@@ -19,6 +19,23 @@ describe('DROP TABLE', function () {
 				}
 			})
 	});
+	it('DROP TABLE table_hash_string_range_string', function(done) {
+		DynamoSQL.query("DESCRIBE TABLE table_hash_string_range_string", function(err, data) {
+				if (err) {
+					if (err.code === 'ResourceNotFoundException')
+						done()
+					else
+						throw err
+				} else {
+					DynamoSQL.query("DROP TABLE table_hash_string_range_string", function(err, data) {
+							if (err)
+								throw 'delete failed'
+							else
+								done()
+						})
+				}
+			})
+	});
 	it('waiting for table_hash_string_range_number table to delete', function(done) {
 		var $existInterval = setInterval(function() {
 			DynamoSQL.query("DESCRIBE TABLE table_hash_string_range_number	\
