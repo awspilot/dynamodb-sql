@@ -1,7 +1,7 @@
 
 describe('DROP TABLE', function () {
-	it('DROP TABLE ' + $tableName, function(done) {
-		DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
+	it('DROP TABLE table_hash_string_range_number', function(done) {
+		DynamoSQL.query("DESCRIBE TABLE table_hash_string_range_number	\
 			", function(err, data) {
 				if (err) {
 					if (err.code === 'ResourceNotFoundException')
@@ -9,7 +9,7 @@ describe('DROP TABLE', function () {
 					else
 						throw err
 				} else {
-					DynamoSQL.query("DROP TABLE " + $tableName + "	\
+					DynamoSQL.query("DROP TABLE table_hash_string_range_number	\
 						", function(err, data) {
 							if (err)
 								throw 'delete failed'
@@ -19,9 +19,9 @@ describe('DROP TABLE', function () {
 				}
 			})
 	});
-	it('waiting for ' + $tableName + ' table to delete', function(done) {
+	it('waiting for table_hash_string_range_number table to delete', function(done) {
 		var $existInterval = setInterval(function() {
-			DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
+			DynamoSQL.query("DESCRIBE TABLE table_hash_string_range_number	\
 				", function(err, data) {
 
 					if (err && err.code === 'ResourceNotFoundException') {

@@ -4,7 +4,7 @@ describe('insert', function () {
 	it('hash_range: should insert when item does not exist', function(done) {
 		DynamoSQL.query("\
 						/* this is a comment */					\
-		 				INSERT INTO `" + $tableName + "`		\
+		 				INSERT INTO `table_hash_string_range_number`		\
 						SET										\
 							hash =  'hash1',					\
 							range =  1,							\
@@ -23,7 +23,7 @@ describe('insert', function () {
 				throw err
 
 			DynamoSQL.db
-				.table($tableName)
+				.table('table_hash_string_range_number')
 				.where('hash').eq('hash1')
 				.where('range').eq(1)
 				.get(function(err, item) {
@@ -70,7 +70,7 @@ describe('insert', function () {
 		})
 	})
 	it('hash_range: should throw error on duplicate key', function(done) {
-		DynamoSQL.query(" INSERT INTO `" + $tableName + "`	\
+		DynamoSQL.query(" INSERT INTO `table_hash_string_range_number`	\
 						SET 								\
 							hash =  'hash1',      			\
 							range =  1            			\

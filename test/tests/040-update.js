@@ -1,7 +1,7 @@
 describe('update', function () {
 	it('hash_range: should update existing item', function(done) {
 		DynamoSQL.query("\
-			UPDATE `" + $tableName + "` 			\
+			UPDATE `table_hash_string_range_number` 			\
 			SET 									\
 				number=2,							\
 				test_increment += 5,				\
@@ -18,7 +18,7 @@ describe('update', function () {
 				throw err
 
 			DynamoSQL.db
-				.table($tableName)
+				.table('table_hash_string_range_number')
 				.where('hash').eq('hash1')
 				.where('range').eq(1)
 				.get(function(err, item) {

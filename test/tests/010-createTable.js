@@ -1,8 +1,8 @@
 
 describe('CREATE TABLE', function () {
 
-	it('DESCRIBE TABLE ' + $tableName + '; DROP TABLE ' + $tableName, function(done) {
-		DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
+	it('DESCRIBE TABLE table_hash_string_range_number; DROP TABLE table_hash_string_range_number', function(done) {
+		DynamoSQL.query("DESCRIBE TABLE table_hash_string_range_number	\
 			", function(err, data) {
 				if (err) {
 					if (err.code === 'ResourceNotFoundException')
@@ -10,7 +10,7 @@ describe('CREATE TABLE', function () {
 					else
 						throw err
 				} else {
-					DynamoSQL.query("DROP TABLE " + $tableName + "	\
+					DynamoSQL.query("DROP TABLE table_hash_string_range_number	\
 						", function(err, data) {
 							if (err)
 								throw err
@@ -40,9 +40,9 @@ describe('CREATE TABLE', function () {
 			})
 	});
 
-	it('waiting for ' + $tableName + ' table to delete (within 25 seconds)', function(done) {
+	it('waiting for table_hash_string_range_number table to delete (within 25 seconds)', function(done) {
 		var $existInterval = setInterval(function() {
-			DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
+			DynamoSQL.query("DESCRIBE TABLE table_hash_string_range_number	\
 				", function(err, data) {
 					if (err && err.code === 'ResourceNotFoundException') {
 						clearInterval($existInterval)
@@ -75,9 +75,9 @@ describe('CREATE TABLE', function () {
 		}, 1000)
 	})
 
-	it('CREATE TABLE ' + $tableName + ' ', function(done) {
+	it('CREATE TABLE table_hash_string_range_number ', function(done) {
 		DynamoSQL.query("\
-						CREATE TABLE " + $tableName + " (										\
+						CREATE TABLE table_hash_string_range_number (										\
 							hash STRING,range NUMBER,											\
 							gsi_string STRING,													\
 							gsi_number NUMBER,													\
@@ -119,9 +119,9 @@ describe('CREATE TABLE', function () {
 			})
 	})
 
-	it('waiting for table ' + $tableName + ' to become ACTIVE', function(done) {
+	it('waiting for table table_hash_string_range_number to become ACTIVE', function(done) {
 		var $existInterval = setInterval(function() {
-			DynamoSQL.query("DESCRIBE TABLE " + $tableName + "	\
+			DynamoSQL.query("DESCRIBE TABLE table_hash_string_range_number	\
 				", function(err, data) {
 					if (err) {
 						throw err
