@@ -22,7 +22,8 @@
 	"homepage": "https://github.com/awspilot/dynamodb-sql#readme",
 	"dependencies": {
 		"@awspilot/dynamodb": "*",
-		"aws-sdk": ">=2.45.0"
+		"aws-sdk": ">=2.45.0",
+		"sqlite-parser": "1.0.1"
 	},
 	"devDependencies": {
 		"browserify": "^14.5.0",
