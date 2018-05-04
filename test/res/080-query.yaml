@@ -44,7 +44,7 @@ Tests:
           validations:
               - key: data[0].range
                 value: 99
-          log: true
+          log: false
 
         #- query: SELECT field1, field2 FROM table_hash_string_range_number  WHERE `hash` = 'query'
 
