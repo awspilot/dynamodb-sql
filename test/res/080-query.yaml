@@ -1,0 +1,65 @@
+Prepare:
+    Data:
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1, gsi_string = 'findme'
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2
+        - INSERT INTO table_hash_string_range_number SET  `hash` =  'query', `range` =  99
+        - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaa'
+        - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaz'
+        - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'bbb'
+        - INSERT INTO table_hash_number_range_number SET  `hash` =  5, `range` = 5
+Tests:
+    query:
+        - query: SELECT * FROM table_hash_string_range_number
+          shouldFail: true
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query"
+          results: 3
+
+        - query: SELECT * FROM table_hash_number_range_number WHERE `hash` = 5
+          results: 1
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and range > 1
+          results: 2
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and range = 99
+          results: 1
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and range BETWEEN 2 AND 4
+          results: 1
+
+        - query: SELECT * FROM table_hash_string_range_string WHERE `hash` = 'query' and range BETWEEN 'aab' AND 'z'
+          results: 2
+
+        - query: SELECT * FROM table_hash_string_range_string WHERE `hash` = 'query' and range LIKE 'a%'
+          results: 2
+
+        - query: SELECT * FROM table_hash_string_range_number USE INDEX gsi_string WHERE `hash` = 'query' and gsi_string LIKE 'find%'
+          results: 1
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' LIMIT 2
+          results: 2
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' DESC LIMIT 1
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+          log: true
+
+        #- query: SELECT field1, field2 FROM table_hash_string_range_number  WHERE `hash` = 'query'
+
+        #- query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" CONSISTENT_READ
+
+        # HAVING xpatn OP | eg obj, obj.ccc array[1],
+        # HAVING number between 0 and 1
+        # HAVING string between A and Z
+        # HAVING string LIKE 'text%' (begins with)
+        # HAVING boolean = true
+        # HAVING xpath = value eg. obj.ccc
+        # HAVING field IN [ a,b,c]
+        # HAVING field NOT NULL
+        # HAVING field NULL
+        # HAVING string CONTAINS 'text'
+        # HAVING string NOT CONTAINS 'text'
+        # HAVING stringset CONTAINS 'text'
+        # HAVING stringset NOT CONTAINS 'text'
