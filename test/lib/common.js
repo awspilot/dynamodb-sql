@@ -1,6 +1,7 @@
 
 async = require('async')
 assert = require('assert')
+yaml = require('js-yaml')
 
 $rangeTable = $tableName = 'table_hash_string_range_number'
 
