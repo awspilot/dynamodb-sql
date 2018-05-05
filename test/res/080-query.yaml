@@ -74,9 +74,16 @@ Tests:
 
         - query: SELECT hash AS h  FROM table_hash_string_range_number  WHERE `hash` = 'query'
           shouldFail: true
-          #log: true
 
-        #- query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" CONSISTENT_READ
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" CONSISTENT_READ
+          results: 3
+          log: true
+
+        -
+        # - query: SELECT CONSISTENT_READ * FROM table_hash_string_range_number WHERE `hash` = "query"
+        #   results: 3
+        #   log: true
+
 
         # HAVING xpatn OP | eg obj, obj.ccc array[1],
         # HAVING number between 0 and 1
