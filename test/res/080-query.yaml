@@ -1,8 +1,8 @@
 Prepare:
     Data:
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1, gsi_string = 'findme'
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2
-        - INSERT INTO table_hash_string_range_number SET  `hash` =  'query', `range` =  99
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1,   number = 1,  gsi_string = 'findme'
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2,   number = 2,  boolean = true
+        - INSERT INTO table_hash_string_range_number SET  `hash` =  'query', `range` =  99, number = 99, boolean = false
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaa'
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaz'
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'bbb'
@@ -77,20 +77,47 @@ Tests:
 
         - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" CONSISTENT_READ
           results: 3
-          log: true
+
 
         -
         # - query: SELECT CONSISTENT_READ * FROM table_hash_string_range_number WHERE `hash` = "query"
         #   results: 3
         #   log: true
 
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING gsi_string = "findme"
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 1
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING number BETWEEN 50 AND 150
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING gsi_string LIKE 'find%'
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 1
+                
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING boolean = true
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 2
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING boolean = false
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+          log: true
+
 
         # HAVING xpatn OP | eg obj, obj.ccc array[1],
-        # HAVING number between 0 and 1
         # HAVING string between A and Z
-        # HAVING string LIKE 'text%' (begins with)
-        # HAVING boolean = true
-        # HAVING xpath = value eg. obj.ccc
         # HAVING field IN [ a,b,c]
         # HAVING field NOT NULL
         # HAVING field NULL

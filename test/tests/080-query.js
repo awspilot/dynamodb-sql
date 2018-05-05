@@ -68,13 +68,16 @@ describe('query', function () {
 	it(yml.Tests.query[11].query, query_handler(11) ) // SELECT field
 	it(yml.Tests.query[12].query, query_handler(12) ) // SELECT field, inexistent_field
 	it(yml.Tests.query[13].query, query_handler(13) ) // SELECT field , field
-	it(yml.Tests.query[14].query, query_handler(14) ) // SELECT field , STAR <!-- should fail
+	it(yml.Tests.query[14].query, query_handler(14) ) // SELECT field , STAR   <- should fail
 	it(yml.Tests.query[15].query, query_handler(15) ) // SELECT field AS alias <- should fail
 	
 	it(yml.Tests.query[16].query, query_handler(16) ) // SELECT ... CONSISTENT_READ
 	//it(yml.Tests.query[17].query, query_handler(17) ) // SELECT CONSISTENT_READ ... 
 	
-	
-	
+	it(yml.Tests.query[18].query, query_handler(18) ) // SELECT ... HAVING a = b
+	it(yml.Tests.query[19].query, query_handler(19) ) // SELECT ... HAVING number BETWEEN 50 AND 150
+	it(yml.Tests.query[20].query, query_handler(20) ) // SELECT ... HAVING string LIKE 'text%'
+	it(yml.Tests.query[21].query, query_handler(21) ) // SELECT ... HAVING boolean = true
+	it(yml.Tests.query[22].query, query_handler(22) ) // SELECT ... HAVING boolean = false
 
 })
