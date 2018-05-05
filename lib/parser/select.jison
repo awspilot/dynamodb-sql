@@ -12,12 +12,20 @@ sort_clause
 		{ $$ = { sort: 'DESC' }; }
 	;
 
+def_consistent_read
+	:
+		{ $$ = undefined; }
+	| CONSISTENT_READ
+		{ $$ = { consistent_read: true }; }
+	;
+
 select_stmt
-	: select sort_clause limit_clause
+	: def_select sort_clause limit_clause def_consistent_read
 		{
 			$$ = {statement: 'SELECT', selects: $1};
 			yy.extend($$,$2);
 			yy.extend($$,$3);
+			yy.extend($$,$4);
 		}
 	;
 
@@ -29,20 +37,20 @@ distinct_all
 	| ALL
 		{ $$ = {all:true}; }
 	;
-result_columns
-	: result_columns COMMA result_column
+def_select_columns
+	: def_select_columns COMMA def_select_onecolumn
 		{ $$ = $1; $$.push($3); }
-	| result_column
+	| def_select_onecolumn
 		{ $$ = [$1]; }
 	;
 
-result_column
+def_select_onecolumn
 	: STAR
-		{ $$ = {star:true}; }
-	| name DOT STAR
-		{ $$ = {table: $1, star:true}; }
-	| expr alias
-		{ $$ = {expr: $1}; yy.extend($$,$2);  }
+		{ $$ = {type: 'star', star:true}; }
+	| name
+		{ $$ = {type: 'column', column: $1}; }
+	| name AS name
+		{ $$ = {type: 'column', column: $1, alias: $3 }; }
 	;
 
 
@@ -76,8 +84,8 @@ where
 	|
 	;
 
-select
-	: SELECT distinct_all result_columns from use_index where
+def_select
+	: SELECT distinct_all def_select_columns from use_index where
 		{
 			$$ = {columns:$3};
 			yy.extend($$,$2);
