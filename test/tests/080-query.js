@@ -64,5 +64,13 @@ describe('query', function () {
 	it(yml.Tests.query[8].query, query_handler(8) ) // USE INDEX
 	it(yml.Tests.query[9].query, query_handler(9) ) // LIMIT
 	it(yml.Tests.query[10].query, query_handler(10) ) // DESC
+	it(yml.Tests.query[11].query, query_handler(11) ) // SELECT field
+	it(yml.Tests.query[12].query, query_handler(12) ) // SELECT field, inexistent_field
+	it(yml.Tests.query[13].query, query_handler(13) ) // SELECT field , field
+	it(yml.Tests.query[14].query, query_handler(14) ) // Select field , STAR <!-- should fail
+	it(yml.Tests.query[15].query, query_handler(15) ) // Select field AS alias <- should fail
+	
+	
+	
 
 })
