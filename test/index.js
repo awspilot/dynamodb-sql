@@ -1,7 +1,7 @@
 require('./lib/common')
 
 require("./tests/010-createTable.js")
-require("./tests/020-showTables.js")
+run_test('TABLES', 'test/res/020-showTables.yaml' )
 require("./tests/030-insert.js")
 require("./tests/040-update.js")
 require("./tests/050-replace.js")
