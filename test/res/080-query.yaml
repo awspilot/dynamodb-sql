@@ -79,7 +79,6 @@ Tests:
           results: 3
 
 
-        -
         # - query: SELECT CONSISTENT_READ * FROM table_hash_string_range_number WHERE `hash` = "query"
         #   results: 3
         #   log: true
@@ -113,7 +112,7 @@ Tests:
           validations:
               - key: data[0].range
                 value: 99
-          log: true
+          #log: true
 
         - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING gsi_string CONTAINS 'indm'
           results: 1
@@ -121,17 +120,17 @@ Tests:
               - key: data[0].range
                 value: 1
 
-        - 
-          # query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS 'string'
-          # log: true
-
-        - 
-          # query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS 777
-          # log: true
-
-        - 
-          # query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS true
-          # log: true
+        # - 
+        #   query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS 'string'
+        #   log: true
+        # 
+        # - 
+        #   query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS 777
+        #   log: true
+        # 
+        # - 
+        #   query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS true
+        #   log: true
 
         # HAVING xpatn OP | eg obj, obj.ccc array[1],
         # HAVING string between A and Z
