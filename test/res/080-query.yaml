@@ -44,9 +44,37 @@ Tests:
           validations:
               - key: data[0].range
                 value: 99
-          log: false
 
-        #- query: SELECT field1, field2 FROM table_hash_string_range_number  WHERE `hash` = 'query'
+        - query: SELECT range FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+              - key: Object.keys(data).length
+                value: 1
+
+        - query: SELECT range, inexistent_field FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+              - key: Object.keys(data[0]).length
+                value: 1
+
+        - query: SELECT hash, range  FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+              - key: Object.keys(data[0]).length
+                value: 2
+
+        - query: SELECT hash, *  FROM table_hash_string_range_number  WHERE `hash` = 'query'
+          shouldFail: true
+
+        - query: SELECT hash AS h  FROM table_hash_string_range_number  WHERE `hash` = 'query'
+          shouldFail: true
+          #log: true
 
         #- query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" CONSISTENT_READ
 
