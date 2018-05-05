@@ -1,0 +1,12 @@
+Prepare:
+    Data: []
+Tests:
+    query:
+        - query: SHOW TABLES
+          # validations:
+          #   - key: data['table_hash_string_range_number']
+          #     value: "\"test_hash\""
+          #log: true
+        
+        - query: DROP INDEX gsi_string ON table_hash_string_range_number
+          #log: true
