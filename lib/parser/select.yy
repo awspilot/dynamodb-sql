@@ -78,20 +78,28 @@ use_index
 		{ $$ = $3; }
 	;
 
-where
+def_where
 	: WHERE where_expr
 		{ $$ = {where: $2}; }
 	|
 	;
 
+def_having
+	: HAVING having_expr
+		{ $$ = {having: $2}; }
+	|
+	;
+
+
 def_select
-	: SELECT distinct_all def_select_columns from use_index where
+	: SELECT distinct_all def_select_columns from use_index def_where def_having
 		{
 			$$ = {columns:$3};
 			yy.extend($$,$2);
 			yy.extend($$,$4);
 			yy.extend($$,$5);
 			yy.extend($$,$6);
+			yy.extend($$,$7);
 		}
 	;
 
@@ -135,4 +143,44 @@ where_between
 		{ $$ = {left: { type: 'number', number: $1}, right: {type: 'number', number: $3 } }; }
 	| string_literal AND string_literal
 		{ $$ = {left: { type: 'string', string: $1}, right: {type: 'string', string: $3 } }; }
+	;
+
+
+
+
+
+
+having_expr
+	: literal_value
+		{ $$ = $1; }
+	| boolean_value
+		{ $$ = $1; }
+
+	| bind_parameter
+		{ $$ = {bind_parameter: $1}; }
+
+	| name
+		{ $$ = {column: $1}; }
+
+	| having_expr AND having_expr
+		{ $$ = {op: 'AND', left: $1, right: $3}; }
+	| having_expr OR having_expr
+		{ $$ = {op: 'OR', left: $1, right: $3}; }
+
+	| having_expr EQ having_expr
+		{ $$ = {op: '=', left: $1, right: $3}; }
+	| having_expr GT having_expr
+		{ $$ = {op: '>', left: $1, right: $3}; }
+	| having_expr GE having_expr
+		{ $$ = {op: '>=', left: $1, right: $3}; }
+	| having_expr LT having_expr
+		{ $$ = {op: '<', left: $1, right: $3}; }
+	| having_expr LE having_expr
+		{ $$ = {op: '<=', left: $1, right: $3}; }
+
+
+	| having_expr BETWEEN where_between
+		{ $$ = {op: 'BETWEEN', left: $1, right:$3 }; }
+	| having_expr LIKE string_literal
+		{ $$ = {op: 'LIKE', left:$1, right: { type: 'string', string: $3 } }; }
 	;
