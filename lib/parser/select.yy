@@ -129,13 +129,9 @@ where_expr
 
 
 	| where_expr BETWEEN where_between
-		{
-			$$ = {op: 'BETWEEN', left: $1, right:$3 };
-		}
+		{ $$ = {op: 'BETWEEN', left: $1, right:$3 }; }
 	| where_expr LIKE string_literal
-		{
-			$$ = {op: 'LIKE', left:$1, right: { type: 'string', string: $3 } };
-		}
+		{ $$ = {op: 'LIKE', left:$1, right: { type: 'string', string: $3 } }; }
 	;
 
 where_between
@@ -183,4 +179,10 @@ having_expr
 		{ $$ = {op: 'BETWEEN', left: $1, right:$3 }; }
 	| having_expr LIKE string_literal
 		{ $$ = {op: 'LIKE', left:$1, right: { type: 'string', string: $3 } }; }
+	| having_expr CONTAINS string_literal
+		{ $$ = {op: 'CONTAINS', left:$1, right: { type: 'string', string: $3 } }; }
+	| having_expr CONTAINS signed_number
+		{ $$ = {op: 'CONTAINS', left:$1, right: { type: 'number', number: $3 } }; }
+	| having_expr CONTAINS boolean_value
+		{ $$ = {op: 'CONTAINS', left:$1, right: { type: 'boolean', value: $3 } }; }
 	;
