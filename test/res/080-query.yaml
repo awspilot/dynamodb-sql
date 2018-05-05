@@ -1,8 +1,8 @@
 Prepare:
     Data:
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1,   number = 1,  gsi_string = 'findme'
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2,   number = 2,  boolean = true
-        - INSERT INTO table_hash_string_range_number SET  `hash` =  'query', `range` =  99, number = 99, boolean = false
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1,  number = 1,                   array = ['string'], gsi_string = 'findme'
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2,  number = 2,  boolean = true,  array = [ 777    ]
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  99, number = 99, boolean = false, array = [ true   ]
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaa'
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaz'
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'bbb'
@@ -115,13 +115,29 @@ Tests:
                 value: 99
           log: true
 
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING gsi_string CONTAINS 'indm'
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 1
+
+        - 
+          # query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS 'string'
+          # log: true
+
+        - 
+          # query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS 777
+          # log: true
+
+        - 
+          # query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS true
+          # log: true
 
         # HAVING xpatn OP | eg obj, obj.ccc array[1],
         # HAVING string between A and Z
         # HAVING field IN [ a,b,c]
         # HAVING field NOT NULL
         # HAVING field NULL
-        # HAVING string CONTAINS 'text'
         # HAVING string NOT CONTAINS 'text'
         # HAVING stringset CONTAINS 'text'
         # HAVING stringset NOT CONTAINS 'text'

@@ -79,5 +79,13 @@ describe('query', function () {
 	it(yml.Tests.query[20].query, query_handler(20) ) // SELECT ... HAVING string LIKE 'text%'
 	it(yml.Tests.query[21].query, query_handler(21) ) // SELECT ... HAVING boolean = true
 	it(yml.Tests.query[22].query, query_handler(22) ) // SELECT ... HAVING boolean = false
+	it(yml.Tests.query[23].query, query_handler(23) ) // SELECT ... HAVING field CONTAINS 'text'
+
+
+	// these dont work, need to check with @awspilot/dynamodb
+	//it(yml.Tests.query[24].query, query_handler(24) ) // SELECT ... HAVING array CONTAINS 'text'
+	//it(yml.Tests.query[25].query, query_handler(25) ) // SELECT ... HAVING array CONTAINS number
+	//it(yml.Tests.query[26].query, query_handler(26) ) // SELECT ... HAVING field CONTAINS boolean
+	
 
 })
