@@ -10,9 +10,9 @@ describe('replace', function () {
 						"		`Aboolean`=true,                     \n" +
 						"		`Anulled`=null,                      \n" +
 						"		`Aarray`=[1,2, 3 ],                  \n" +
-						"		`Aobject`= { aaa:1,bbb:2, ccc:\" some string \", ddd: {ddd1: 1}, eee: [1,'eee1']}, \n" +
-						"		`Astring_set`=:string_set,           \n" +
-						"		`Anumber_set`=:number_set            \n",  {}, function(err, data ) {
+						"		`Aobject`= { aaa:1,bbb:2, ccc:\" some string \", ddd: {ddd1: 1}, eee: [1,'eee1']} \n" +
+
+						"",  {}, function(err, data ) {
 
 			if (err)
 				throw err
@@ -42,9 +42,8 @@ describe('replace', function () {
 						"		`Aboolean`=true,                     \n" +
 						"		`Anulled`=null,                      \n" +
 						"		`Aarray`=[1,2, 3 ],                  \n" +
-						"		`Aobject`= { aaa:1,bbb:2, ccc:\" some string \", ddd: {ddd1: 1}, eee: [1,'eee1']}, \n" +
-						"		`Astring_set`=:string_set,           \n" +
-						"		`Anumber_set`=:number_set            \n",  {}, function(err, data ) {
+						"		`Aobject`= { aaa:1,bbb:2, ccc:\" some string \", ddd: {ddd1: 1}, eee: [1,'eee1']} \n" +
+						"",  {}, function(err, data ) {
 
 			if (err)
 				throw err
