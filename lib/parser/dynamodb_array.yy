@@ -1,6 +1,6 @@
 /* there is a bug that causes array to return last element in array  as null, eg: [ null ] */
 
-dynamo_data_array
+dynamodb_data_array
 	: ARRAYLPAR array_list ARRAYRPAR
 		{
 			if ($2.slice(-1) == "\0") {
@@ -30,8 +30,8 @@ array_value
 		{ $$ = $1 }
 	| dynamodb_data_null
 		{ $$ = $1 }
-	| dynamo_data_array
+	| dynamodb_data_array
 		{ $$ = $1 }
-	| dynamo_data_json
+	| dynamodb_data_json
 		{ $$ = $1 }
 	;
