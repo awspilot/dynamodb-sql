@@ -10,4 +10,4 @@ run_test('DELETE', 'test/res/060-delete.yaml' )
 run_test('SELECT', 'test/res/080-query.yaml' )
 run_test('SCAN', 'test/res/090-scan.yaml' )
 require("./tests/999-deleteTable.js")
-//require("./tests/090-scan.js")
+
