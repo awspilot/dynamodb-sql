@@ -1,6 +1,6 @@
 
 update_stmt
-	: UPDATE database_table_name SET def_update_columns WHERE def_update_where
+	: UPDATE dynamodb_table_name SET def_update_columns WHERE def_update_where
 		{
 			var $kv = []
 			$4.map(function(v) { 
@@ -10,8 +10,14 @@ update_stmt
 					op: v[2]
 				})
 			})
-			$$ = {statement: 'UPDATE', set: $kv, where: $6 }
-			yy.extend($$,$2);
+			$$ = {
+				statement: 'UPDATE', 
+				dynamodb: {
+					TableName: $2,
+					set: $kv, 
+					where: $6,
+				},
+			}
 		}
 	;
 
