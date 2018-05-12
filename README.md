@@ -389,7 +389,7 @@ SCAN username,password FROM users_table
 - SELECT
 	- [ ] `SELECT * FROM tbl_name` should do SCAN
 	- [ ] `SELECT * FROM tbl_name  CONTINUE { hash: 'aaa', range: 5 }`
-	- [ ] `SELECT field1, field1 FROM tbl_name`
+	- [x] `SELECT field1, field1 FROM tbl_name`
 	- [ ] `SELECT field AS alias FROM tbl_name`	
 	- [ ] `SELECT PROJECTED FROM tbl_name`
 	- [x] `SELECT * FROM tbl_name HAVING key1=val AND key2 >= 5`
@@ -403,10 +403,9 @@ SCAN username,password FROM users_table
 	- [ ] `SELECT * FROM tbl_name HAVING key1=val OR key2 >= 5` OR support
 	- [ ] `SELECT * FROM tbl_name HAVING key1=val AND key2 IN [ 3,4,5 ] ` IN support
 	- [ ] `SELECT * FROM tbl_name HAVING object.array[1].property = true` XPath support
-	- [ ] `SELECT field1, field2 FROM tbl_name`
 	- [ ] `SELECT count(*) FROM tbl_name`
-	- [ ] `SELECT * FROM tbl_name CONSISTENT_READ`
-	- [ ] `SELECT * FROM tbl_name USE INDEX index_name`
+	- [x] `SELECT * FROM tbl_name CONSISTENT_READ`
+	- [x] `SELECT * FROM tbl_name USE INDEX index_name`
 
 - GET
 	- [ ] get item and batch get item
