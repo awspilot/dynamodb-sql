@@ -1,3 +1,19 @@
+
+select_stmt
+	: def_select sort_clause limit_clause def_consistent_read
+		{
+			$$ = {
+				statement: 'SELECT', 
+				dynamodb: $1
+			};
+
+			yy.extend($$.dynamodb,$2);
+			yy.extend($$.dynamodb,$3);
+			yy.extend($$.dynamodb,$4);
+		}
+	;
+
+
 limit_clause
 	:
 		{ $$ = undefined; }
@@ -19,19 +35,7 @@ def_consistent_read
 		{ $$ = { consistent_read: true }; }
 	;
 
-select_stmt
-	: def_select sort_clause limit_clause def_consistent_read
-		{
-			$$ = {
-				statement: 'SELECT', 
-				dynamodb: $1
-			};
 
-			yy.extend($$.dynamodb,$2);
-			yy.extend($$.dynamodb,$3);
-			yy.extend($$.dynamodb,$4);
-		}
-	;
 
 distinct_all
 	:
