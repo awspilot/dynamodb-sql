@@ -1,9 +1,19 @@
 
 drop_index_stmt
-	: DROP INDEX database_index_name ON database_table_name
+	: DROP INDEX dynamodb_index_name ON dynamodb_table_name
 		{
-			$$ = {statement: 'DROP_INDEX' };
-			yy.extend($$,$3);
-			yy.extend($$,$5);
+			$$ = {
+				statement: 'DROP_INDEX',
+				dynamodb: {
+					TableName: $5,
+					GlobalSecondaryIndexUpdates: [
+						{
+							Delete: {
+								IndexName: $3
+							}
+						}
+					]
+				}
+			};
 		}
 	;
