@@ -1,18 +1,27 @@
 scan_stmt
 	: def_scan def_scan_limit_clause def_scan_consistent_read
 		{
-			$$ = {statement: 'SCAN', scans: $1};
-			yy.extend($$,$2);
-			yy.extend($$,$3);
+			$$ = {
+				statement: 'SCAN', 
+				dynamodb: {
+				
+				},
+			};
+			yy.extend($$.dynamodb, $1 )
+			yy.extend($$.dynamodb,$2);
+			yy.extend($$.dynamodb,$3);
 		}
 	;
 def_scan
-	: SCAN def_scan_columns def_scan_from def_scan_use_index def_scan_having
+	: SCAN def_scan_columns FROM dynamodb_table_name def_scan_use_index def_scan_having
 		{
-			$$ = {columns:$2}; //columns
-			yy.extend($$,$3); // from
-			yy.extend($$,$4); // index
-			yy.extend($$,$5); // filter
+			$$ = {
+				TableName: $4,
+				columns:$2
+			}; //columns
+
+			yy.extend($$,$5); // index
+			yy.extend($$,$6); // filter
 		}
 	;
 
