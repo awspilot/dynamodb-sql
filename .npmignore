@@ -1,3 +1,4 @@
 browserify.js
 browserify.sh
 build-parser.sh
+gen/*
