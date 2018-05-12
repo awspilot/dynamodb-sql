@@ -42,9 +42,9 @@ def_ct_index_type
 
 def_ct_pk
 	: PRIMARY KEY LPAR name            RPAR def_ct_throughput
-		{ $$ = {pk: [ $4    ], throughput: $6 }  }
+		{ $$ = { KeySchema: [ { AttributeName: $4, KeyType: 'HASH' }], throughput: $6 }  }
 	| PRIMARY KEY LPAR name COMMA name RPAR def_ct_throughput
-		{ $$ = {pk: [ $4,$6 ], throughput: $8 }  }
+		{ $$ = { KeySchema: [ { AttributeName: $4, KeyType: 'HASH' } , { AttributeName: $6, KeyType: 'RANGE' } ], throughput: $8 }  }
 	;
 def_ct_throughput
 	:
