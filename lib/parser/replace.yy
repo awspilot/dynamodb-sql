@@ -1,13 +1,18 @@
 
 replace_stmt
-	: REPLACE INTO database_table_name SET def_replace_columns
+	: REPLACE INTO dynamodb_table_name SET def_replace_columns
 		{
 			var $kv = {}
 			$5.map(function(v) { 
 				$kv[v[0]] = v[1]
 			})
-			$$ = {statement: 'REPLACE', set: $kv }
-			yy.extend($$,$3);
+			$$ = {
+				statement: 'REPLACE', 
+				dynamodb: {
+					TableName: $3,
+					set: $kv 
+				},
+			}
 		}
 	;
 
