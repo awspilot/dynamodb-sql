@@ -4,11 +4,14 @@ create_table_stmt
 		{
 			$$ = {
 				statement: 'CREATE_TABLE',
-				AttributeDefinitions: $5,
+				dynamodb: {
+					AttributeDefinitions: $5,
+				}
+				
 			};
-			yy.extend($$,$3);
-			yy.extend($$,$7); // extend with pk
-			yy.extend($$,$8); // extend with indexes
+			yy.extend($$.dynamodb,$3);
+			yy.extend($$.dynamodb,$7); // extend with pk
+			yy.extend($$.dynamodb,$8); // extend with indexes
 		}
 	;
 
