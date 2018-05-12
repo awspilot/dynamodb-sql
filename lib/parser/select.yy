@@ -22,10 +22,14 @@ def_consistent_read
 select_stmt
 	: def_select sort_clause limit_clause def_consistent_read
 		{
-			$$ = {statement: 'SELECT', selects: $1};
-			yy.extend($$,$2);
-			yy.extend($$,$3);
-			yy.extend($$,$4);
+			$$ = {
+				statement: 'SELECT', 
+				dynamodb: $1
+			};
+
+			yy.extend($$.dynamodb,$2);
+			yy.extend($$.dynamodb,$3);
+			yy.extend($$.dynamodb,$4);
 		}
 	;
 
@@ -94,7 +98,9 @@ def_having
 def_select
 	: SELECT distinct_all def_select_columns from use_index def_where def_having
 		{
-			$$ = {columns:$3};
+			$$ = {
+				columns:$3
+			};
 			yy.extend($$,$2);
 			yy.extend($$,$4);
 			yy.extend($$,$5);
