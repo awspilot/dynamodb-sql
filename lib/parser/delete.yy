@@ -1,9 +1,16 @@
 
 delete_stmt
-	: DELETE FROM database_table_name WHERE def_delete_where
+	: DELETE FROM dynamodb_table_name WHERE def_delete_where
 		{
-			$$ = {statement: 'DELETE', set: $kv, where: $5 }
-			yy.extend($$,$3);
+			$$ = {
+				statement: 'DELETE', 
+				dynamodb: {
+					TableName: $3,
+
+					set: $kv, 
+					where: $5,
+				}
+			}
 		}
 	;
 
