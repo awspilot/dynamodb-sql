@@ -303,7 +303,7 @@ for sort_key in WHERE OP can be:
 ```
 
 SELECT
-    *
+    [ * | field [, field ] ]
 FROM
     tbl_name
 [ USE INDEX index_name ]
@@ -333,7 +333,7 @@ WHERE
 ```
 
 SELECT
-    *
+    ip, browser
 FROM
     stats
 WHERE
@@ -361,7 +361,6 @@ SCAN username,password FROM users_table
 	- [ ] support for binary data type
 	- [ ] support for stringSet and numberSet
 	- [ ] placeholder for values for all SQL operations ( attribute = :value )
-	- [x] support for inline single and multiline comments
 	- [ ] promises
 
 - CREATE TABLE
