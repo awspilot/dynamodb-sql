@@ -1,8 +1,12 @@
 
 describe_table_stmt
-	: DESCRIBE TABLE database_table_name
+	: DESCRIBE TABLE dynamodb_table_name
 		{
-			$$ = {statement: 'DESCRIBE_TABLE' };
-			yy.extend($$,$3);
+			$$ = {
+				statement: 'DESCRIBE_TABLE',
+				dynamodb: {
+					TableName: $3
+				}
+			};
 		}
 	;
