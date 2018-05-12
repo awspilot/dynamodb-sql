@@ -1,8 +1,8 @@
 Prepare:
     Data:
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1,  number = 1,                   array = ['string'], gsi_string = 'findme'
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2,  number = 2,  boolean = true,  array = [ 777    ]
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  99, number = 99, boolean = false, array = [ true   ]
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1,  `number` = 1,                   array = ['string'], gsi_string = 'findme'
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2,  `number` = 2,  boolean = true,  array = [ 777    ]
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  99, `number` = 99, boolean = false, array = [ true   ]
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaa'
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaz'
         - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'bbb'
@@ -89,7 +89,7 @@ Tests:
               - key: data[0].range
                 value: 1
 
-        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING number BETWEEN 50 AND 150
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING `number` BETWEEN 50 AND 150
           results: 1
           validations:
               - key: data[0].range
