@@ -1,15 +1,15 @@
 
 create_table_stmt
-	: CREATE TABLE database_table_name LPAR def_ct_typedef_list COMMA def_ct_pk def_ct_indexes RPAR
+	: CREATE TABLE dynamodb_table_name LPAR def_ct_typedef_list COMMA def_ct_pk def_ct_indexes RPAR
 		{
 			$$ = {
 				statement: 'CREATE_TABLE',
 				dynamodb: {
+					TableName: $3,
 					AttributeDefinitions: $5,
 				}
 				
 			};
-			yy.extend($$.dynamodb,$3);
 			yy.extend($$.dynamodb,$7); // extend with pk
 			yy.extend($$.dynamodb,$8); // extend with indexes
 		}
