@@ -1,12 +1,19 @@
 
 insert_stmt
-	: INSERT INTO database_table_name SET def_insert_columns
+	: INSERT INTO dynamodb_table_name SET def_insert_columns
 		{
 			var $kv = {}
 			$5.map(function(v) { $kv[v[0]] = v[1] })
 
-			$$ = {statement: 'INSERT', set: $kv };
-			yy.extend($$,$3);
+			$$ = {
+				statement: 'INSERT', 
+				dynamodb: {
+					TableName: $3,
+					set: $kv 
+				},
+				
+			};
+
 		}
 	;
 
