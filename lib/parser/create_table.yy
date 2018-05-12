@@ -4,7 +4,7 @@ create_table_stmt
 		{
 			$$ = {
 				statement: 'CREATE_TABLE',
-				typedef: $5,
+				AttributeDefinitions: $5,
 			};
 			yy.extend($$,$3);
 			yy.extend($$,$7); // extend with pk
@@ -74,14 +74,14 @@ def_ct_projection_list
 
 def_ct_typedef_list
 	: def_ct_typedef_list COMMA def_ct_typedef
-		{ $$ = $1; yy.extend($$,$3); }
+		{ $$ = $1; $$.push($3) }
 	| def_ct_typedef
-		{ $$ = {}; yy.extend($$,$1); }
+		{ $$ = [ $1 ]; }
 	;
 
 def_ct_typedef
 	: name STRING
-		{ $$ = {}; $$[$1] = 'STRING' }
+		{ $$ = { AttributeName: $1, AttributeType: 'S'}; }
 	| name NUMBER
-		{ $$ = {}; $$[$1] = 'NUMBER' }
+		{ $$ = { AttributeName: $1, AttributeType: 'N'}; }
 	;
