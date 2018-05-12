@@ -148,13 +148,14 @@ describe('CREATE TABLE', function () {
 
 	it('CREATE TABLE table_hash_string_range_number ', function(done) {
 		DynamoSQL.query("\
-						CREATE TABLE table_hash_string_range_number (										\
-							hash STRING,range NUMBER,											\
+						CREATE TABLE table_hash_string_range_number (							\
+							hash STRING,														\
+							range NUMBER,														\
 							gsi_string STRING,													\
 							gsi_number NUMBER,													\
 							lsi_string STRING,													\
 							lsi_number NUMBER,													\
-							PRIMARY KEY(hash,range)THROUGHPUT 5 5,								\
+							PRIMARY KEY( `hash`, `range` ) THROUGHPUT 5 5,						\
 							INDEX gsi_string GSI ( hash, gsi_string)  THROUGHPUT 5 5,			\
 							INDEX gsi_number GSI ( hash, gsi_number ) PROJECTION KEYS_ONLY,		\
 							INDEX lsi_string LSI ( hash, lsi_string ) PROJECTION ALL ,		 	\
