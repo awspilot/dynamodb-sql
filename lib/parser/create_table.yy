@@ -28,9 +28,25 @@ def_ct_index_list
 
 def_ct_index
 	: INDEX name def_ct_index_type LPAR name RPAR def_ct_projection def_ct_throughput
-		{ $$ = { name: $2, type: $3, pk: [ $5     ], projection: $7, throughput: $8 }  }
-	|  INDEX name def_ct_index_type LPAR name COMMA name RPAR def_ct_projection def_ct_throughput
-		{ $$ = { name: $2, type: $3, pk: [ $5, $7 ], projection: $9, throughput: $10 }  }
+		{ 
+			$$ = { 
+				IndexName: $2, 
+				type: $3, 
+				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' } ], 
+				Projection: $7,
+				ProvisionedThroughput: $8 
+			}
+		}
+	| INDEX name def_ct_index_type LPAR name COMMA name RPAR def_ct_projection def_ct_throughput
+		{
+			$$ = { 
+				IndexName: $2, 
+				type: $3, 
+				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' }, { AttributeName: $7, KeyType: 'RANGE' } ], 
+				Projection: $9,
+				ProvisionedThroughput: $10 
+			}
+		}
 	;
 
 def_ct_index_type
@@ -42,26 +58,26 @@ def_ct_index_type
 
 def_ct_pk
 	: PRIMARY KEY LPAR name            RPAR def_ct_throughput
-		{ $$ = { KeySchema: [ { AttributeName: $4, KeyType: 'HASH' }], throughput: $6 }  }
+		{ $$ = { KeySchema: [ { AttributeName: $4, KeyType: 'HASH' }], ProvisionedThroughput: $6 }  }
 	| PRIMARY KEY LPAR name COMMA name RPAR def_ct_throughput
-		{ $$ = { KeySchema: [ { AttributeName: $4, KeyType: 'HASH' } , { AttributeName: $6, KeyType: 'RANGE' } ], throughput: $8 }  }
+		{ $$ = { KeySchema: [ { AttributeName: $4, KeyType: 'HASH' } , { AttributeName: $6, KeyType: 'RANGE' } ], ProvisionedThroughput: $8 }  }
 	;
 def_ct_throughput
 	:
 		{ $$ = undefined; }
 	| THROUGHPUT signed_number signed_number
-		{ $$ = [ eval($2), eval($3) ] }
+		{ $$ = { ReadCapacityUnits: eval($2), WriteCapacityUnits: eval($3) } }
 	;
 
 def_ct_projection
 	:
-		{ $$ = 'ALL'; }
+		{ $$ = { ProjectionType: 'ALL' }; }
 	| PROJECTION ALL
-		{ $$ = 'ALL'; }
+		{ $$ = { ProjectionType: 'ALL' }; }
 	| PROJECTION KEYS_ONLY
-		{ $$ = 'KEYS_ONLY' }
+		{ $$ = { ProjectionType: 'KEYS_ONLY' } }
 	| PROJECTION LPAR def_ct_projection_list RPAR
-		{ $$ = $3 }
+		{ $$ = { ProjectionType: 'INCLUDE', NonKeyAttributes: $3 } }
 	;
 
 def_ct_projection_list
