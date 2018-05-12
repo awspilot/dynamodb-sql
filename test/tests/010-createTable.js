@@ -149,17 +149,17 @@ describe('CREATE TABLE', function () {
 	it('CREATE TABLE table_hash_string_range_number ', function(done) {
 		DynamoSQL.query("\
 						CREATE TABLE table_hash_string_range_number (							\
-							hash STRING,														\
-							range NUMBER,														\
+							`hash` STRING,														\
+							`range` NUMBER,														\
 							gsi_string STRING,													\
 							gsi_number NUMBER,													\
 							lsi_string STRING,													\
 							lsi_number NUMBER,													\
 							PRIMARY KEY( `hash`, `range` ) THROUGHPUT 5 5,						\
-							INDEX gsi_string GSI ( hash, gsi_string)  THROUGHPUT 5 5,			\
-							INDEX gsi_number GSI ( hash, gsi_number ) PROJECTION KEYS_ONLY,		\
-							INDEX lsi_string LSI ( hash, lsi_string ) PROJECTION ALL ,		 	\
-							INDEX lsi_number LSI ( hash, lsi_number ) PROJECTION(at1,at2)		\
+							INDEX gsi_string GSI ( `hash`, gsi_string)  THROUGHPUT 5 5,			\
+							INDEX gsi_number GSI ( `hash`, gsi_number ) PROJECTION KEYS_ONLY,		\
+							INDEX lsi_string LSI ( `hash`, lsi_string ) PROJECTION ALL ,		 	\
+							INDEX lsi_number LSI ( `hash`, lsi_number ) PROJECTION(at1,at2)		\
 						)																		\
 			", {}, function(err, data ) {
 				//console.log("reply from sql create table ",err, JSON.stringify(data,null,"\t"))
@@ -177,8 +177,8 @@ describe('CREATE TABLE', function () {
 	it('CREATE TABLE table_hash_string_range_string ', function(done) {
 		DynamoSQL.query("\
 						CREATE TABLE table_hash_string_range_string (							\
-							hash STRING,range STRING,											\
-							PRIMARY KEY(hash,range)THROUGHPUT 5 5								\
+							`hash` STRING, `range` STRING,											\
+							PRIMARY KEY(`hash`,`range`)THROUGHPUT 5 5								\
 						)																		\
 			", {}, function(err, data ) {
 				//console.log("reply from sql create table ",err, JSON.stringify(data,null,"\t"))
@@ -195,8 +195,8 @@ describe('CREATE TABLE', function () {
 	it('CREATE TABLE table_hash_number_range_number ', function(done) {
 		DynamoSQL.query("\
 						CREATE TABLE table_hash_number_range_number (							\
-							hash NUMBER,range NUMBER,											\
-							PRIMARY KEY(hash,range)THROUGHPUT 5 5								\
+							`hash` NUMBER, `range` NUMBER,											\
+							PRIMARY KEY(`hash`,`range`)THROUGHPUT 5 5								\
 						)																		\
 			", {}, function(err, data ) {
 				//console.log("reply from sql create table ",err, JSON.stringify(data,null,"\t"))
@@ -213,8 +213,8 @@ describe('CREATE TABLE', function () {
 	it('CREATE TABLE ' + $hashTable + ' ', function(done) {
 		DynamoSQL.query("\
 						CREATE TABLE " + $hashTable + " (			\
-							hash STRING,							\
-							PRIMARY KEY ( hash  )					\
+							`hash` STRING,							\
+							PRIMARY KEY ( `hash`  )					\
 						)											\
 						", {}, function(err, data ) {
 				if (err) {
