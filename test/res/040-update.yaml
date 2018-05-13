@@ -2,7 +2,7 @@ Prepare:
     Data: []
 Tests:
     query:
-        - query: "UPDATE `table_hash_string_range_number` SET  `number`=2,  test_increment += 5,  boolean=false,  array= [ 1,2,3,4 ],  new = 'new_item',  object= { 'key' : {subkey: 1 } },  delete_me = undefined WHERE hash = 'hash1' and range = 1"
+        - query: "UPDATE `table_hash_string_range_number` SET  `number`=2,  test_increment += 5,  `boolean`=false,  `array`= [ 1,2,3,4 ],  `new` = 'new_item',  `object`= { 'key' : {subkey: 1 } },  delete_me = undefined WHERE `hash` = 'hash1' and `range` = 1"
           validations: []
                 # assert.equal(item.number, 2)
                 # assert.equal(item.test_increment, 6)
@@ -12,7 +12,7 @@ Tests:
                 # assert.deepEqual(item.object, { key : {subkey: 1 } })
                 # 
                 # assert.equal(item.new, 'new_item')
-        - query: "update `test_hash` set `number`=2,`boolean`=false, `array`= [ 1,2,3,4 ], `new` = 'new_item', object= { \"key\" : {subkey: 1 } } where `hash` = 'hash1' "
+        - query: "update `test_hash` set `number`=2,`boolean`=false, `array`= [ 1,2,3,4 ], `new` = 'new_item', `object`= { \"key\" : {subkey: 1 } } where `hash` = 'hash1' "
           validations: []
                 # assert.equal(item.number, 2)
                 # assert.equal(item.boolean, false)
