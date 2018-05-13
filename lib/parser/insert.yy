@@ -7,9 +7,11 @@ insert_stmt
 
 			$$ = {
 				statement: 'INSERT', 
+				operation: 'putItem',
+				
 				dynamodb: {
 					TableName: $3,
-					set: $kv 
+					Item: $kv,
 				},
 				
 			};
