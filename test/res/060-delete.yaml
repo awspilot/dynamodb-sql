@@ -2,7 +2,7 @@ Prepare:
     Data: []
 Tests:
     query:
-        - query: delete from `table_hash_string_range_number` where `hash` = 'hash1' and range = 1
+        - query: delete from `table_hash_string_range_number` where `hash` = 'hash1' and `range` = 1
           validations: []
         - query: delete from `test_hash` where `hash` = 'hash1'
           validations: []
