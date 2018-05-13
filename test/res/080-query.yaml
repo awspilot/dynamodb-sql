@@ -1,12 +1,12 @@
 Prepare:
     Data:
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1,  `number` = 1,                   array = ['string'], gsi_string = 'findme'
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2,  `number` = 2,  boolean = true,  array = [ 777    ]
-        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  99, `number` = 99, boolean = false, array = [ true   ]
-        - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaa'
-        - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'aaz'
-        - INSERT INTO table_hash_string_range_string SET  `hash` =  'query', `range` =  'bbb'
-        - INSERT INTO table_hash_number_range_number SET  `hash` =  5, `range` = 5
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  1,  `number` = 1,                     `array` = ['string'], gsi_string = 'findme'
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  2,  `number` = 2,  `boolean` = true,  `array` = [ 777    ]
+        - INSERT INTO table_hash_string_range_number SET `hash` =  'query', `range` =  99, `number` = 99, `boolean` = false, `array` = [ true   ]
+        - INSERT INTO table_hash_string_range_string SET `hash` =  'query', `range` =  'aaa'
+        - INSERT INTO table_hash_string_range_string SET `hash` =  'query', `range` =  'aaz'
+        - INSERT INTO table_hash_string_range_string SET `hash` =  'query', `range` =  'bbb'
+        - INSERT INTO table_hash_number_range_number SET `hash` =  5,       `range` = 5
 Tests:
     query:
         - query: SELECT * FROM table_hash_string_range_number
@@ -18,19 +18,19 @@ Tests:
         - query: SELECT * FROM table_hash_number_range_number WHERE `hash` = 5
           results: 1
 
-        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and range > 1
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and `range` > 1
           results: 2
 
-        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and range = 99
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and `range` = 99
           results: 1
 
-        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and range BETWEEN 2 AND 4
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and `range` BETWEEN 2 AND 4
           results: 1
 
-        - query: SELECT * FROM table_hash_string_range_string WHERE `hash` = 'query' and range BETWEEN 'aab' AND 'z'
+        - query: SELECT * FROM table_hash_string_range_string WHERE `hash` = 'query' and `range` BETWEEN 'aab' AND 'z'
           results: 2
 
-        - query: SELECT * FROM table_hash_string_range_string WHERE `hash` = 'query' and range LIKE 'a%'
+        - query: SELECT * FROM table_hash_string_range_string WHERE `hash` = 'query' and `range` LIKE 'a%'
           results: 2
 
         - query: SELECT * FROM table_hash_string_range_number USE INDEX gsi_string WHERE `hash` = 'query' and gsi_string LIKE 'find%'
@@ -45,7 +45,7 @@ Tests:
               - key: data[0].range
                 value: 99
 
-        - query: SELECT range FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
+        - query: SELECT `range` FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
           results: 1
           validations:
               - key: data[0].range
@@ -53,7 +53,7 @@ Tests:
               - key: Object.keys(data).length
                 value: 1
 
-        - query: SELECT range, inexistent_field FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
+        - query: SELECT `range`, inexistent_field FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
           results: 1
           validations:
               - key: data[0].range
@@ -61,7 +61,7 @@ Tests:
               - key: Object.keys(data[0]).length
                 value: 1
 
-        - query: SELECT hash, range  FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
+        - query: SELECT `hash`, `range`  FROM table_hash_string_range_number  WHERE `hash` = 'query' DESC LIMIT 1
           results: 1
           validations:
               - key: data[0].range
@@ -69,10 +69,10 @@ Tests:
               - key: Object.keys(data[0]).length
                 value: 2
 
-        - query: SELECT hash, *  FROM table_hash_string_range_number  WHERE `hash` = 'query'
+        - query: SELECT `hash`, *  FROM table_hash_string_range_number  WHERE `hash` = 'query'
           shouldFail: true
 
-        - query: SELECT hash AS h  FROM table_hash_string_range_number  WHERE `hash` = 'query'
+        - query: SELECT `hash` AS h  FROM table_hash_string_range_number  WHERE `hash` = 'query'
           shouldFail: true
 
         - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" CONSISTENT_READ
@@ -101,13 +101,13 @@ Tests:
               - key: data[0].range
                 value: 1
                 
-        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING boolean = true
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING `boolean` = true
           results: 1
           validations:
               - key: data[0].range
                 value: 2
 
-        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING boolean = false
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING `boolean` = false
           results: 1
           validations:
               - key: data[0].range
