@@ -35,3 +35,42 @@ array_value
 	| dynamodb_data_json
 		{ $$ = $1 }
 	;
+
+
+
+
+
+dynamodb_raw_array
+	: ARRAYLPAR array_list_raw ARRAYRPAR
+		{
+			if ($2.slice(-1) == "\0") {
+				$2 = $2.slice(0,-1)
+			}
+			$$ = { 'L': $2 }
+		}
+	;
+array_list_raw
+	: array_list_raw COMMA array_value_raw
+		{
+			$$ = $1 
+			$$.push($3); 
+		}
+	| array_value_raw
+		{ $$ = [$1]; }
+	;
+array_value_raw
+	:
+		{ $$ = "\0" }
+	| dynamodb_raw_number
+		{ $$ = $1 }
+	| dynamodb_raw_string
+		{ $$ = $1 }
+	| dynamodb_raw_boolean
+		{ $$ = $1 }
+	| dynamodb_raw_null
+		{ $$ = $1 }
+	| dynamodb_raw_array
+		{ $$ = $1 }
+	| dynamodb_raw_json
+		{ $$ = $1 }
+	;

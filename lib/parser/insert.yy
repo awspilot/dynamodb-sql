@@ -27,17 +27,17 @@ def_insert_columns
 		{ $$ = [$1]; }
 	;
 def_insert_onecolumn
-	: name EQ dynamodb_data_string
+	: name EQ dynamodb_raw_string
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_data_number
+	| name EQ dynamodb_raw_number
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_data_boolean
+	| name EQ dynamodb_raw_boolean
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_data_null
+	| name EQ dynamodb_raw_null
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_data_json
+	| name EQ dynamodb_raw_json
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_data_array
+	| name EQ dynamodb_raw_array
 		{ $$ = [ $1, $3 ]; }
 	;
 
