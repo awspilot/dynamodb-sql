@@ -196,21 +196,30 @@ SET
 ```
 ```
 
-INSERT INTO users SET
-  domain     = 'test.com',
-  user       = 'testuser',
-  email      = \"testuser@test.com\",
-  password   = 'qwert',
-  created_at = 1468137790,
-  updated_at = null,
-  active     = false,
-  profile    = {
-                name: "Demo Account",
-                contact :{
-                  phone: ["+1 (908) 866 6336"],
-                  emails: ["testuser@test.com", "demo.test@test.com"]
-                }
-              }
+	INSERT INTO `users` SET
+		`domain`       = 'test.com',
+		`user`         = 'testuser',
+		`email`        = "testuser@test.com",
+		`password`     = 'qwert',
+		`created_at`   = 1468137790,
+		`updated_at`   = null,
+		`active`       = false,
+		`tags`         = new StringSet(['dev','nodejs']),
+		`luky_numbers` = new NumberSet([ 12, 23 ]),
+		`profile`      = {
+			`name`: "Demo Account",
+			`contact` : {
+				`phone`: ["+1 (908) 866 6336"],
+				`emails`: ["testuser@test.com", "demo.test@test.com"]
+			}
+		},
+		subscriptions = [{
+			newsletter_id: 1234,
+			interval: 'daily',
+		},{
+			newsletter_id: 1234,
+			interval: 'weekly',
+		}]
 
 ```
 
@@ -370,7 +379,10 @@ SCAN username,password FROM users_table
 	- [x] THROUGHPUT support
 
 - INSERT
-	- [ ] batch insert in the form of " INSERT INTO tbl_name VALUES [{},{},{}] "
+	- [x] String, Number, List, Map, Null, Boolean support  
+	- [x] StringSet, NumberSet support
+	- [ ] BynarySet support
+	- [ ] `INSERT INTO tbl_name VALUES [{},{},{}] ` batch insert in the form of 
 	- [ ] conditional insert
 	- [ ] ON DUPLICATE KEY UPDATE
 	- [ ] INSERT IGNORE support
