@@ -25,3 +25,12 @@ Tests:
           validations: []
           # err && err.code === 'ConditionalCheckFailedException'
 
+
+        - query: INSERT INTO `test_hash` SET `hash` = 'test-ss-ns', ss = new StringSet(['asd','fgh','jkl']), ns = new NumberSet([99,66,33])
+        - query: SELECT * from `test_hash` WHERE `hash` = 'test-ss-ns'
+          validations:
+              - key: data[0].ss[2]
+                value: "'jkl'"
+              - key: data[0].ns[2]
+                value: 33
+          log: true
