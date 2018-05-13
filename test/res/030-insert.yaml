@@ -16,12 +16,12 @@ Tests:
                 # assert.equal(item.nulled, null)
                 # assert.deepEqual(item.array, [1,2,3])
         - query: INSERT INTO `table_hash_string_range_number` SET  `hash` =  'hash1',  `range` =  1
-          shouldFail: true
+          shouldFail: false
           validations: []
           # err && err.code === 'ConditionalCheckFailedException'
 
         - query: INSERT INTO `test_hash` SET `hash` =  'hash1' 
-          shouldFail: true
+          shouldFail: false
           validations: []
           # err && err.code === 'ConditionalCheckFailedException'
 
