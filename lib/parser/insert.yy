@@ -39,27 +39,12 @@ def_insert_onecolumn
 		{ $$ = [ $1, $3 ]; }
 	| name EQ dynamodb_raw_array
 		{ $$ = [ $1, $3 ]; }
+	| name EQ dynamodb_raw_stringset
+		{ $$ = [ $1, $3 ]; }
+	| name EQ dynamodb_raw_numberset
+		{ $$ = [ $1, $3 ]; }
 	;
 
-
-
-
-
-
-
-/*
-	yylloc
-	first_index
-	last_index
-	first_yylloc
-	last_yylloc
-	dont_look_back
-	lexer.options
-	yylineno
-	yytext
-	yyleng
-	
-*/
 
 
 
