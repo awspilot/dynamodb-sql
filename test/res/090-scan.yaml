@@ -8,7 +8,7 @@ Tests:
         - query: SCAN * FROM table_hash_string_range_number USE INDEX gsi_string
           results: 1
 
-        - query: SCAN hash,gsi_string FROM table_hash_string_range_number USE INDEX gsi_string
+        - query: SCAN `hash`,gsi_string FROM table_hash_string_range_number USE INDEX gsi_string
           validations:
               - key: Object.keys(data[0]).length
                 value: 2
@@ -20,7 +20,7 @@ Tests:
         - query: SCAN * FROM table_hash_string_range_number LIMIT 2
           results: 2
 
-        - query: SCAN * FROM table_hash_string_range_number HAVING range = 99
+        - query: SCAN * FROM table_hash_string_range_number HAVING `range` = 99
           validations:
               - key: data[0].number
                 value: 99
