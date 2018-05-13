@@ -67,8 +67,8 @@ describe('replace', function () {
 	it('hash_range: should replace when item does not exist', function(done) {
 		DynamoSQL.query(" REPLACE INTO `table_hash_string_range_number` " +
 						" SET                               " +
-						"	hash =  'hash_inexisting',      " +
-						"	range =  1,                     " +
+						"	`hash` =  'hash_inexisting',      " +
+						"	`range` =  1,                     " +
 						"	something = 1                   ",
 						{}, function(err, data ) {
 
@@ -92,7 +92,7 @@ describe('replace', function () {
 	it('hash: should replace when item does not exist', function(done) {
 		DynamoSQL.query(" REPLACE INTO `" + $hashTable + "` " +
 						" SET                               " +
-						"	hash =  'hash_inexisting',      " +
+						"	`hash` =  'hash_inexisting',      " +
 						"	something = 1                   ",
 						{}, function(err, data ) {
 
