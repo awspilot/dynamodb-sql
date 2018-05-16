@@ -381,11 +381,12 @@ SCAN username,password FROM users_table
 - INSERT
 	- [x] String, Number, List, Map, Null, Boolean support  
 	- [x] StringSet, NumberSet support
+	- [x] INSERT IGNORE support
 	- [ ] BynarySet support
 	- [ ] `INSERT INTO tbl_name VALUES [{},{},{}] ` batch insert in the form of 
-	- [ ] conditional insert
+	- [ ] Conditional insert
 	- [ ] ON DUPLICATE KEY UPDATE
-	- [ ] INSERT IGNORE support
+
 
 - UPDATE  
 	- [ ] conditional update
