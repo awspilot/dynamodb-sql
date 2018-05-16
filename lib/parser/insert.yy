@@ -1,16 +1,16 @@
 
 insert_stmt
-	: INSERT INTO dynamodb_table_name SET def_insert_columns
+	: INSERT def_insert_ignore INTO dynamodb_table_name SET def_insert_columns
 		{
 			var $kv = {}
-			$5.map(function(v) { $kv[v[0]] = v[1] })
+			$6.map(function(v) { $kv[v[0]] = v[1] })
 
 			$$ = {
 				statement: 'INSERT', 
 				operation: 'putItem',
-				
+				ignore: $2,
 				dynamodb: {
-					TableName: $3,
+					TableName: $4,
 					Item: $kv,
 				},
 				
@@ -19,6 +19,12 @@ insert_stmt
 		}
 	;
 
+def_insert_ignore
+	:
+		{{ $$ = false }}
+	| IGNORE
+		{{ $$ = true }}
+	;
 
 def_insert_columns
 	: def_insert_columns COMMA def_insert_onecolumn
