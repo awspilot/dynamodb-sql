@@ -15,15 +15,6 @@ Tests:
                 # assert.equal(item.boolean, true)
                 # assert.equal(item.nulled, null)
                 # assert.deepEqual(item.array, [1,2,3])
-        - query: INSERT INTO `table_hash_string_range_number` SET  `hash` =  'hash1',  `range` =  1
-          shouldFail: false
-          validations: []
-          # err && err.code === 'ConditionalCheckFailedException'
-
-        - query: INSERT INTO `test_hash` SET `hash` =  'hash1' 
-          shouldFail: false
-          validations: []
-          # err && err.code === 'ConditionalCheckFailedException'
 
 
         - query: INSERT INTO `test_hash` SET `hash` = 'test-ss-ns', ss = new StringSet(['asd','fgh','jkl']), ns = new NumberSet([99,66,33])
@@ -33,4 +24,16 @@ Tests:
                 value: "'jkl'"
               - key: data[0].ns[2]
                 value: 33
-          log: true
+
+
+        # test insert duplicate key
+        - query:  INSERT INTO `test_hash` SET `hash` =  'test-hash-insert', `bool` = true
+        - query:  INSERT INTO `test_hash` SET `hash` =  'test-hash-insert', `bool` = false
+          # should fail with ConditionalCheckFailedException
+          shouldFail: true
+        - query:  INSERT IGNORE INTO `test_hash` SET `hash` =  'test-hash-insert', `bool` = false
+        - query:  SELECT * FROM `test_hash` WHERE `hash` =  'test-hash-insert'
+          validations:
+              - key: data[0].bool
+                value: true
+
