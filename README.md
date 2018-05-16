@@ -186,7 +186,7 @@ Insert will fail if another item with same key exists
 
 ```
 
-INSERT INTO
+INSERT [ IGNORE ] INTO
     tbl_name
 SET
     partition_key = <VALUE>,
