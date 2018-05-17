@@ -24,12 +24,17 @@ query_handler = function( idx, yml ) {
 		else
 			global.DDBSQL = false
 
-		DynamoSQL.query(this.test.title, function(err, data ) {
+		DynamoSQL.query( yml.Tests.query[idx].query, function(err, data ) {
 			if (yml.Tests.query[idx].shouldFail) {
-				if (err)
-					return done()
+				if (err) {
+					if (!(yml.Tests.query[idx].validations || []).length)
+						return done()
 
-				throw 'query expected to fail'
+					yml.Tests.query[idx].validations.forEach(function(el) {
+						assert.equal(eval( el.key ), eval( el.value ))
+					})
+					done()
+				}
 			} else {
 				if (err)
 					throw err
@@ -72,7 +77,7 @@ run_test = function(test_name, yml_file ) {
 		// beforeEach
 
 		yml.Tests.query.forEach(function(v,k) {
-			it(yml.Tests.query[k].query, query_handler(k, yml ) )
+			it(yml.Tests.query[k].title || yml.Tests.query[k].query, query_handler(k, yml ) )
 			
 		})
 	})
