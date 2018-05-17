@@ -197,16 +197,16 @@ SET
 ```
 
 	INSERT INTO `users` SET
-		`domain`       = 'test.com',
-		`user`         = 'testuser',
-		`email`        = "testuser@test.com",
-		`password`     = 'qwert',
-		`created_at`   = 1468137790,
-		`updated_at`   = null,
-		`active`       = false,
-		`tags`         = new StringSet(['dev','nodejs']),
-		`luky_numbers` = new NumberSet([ 12, 23 ]),
-		`profile`      = {
+		`domain`        = 'test.com',
+		`user`          = 'testuser',
+		`email`         = "testuser@test.com",
+		`password`      = 'qwert',
+		`created_at`    = 1468137790,
+		`updated_at`    = null,
+		`active`        = false,
+		`tags`          = new StringSet(['dev','nodejs']),
+		`lucky_numbers` = new NumberSet([ 12, 23 ]),
+		`profile`       = {
 			`name`: "Demo Account",
 			`contact` : {
 				`phone`: ["+1 (908) 866 6336"],
@@ -253,10 +253,19 @@ WHERE
 UPDATE
     users
 SET
-    active = true,
-    updated_at = 1468137844,
-    activation_code = undefined,
-    login_count += 1
+    `active`          = true,
+	`nulled`          = null,
+    `updated_at`      = 1468137844,
+    `activation_code` = undefined,
+    `login_count`    += 1,
+	`list`            = ['a',1,true, null, {}, [] ],
+	`map`             = {
+		nonkeyword = 'value1',
+		"sqlkeyword1" = 'value2',
+		'sqlkeyword2' = 'value3'
+	},
+	`tags`            = new StringSet(['dev','nodejs']),
+	`lucky_numbers`   = new NumberSet([ 12, 23 ])
 WHERE
     domain = 'test.com' AND user = 'testuser'
 
@@ -387,12 +396,15 @@ SCAN username,password FROM users_table
 	- [ ] Conditional insert
 	- [ ] ON DUPLICATE KEY UPDATE
 
-
-- UPDATE  
-	- [ ] conditional update
-	- [ ] placeholder for values ( attribute = :value )
+- UPDATE
+	- [x] String, Number, List, Map, Null, Boolean support
+	- [x] StringSet, NumberSet support
 	- [x] increment support
 	- [x] UPDATE: delete attribute support
+	- [ ] StringSet. NumberSet add remove items
+	- [ ] conditional update
+	- [ ] placeholder for values ( attribute = :value )
+
 
 - REPLACE
 	- [ ] REPLACE: conditional replace
