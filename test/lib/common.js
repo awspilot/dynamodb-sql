@@ -31,7 +31,7 @@ query_handler = function( idx, yml ) {
 						return done()
 
 					yml.Tests.query[idx].validations.forEach(function(el) {
-						assert.equal(eval( el.key ), eval( el.value ))
+						assert.deepEqual(eval( el.key ), eval( el.value ))
 					})
 					done()
 				}
@@ -47,7 +47,7 @@ query_handler = function( idx, yml ) {
 
 				if (yml.Tests.query[idx].validations) {
 					yml.Tests.query[idx].validations.forEach(function(el) {
-						assert.equal(eval( el.key ), eval( el.value ))
+						assert.deepEqual(eval( el.key ), eval( el.value ))
 					})
 				}
 				done()
