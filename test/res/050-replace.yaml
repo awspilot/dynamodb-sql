@@ -1,4 +1,67 @@
 Prepare:
     Data: []
 Tests:
-    query: []
+    query:
+        - title: REPLACE INTO ... SET `hash` = ...inexistent hash...
+          query:
+            |
+            REPLACE INTO 
+                `table_hash_string_range_number`
+            SET
+                `hash`     =  'replace-inexistent-hash',
+                `range`    =  1,
+
+                `string`  = 'text', 
+                `number`  = 1,
+                `boolean` = true,
+                `array`   = ['a',1,true,null],
+                `object`  = { 
+                    'string': 'text',
+                    'number': 1,
+                    'bool'  : true,
+                    'null'  : null, 
+                },
+                `null`    = null
+          log: false
+
+        - title: Checking replaced data
+          query: SELECT * FROM `table_hash_string_range_number` WHERE  `hash`     =  'replace-inexistent-hash' AND  `range`    =  1
+          validations: 
+              - key: data.length
+                value: 1
+
+              - key: data[0].string
+                value: "'text'"
+              - key: data[0].number
+                value: 1
+              - key: data[0].boolean
+                value: true
+              - key: data[0].array
+                value: ['a',1,true,null]
+              - key: data[0].object
+                value: {  string: 'text', number: 1, bool  : true, null  : null,  }
+              - key: data[0].null
+                value: "null"
+        
+        # test stringset, numberset
+        - title: "REPLACE INTO ... SET `hash` = ...existent hash..., ss = new StringSet(..), ns = new NumberSet(...) "
+          query: 
+              |
+              REPLACE INTO 
+                  table_hash_string_range_number 
+              SET 
+                  `hash` = 'replace-inexistent-hash' , 
+                  `range` = 1, 
+                  ss = new StringSet(['a','b','c']), 
+                  ns = new NumberSet([1,2,3])
+        - title: Checking replaced data
+          query: "SELECT * FROM  table_hash_string_range_number WHERE `hash` = 'replace-inexistent-hash' AND `range` = 1 "
+          validations:
+               - key: Object.keys(data[0]).length
+                 value: 4
+
+               - key: data[0].ss
+                 value: ['a','b','c']
+               - key: data[0].ns
+                 value: [1,2,3]
+          log: false
