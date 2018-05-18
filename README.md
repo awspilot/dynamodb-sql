@@ -255,9 +255,9 @@ UPDATE
 SET
     `active`          = true,
 	`nulled`          = null,
-    `updated_at`      = 1468137844,
-    `activation_code` = undefined,
-    `login_count`    += 1,
+	`updated_at`      = 1468137844,
+	`activation_code` = undefined,
+	`login_count`    += 1,
 	`list`            = ['a',1,true, null, {}, [] ],
 	`map`             = {
 		nonkeyword = 'value1',
@@ -267,7 +267,7 @@ SET
 	`tags`            = new StringSet(['dev','nodejs']),
 	`lucky_numbers`   = new NumberSet([ 12, 23 ])
 WHERE
-    domain = 'test.com' AND user = 'testuser'
+	domain = 'test.com' AND user = 'testuser'
 
 ```
 
@@ -279,18 +279,33 @@ Inserts the item if it does not exists or fully replaces it.
 ```
 
 REPLACE INTO
-    tbl_name
+	tbl_name
 SET
-     partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
+	partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
 
 ```
 
 ```
 
-REPLACE INTO users SET
-    domain         = 'test.com',
-    user           = 'testuser',
-    pending_delete = true
+REPLACE INTO 
+	`users`
+SET
+	`domain`  = 'test.com',
+	`user`    = 'testuser',
+
+	`string`  = 'text', 
+	`number`  = 1,
+	`boolean` = true,
+	`array`   = ['a',1,true,null],
+	`object`  = { 
+		'string': 'text',
+		'number': 1,
+		'bool'  : true,
+		'null'  : null, 
+	},
+	`null`    = null,
+	ss = new StringSet(['a','b','c']), 
+	ns = new NumberSet([1,2,3])
 
 ```
 
@@ -407,6 +422,8 @@ SCAN username,password FROM users_table
 
 
 - REPLACE
+	- [x] String, Number, List, Map, Null, Boolean support
+	- [x] StringSet, NumberSet support
 	- [ ] REPLACE: conditional replace
 	- [ ] REPLACE: return all_old/updated_old/all_new/updated_new
 
