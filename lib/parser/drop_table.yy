@@ -4,6 +4,7 @@ drop_table_stmt
 		{
 			$$ = {
 				statement: 'DROP_TABLE',
+				operation: 'deleteTable',
 				dynamodb: {
 					TableName: $3
 				}
