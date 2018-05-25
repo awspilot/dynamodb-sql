@@ -35,6 +35,7 @@ var db = require('@awspilot/dynamodb-sql')(new AWS.DynamoDB());
 ```
 
 ## Execute Queries
+
 ```
 db.query($query)
 or
@@ -327,9 +328,9 @@ WHERE
 for sort_key in WHERE OP can be:
 * =  equal
 * <  less than
-* >  greater than
+* \>  greater than
 * <= less then or equal
-* >= greater than or equal
+* \>= greater than or equal
 * BEGINS_WITH
 * BETWEEN
 
