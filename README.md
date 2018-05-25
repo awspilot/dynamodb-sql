@@ -416,7 +416,7 @@ SCAN username,password FROM users_table
 	- [x] StringSet, NumberSet support
 	- [x] increment support
 	- [x] UPDATE: delete attribute support
-	- [ ] StringSet. NumberSet add remove items
+	- [ ] StringSet, NumberSet add remove items
 	- [ ] conditional update
 	- [ ] placeholder for values ( attribute = :value )
 
