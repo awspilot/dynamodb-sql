@@ -9,4 +9,9 @@ Tests:
           log: false
         
         - query: DROP INDEX gsi_string ON table_hash_string_range_number
+          validations:
+              - key: "data.TableDescription.GlobalSecondaryIndexes.map(function(gi) { return gi.IndexName}).indexOf('gsi_string') === -1"
+                value: false
+              # data.TableDescription.GlobalSecondaryIndexes[].IndexStatus should be DELETING
           log: false
+
