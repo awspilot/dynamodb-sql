@@ -4,6 +4,7 @@ create_table_stmt
 		{
 			$$ = {
 				statement: 'CREATE_TABLE',
+				operation: 'createTable',
 				dynamodb: {
 					TableName: $3,
 					AttributeDefinitions: $5,
