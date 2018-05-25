@@ -4,6 +4,7 @@ describe_table_stmt
 		{
 			$$ = {
 				statement: 'DESCRIBE_TABLE',
+				operation: 'describeTable',
 				dynamodb: {
 					TableName: $3
 				}
