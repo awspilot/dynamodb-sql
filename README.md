@@ -407,7 +407,7 @@ SCAN username,password FROM users_table
 	- [x] StringSet, NumberSet support
 	- [x] INSERT IGNORE support
 	- [ ] BinarySet support
-	- [ ] `INSERT INTO tbl_name VALUES [{},{},{}] ` batch insert in the form of 
+	- [ ] `INSERT INTO tbl_name VALUES [{},{},{}] ` batch insert
 	- [ ] Conditional insert
 	- [ ] ON DUPLICATE KEY UPDATE
 
