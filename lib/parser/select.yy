@@ -75,11 +75,79 @@ def_select_use_index
 		{ $$ = $3; }
 	;
 
+/*
 def_where
 	: WHERE where_expr
 		{ $$ = {where: $2}; }
 	|
 	;
+*/
+
+def_where
+	: WHERE select_where_hash
+		{
+			$$ = { 
+				//KeyConditionExpression: $2,
+				ExpressionAttributeNames: {},
+				ExpressionAttributeValues: {},
+			}; 
+			
+			$$.ExpressionAttributeNames[ '#partitionKeyName' ] = $2.partition.partitionKeyName
+			$$.ExpressionAttributeValues[ ':partitionKeyValue' ] = $2.partition.partitionKeyValue
+			$$.KeyConditionExpression = ' #partitionKeyName =  :partitionKeyValue '
+
+		}
+	| WHERE select_where_hash AND select_where_range
+		{
+			$$ = { 
+				//KeyConditionExpression: $2,
+				ExpressionAttributeNames: {},
+				ExpressionAttributeValues: {},
+			}; 
+			
+			$$.ExpressionAttributeNames[ '#partitionKeyName' ] = $2.partition.partitionKeyName
+			$$.ExpressionAttributeValues[ ':partitionKeyValue' ] = $2.partition.partitionKeyValue
+			$$.KeyConditionExpression = ' #partitionKeyName =  :partitionKeyValue '
+
+
+			if ($4.sort) {
+				$$.ExpressionAttributeNames[ '#sortKeyName' ] = $4.sort.sortKeyName
+				
+				switch ($4.sort.op) {
+					case '=':
+					case '>':
+					case '>=':
+					case '<':
+					case '<=':
+						$$.ExpressionAttributeValues[ ':sortKeyValue' ] = $4.sort.sortKeyValue
+						$$.KeyConditionExpression += ' AND #sortKeyName ' + $4.sort.op + ' :sortKeyValue '
+						
+						break;
+					case 'BETWEEN':
+						$$.ExpressionAttributeValues[ ':sortKeyValue1' ] = $4.sort.sortKeyValue1
+						$$.ExpressionAttributeValues[ ':sortKeyValue2' ] = $4.sort.sortKeyValue2
+						$$.KeyConditionExpression += ' AND #sortKeyName BETWEEN :sortKeyValue1 AND :sortKeyValue2'
+						break;
+					case 'BEGINS_WITH':
+
+						if ($4.sort.sortKeyValue.S.slice(-1) !== '%' )
+							throw "LIKE '%string' must end with a % for sort key "
+
+							
+						$4.sort.sortKeyValue.S = $4.sort.sortKeyValue.S.slice(0,-1)
+						
+						$$.ExpressionAttributeValues[ ':sortKeyValue' ] = $4.sort.sortKeyValue
+						$$.KeyConditionExpression += ' AND begins_with ( #sortKeyName, :sortKeyValue ) '
+
+						break;
+				}
+				
+			}
+
+
+		}
+	;
+
 
 def_having
 	: HAVING having_expr
@@ -132,6 +200,117 @@ where_expr
 	| where_expr LIKE string_literal
 		{ $$ = {op: 'LIKE', left:$1, right: { type: 'string', string: $3 } }; }
 	;
+
+select_where_hash
+	: name EQ select_where_hash_value
+		{ 
+			$$ = {
+				partition: {
+					partitionKeyName: $1,
+					partitionKeyValue: $3
+				}
+			}
+		}
+	;
+
+select_where_hash_value
+	: dynamodb_raw_number
+		{ $$ = $1 }
+	| dynamodb_raw_string
+		{ $$ = $1 }
+	;
+
+
+select_where_range
+	: name EQ select_where_range_value
+		{
+			$$ = {
+				sort: {
+					sortKeyName: $1,
+					sortKeyValue: $3,
+					op: '='
+				}
+			}
+		}
+
+	| name GT select_where_range_value
+		{
+			$$ = {
+				sort: {
+					sortKeyName: $1,
+					sortKeyValue: $3,
+					op: '>'
+				}
+			}
+		}
+	| name GE select_where_range_value
+		{
+			$$ = {
+				sort: {
+					sortKeyName: $1,
+					sortKeyValue: $3,
+					op: '>='
+				}
+			}
+		}
+	| name LT select_where_range_value
+		{
+			$$ = {
+				sort: {
+					sortKeyName: $1,
+					sortKeyValue: $3,
+					op: '<'
+				}
+			}
+		}
+	| name LE select_where_range_value
+		{
+			$$ = {
+				sort: {
+					sortKeyName: $1,
+					sortKeyValue: $3,
+					op: '<='
+				}
+			}
+		}
+
+
+	| name BETWEEN select_where_between
+		{
+			$$ = {
+				sort: {
+					sortKeyName: $1,
+					sortKeyValue1: $3[0],
+					sortKeyValue2: $3[1],
+					op: 'BETWEEN'
+				}
+			}
+		}
+	| name LIKE dynamodb_raw_string
+		{
+			$$ = {
+				sort: {
+					sortKeyName: $1,
+					sortKeyValue: $3,
+					op: 'BEGINS_WITH'
+				}
+			}
+		}
+	;
+select_where_range_value
+	: dynamodb_raw_number
+		{ $$ = $1 }
+	| dynamodb_raw_string
+		{ $$ = $1 }
+	;
+
+select_where_between
+	: dynamodb_raw_number AND dynamodb_raw_number
+		{ $$ = [ $1, $3 ]; }
+	| dynamodb_raw_string AND dynamodb_raw_string
+		{ $$ = [ $1, $3 ]; }
+	;
+
 
 where_between
 	: signed_number AND signed_number
