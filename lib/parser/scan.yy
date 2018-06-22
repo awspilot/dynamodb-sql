@@ -29,7 +29,7 @@ def_scan_limit_clause
 	:
 		{ $$ = undefined; }
 	| LIMIT signed_number
-		{ $$ = {limit: $2}; }
+		{ $$ = {Limit: $2}; }
 	;
 
 
