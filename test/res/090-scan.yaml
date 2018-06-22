@@ -17,7 +17,7 @@ Tests:
         #- query: SCAN hash,gsi_string FROM table_hash_string_range_number CONSISTENT_READ
         #  log: true
           
-        - query: SCAN * FROM table_hash_string_range_number LIMIT 2
+        - query: SCAN * FROM table_hash_string_range_number LIMIT 2 CONSISTENT_READ
           results: 2
 
         - query: SCAN * FROM table_hash_string_range_number HAVING `range` = 99

@@ -35,9 +35,9 @@ def_scan_limit_clause
 
 def_scan_consistent_read
 	:
-		{ $$ = undefined; }
+		{ $$ = { ConsistentRead: false }; }
 	| CONSISTENT_READ
-		{ $$ = { consistent_read: true }; }
+		{ $$ = { ConsistentRead: true  }; }
 	;
 
 

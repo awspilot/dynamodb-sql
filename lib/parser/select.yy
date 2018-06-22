@@ -30,9 +30,9 @@ select_sort_clause
 
 def_consistent_read
 	:
-		{ $$ = undefined; }
+		{ $$ = { ConsistentRead: false }; }
 	| CONSISTENT_READ
-		{ $$ = { consistent_read: true }; }
+		{ $$ = { ConsistentRead: true }; }
 	;
 
 
