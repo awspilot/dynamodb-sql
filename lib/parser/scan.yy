@@ -58,12 +58,7 @@ def_scan_onecolumn
 		{ $$ = {type: 'column', column: $1, alias: $3 }; }
 	;
 
-def_scan_from
-	:
-		{ $$ = undefined; }
-	| FROM database_table_name
-		{ $$ = $2 }
-	;
+
 
 
 def_scan_use_index
