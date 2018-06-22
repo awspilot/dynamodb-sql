@@ -17,10 +17,10 @@ def_scan
 		{
 			$$ = {
 				TableName: $4,
+				IndexName: $5,
+
 				columns:$2
 			}; //columns
-
-			yy.extend($$,$5); // index
 			yy.extend($$,$6); // filter
 		}
 	;
@@ -69,7 +69,7 @@ def_scan_from
 def_scan_use_index
 	:
 		{ $$ = undefined; }
-	| USE INDEX database_index_name
+	| USE INDEX name
 		{ $$ = $3; }
 	;
 
