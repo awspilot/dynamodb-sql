@@ -1,6 +1,6 @@
 
 select_stmt
-	: def_select sort_clause limit_clause def_consistent_read
+	: def_select select_sort_clause limit_clause def_consistent_read
 		{
 			$$ = {
 				statement: 'SELECT', 
@@ -21,11 +21,11 @@ limit_clause
 		{ $$ = { Limit: $2 }; }
 	;
 
-sort_clause
+select_sort_clause
 	:
-		{ $$ = undefined; }
+		{ $$ = { ScanIndexForward: true }; }
 	| DESC
-		{ $$ = { sort: 'DESC' }; }
+		{ $$ = { ScanIndexForward: false }; }
 	;
 
 def_consistent_read
