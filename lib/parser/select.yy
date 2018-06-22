@@ -62,21 +62,10 @@ def_select_onecolumn
 	;
 
 
-join_clause
-	: table_or_subquery
-		{ $$ = [$1]; }
-	;
 
-table_or_subquery
-	: database_table_name
-		{ $$ = $1; }
-	;
-
-from
-	:
-		{ $$ = undefined; }
-	| FROM join_clause
-		{ $$ = {from:$2}; }
+def_select_from
+	: FROM dynamodb_table_name
+		{ $$ = $2; }
 	;
 
 def_select_use_index
@@ -100,15 +89,14 @@ def_having
 
 
 def_select
-	: SELECT distinct_all def_select_columns from def_select_use_index def_where def_having
+	: SELECT distinct_all def_select_columns def_select_from def_select_use_index def_where def_having
 		{
 			$$ = {
+				TableName: $4,
 				IndexName: $5,
 				columns:$3
 			};
 			yy.extend($$,$2);
-			yy.extend($$,$4);
-
 			yy.extend($$,$6);
 			yy.extend($$,$7);
 		}
