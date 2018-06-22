@@ -79,10 +79,10 @@ from
 		{ $$ = {from:$2}; }
 	;
 
-use_index
+def_select_use_index
 	:
 		{ $$ = undefined; }
-	| USE INDEX database_index_name
+	| USE INDEX name
 		{ $$ = $3; }
 	;
 
@@ -100,14 +100,15 @@ def_having
 
 
 def_select
-	: SELECT distinct_all def_select_columns from use_index def_where def_having
+	: SELECT distinct_all def_select_columns from def_select_use_index def_where def_having
 		{
 			$$ = {
+				IndexName: $5,
 				columns:$3
 			};
 			yy.extend($$,$2);
 			yy.extend($$,$4);
-			yy.extend($$,$5);
+
 			yy.extend($$,$6);
 			yy.extend($$,$7);
 		}
