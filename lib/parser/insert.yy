@@ -17,6 +17,41 @@ insert_stmt
 			};
 
 		}
+	| INSERT def_insert_ignore INTO dynamodb_table_name VALUES def_insert_items
+		{
+			if ($6.length == 1) {
+				$$ = {
+					statement: 'INSERT', 
+					operation: 'putItem',
+					ignore: $2,
+					dynamodb: {
+						TableName: $4,
+						Item: $6[0].M,
+					},
+					
+				};
+			} else {
+				// batch insert
+				$$ = {
+					statement: 'INSERT', 
+					operation: 'batchWriteItem',
+					RequestItems: {}
+				}
+				
+				var RequestItems = {}
+				
+				RequestItems[$4] = []
+				
+				$6.map(function(v) { 
+					RequestItems[$4].push({
+						PutRequest: {
+							Item: v.M
+						}	
+					})
+				})
+				$$.RequestItems = RequestItems;
+			}
+		}
 	;
 
 def_insert_ignore
@@ -24,6 +59,20 @@ def_insert_ignore
 		{{ $$ = false }}
 	| IGNORE
 		{{ $$ = true }}
+	;
+
+
+def_insert_items
+	: def_insert_items COMMA def_insert_item
+		{ $$ = $1; $$.push($3); }
+	| def_insert_item
+		{ $$ = [$1]; }
+	;
+
+
+def_insert_item
+	: LPAR dynamodb_raw_json RPAR 
+		{ $$ = $2 }
 	;
 
 def_insert_columns
