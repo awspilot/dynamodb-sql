@@ -229,7 +229,7 @@ VALUES
 			interval: 'weekly',
 		}]
 
-	// insert up to 25 items simultaneously
+	// insert up to 25 items
 	INSERT INTO `users` VALUES
 		( "domain": 'test.com', "user": 'testuser1', "active": true),
 		( "domain": 'test.com', "user": 'testuser2', "active": false)
@@ -419,8 +419,9 @@ SCAN username,password FROM users_table
 	- [x] String, Number, List, Map, Null, Boolean support  
 	- [x] StringSet, NumberSet support
 	- [x] INSERT IGNORE support
+	- [x] `INSERT INTO tbl_name VALUES [{},{},{}] ` batch insert
+	- [ ] `INSERT INTO tbl_name VALUES [{},{},{}] ` StringSet, NumberSet support
 	- [ ] BinarySet support
-	- [ ] `INSERT INTO tbl_name VALUES [{},{},{}] ` batch insert
 	- [ ] Conditional insert
 	- [ ] ON DUPLICATE KEY UPDATE
 
