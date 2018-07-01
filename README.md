@@ -187,13 +187,20 @@ Insert will fail if another item with same key exists
 
 ```
 
-INSERT [ IGNORE ] INTO
+INSERT INTO
     tbl_name
 SET
     partition_key = <VALUE>,
     sort_key = <VALUE>
     [, other_key = <VALUE>, ... ]
 
+or 
+
+INSERT INTO
+    tbl_name
+VALUES
+    ( <JSON> )
+    [, ( <JSON> ) , ... ]
 ```
 ```
 
@@ -221,6 +228,11 @@ SET
 			newsletter_id: 1234,
 			interval: 'weekly',
 		}]
+
+	// insert up to 25 items simultaneously
+	INSERT INTO `users` VALUES
+		( "domain": 'test.com', "user": 'testuser1', "active": true),
+		( "domain": 'test.com', "user": 'testuser2', "active": false)
 
 ```
 
