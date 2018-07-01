@@ -33,7 +33,7 @@ insert_stmt
 			} else {
 				// batch insert
 				$$ = {
-					statement: 'INSERT', 
+					statement: 'BATCHINSERT', 
 					operation: 'batchWriteItem',
 					RequestItems: {}
 				}
