@@ -12,6 +12,7 @@ insert_stmt
 				dynamodb: {
 					TableName: $4,
 					Item: $kv,
+					
 				},
 				
 			};
@@ -35,7 +36,10 @@ insert_stmt
 				$$ = {
 					statement: 'BATCHINSERT', 
 					operation: 'batchWriteItem',
-					RequestItems: {}
+					dynamodb: {
+						RequestItems: {}
+					}
+					
 				}
 				
 				var RequestItems = {}
@@ -49,7 +53,7 @@ insert_stmt
 						}	
 					})
 				})
-				$$.RequestItems = RequestItems;
+				$$.dynamodb.RequestItems = RequestItems;
 			}
 		}
 	;
