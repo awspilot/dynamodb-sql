@@ -3,7 +3,7 @@ Prepare:
 Tests:
     query: 
         - query: SCAN * FROM table_hash_string_range_number
-          results: 4
+          results: 7
 
         - query: SCAN * FROM table_hash_string_range_number USE INDEX gsi_string
           results: 1
