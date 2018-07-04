@@ -100,7 +100,7 @@ def_insert_onecolumn
 		{ $$ = [ $1, $3 ]; }
 	| name EQ dynamodb_raw_stringset
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_numberset
+	| name EQ dynamodb_raw_date
 		{ $$ = [ $1, $3 ]; }
 	;
 
