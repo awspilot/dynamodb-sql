@@ -72,6 +72,8 @@ def_update_onecolumn
 		{ $$ = [ $1, $3 ]; }
 	| name EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
+	| name EQ dynamodb_raw_date
+		{ $$ = [ $1, $3 ]; }
 
 	| name PLUSEQ dynamodb_raw_number
 		{ $$ = [ $1, $3, '+=' ]; }
