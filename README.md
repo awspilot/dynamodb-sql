@@ -213,6 +213,7 @@ VALUES
 		`password`      = 'qwert',
 		`created_at`    = 1468137790,
 		`updated_at`    = null,
+		`expire_at`		= new Date( 1530723266352 ).getTime(),
 		`active`        = false,
 		`tags`          = new StringSet(['dev','nodejs']),
 		`lucky_numbers` = new NumberSet([ 12, 23 ]),
@@ -274,6 +275,7 @@ SET
 	`activation_code` = undefined,
 	`login_count`    += 1,
 	`list`            = ['a',1,true, null, {}, [] ],
+	`expire_at`       = new Date( 1530723266352 ).getTime(),
 	`map`             = {
 		nonkeyword = 'value1',
 		"sqlkeyword1" = 'value2',
@@ -312,7 +314,8 @@ SET
 	`number`  = 1,
 	`boolean` = true,
 	`array`   = ['a',1,true,null],
-	`object`  = { 
+	`expire_at` = new Date( 1530723266352 ).getTime(),
+	`object`    = { 
 		'string': 'text',
 		'number': 1,
 		'bool'  : true,
@@ -423,6 +426,7 @@ SCAN username,password FROM users_table
 	- [x] INSERT IGNORE support
 	- [x] `INSERT INTO tbl_name VALUES [{},{},{}] ` batch insert
 	- [ ] `INSERT INTO tbl_name VALUES [{},{},{}] ` StringSet, NumberSet support
+	- [x] Support for JavaScipt Objects: Date 
 	- [ ] BinarySet support
 	- [ ] Conditional insert
 	- [ ] ON DUPLICATE KEY UPDATE
@@ -432,6 +436,7 @@ SCAN username,password FROM users_table
 	- [x] StringSet, NumberSet support
 	- [x] increment support
 	- [x] UPDATE: delete attribute support
+	- [x] Support for JavaScipt Objects: Date 
 	- [ ] StringSet, NumberSet add remove items
 	- [ ] conditional update
 	- [ ] placeholder for values ( attribute = :value )
@@ -440,6 +445,7 @@ SCAN username,password FROM users_table
 - REPLACE
 	- [x] String, Number, List, Map, Null, Boolean support
 	- [x] StringSet, NumberSet support
+	- [x] Support for JavaScipt Objects: Date 
 	- [ ] REPLACE: conditional replace
 	- [ ] REPLACE: return all_old/updated_old/all_new/updated_new
 
