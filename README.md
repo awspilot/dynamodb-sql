@@ -10,6 +10,9 @@
 [![Downloads](https://img.shields.io/npm/dy/@awspilot/dynamodb-sql.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb-sql) 
 [![Downloads](https://img.shields.io/npm/dt/@awspilot/dynamodb-sql.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb-sql) 
 
+[![License](https://img.shields.io/github/license/awspilot/dynamodb-sql.svg)] 
+[![Dependencies](https://david-dm.org/awspilot/dynamodb-sql.svg)](https://david-dm.org/awspilot/dynamodb-sql) 
+
 
 
 ## Install
