@@ -59,7 +59,7 @@ Tests:
           validations: []
 
         - title: INSERT INTO tbl_name VALUES ( <JSON> ), ( <JSON> )
-          log: true
+          log: false
           query: 
             |
             INSERT INTO 
