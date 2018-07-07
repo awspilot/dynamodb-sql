@@ -2,9 +2,7 @@ fs = require('fs')
 async = require('async')
 assert = require('assert')
 yaml = require('js-yaml')
-
 $rangeTable = $tableName = 'table_hash_string_range_number'
-
 $hashTable = 'test_hash'
 
 var dynalite = require('dynalite'),
@@ -15,6 +13,13 @@ dynaliteServer.listen(4567, function(err) {
 
 var AWS = require('aws-sdk')
 DynamoSQL = require('../../lib/dynamodb')( new AWS.DynamoDB({endpoint: 'http://localhost:4567', "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-east-1" }))
+DynamoDB  = require('@awspilot/dynamodb')( new AWS.DynamoDB({endpoint: 'http://localhost:4567', "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-east-1" }))
+
+
+
+
+
+
 
 
 query_handler = function( idx, yml ) {
@@ -25,33 +30,57 @@ query_handler = function( idx, yml ) {
 			global.DDBSQL = false
 
 		DynamoSQL.query( yml.Tests.query[idx].query, function(err, data ) {
-			if (yml.Tests.query[idx].shouldFail) {
-				if (err) {
-					if (!(yml.Tests.query[idx].validations || []).length)
-						return done()
+			var dataItem;
+			async.waterfall([
+				function(cb) {
+					if (! yml.Tests.query[idx].hasOwnProperty('dataItem'))
+						return cb()
 
-					yml.Tests.query[idx].validations.forEach(function(el) {
-						assert.deepEqual(eval( el.key ), eval( el.value ))
+					var dt = DynamoDB.table(yml.Tests.query[idx].dataItem.table)
+					Object.keys(yml.Tests.query[idx].dataItem.item).map(function(k) {
+						dt.where(k).eq(yml.Tests.query[idx].dataItem.item[k])
 					})
+					dt.get(function(err, new_data ) {
+						if (err)
+							throw err
+
+						dataItem = new_data
+						cb()
+					})
+					
+				},
+			], function() {
+				
+				if (yml.Tests.query[idx].shouldFail) {
+					if (err) {
+						if (!(yml.Tests.query[idx].validations || []).length)
+							return done()
+
+						yml.Tests.query[idx].validations.forEach(function(el) {
+							assert.deepEqual(eval( el.key ), eval( el.value ))
+						})
+						done()
+					}
+				} else {
+					if (err)
+						throw err
+
+					if (yml.Tests.query[idx].log === true) {
+						console.log("data=", JSON.stringify(data, null, "\t"))
+						if (dataItem) console.log("dataItem=", JSON.stringify(dataItem, null, "\t"))
+					}
+
+					if (yml.Tests.query[idx].results)
+						assert.equal(data.length, yml.Tests.query[idx].results)
+
+					if (yml.Tests.query[idx].validations) {
+						yml.Tests.query[idx].validations.forEach(function(el) {
+							assert.deepEqual(eval( el.key ), eval( el.value ))
+						})
+					}
 					done()
 				}
-			} else {
-				if (err)
-					throw err
-
-				if (yml.Tests.query[idx].log === true)
-					console.log("result=", JSON.stringify(data, null, "\t"))
-
-				if (yml.Tests.query[idx].results)
-					assert.equal(data.length, yml.Tests.query[idx].results)
-
-				if (yml.Tests.query[idx].validations) {
-					yml.Tests.query[idx].validations.forEach(function(el) {
-						assert.deepEqual(eval( el.key ), eval( el.value ))
-					})
-				}
-				done()
-			}
+			})
 		})
 	}
 }
