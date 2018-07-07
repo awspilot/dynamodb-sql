@@ -65,3 +65,24 @@ Tests:
                - key: data[0].ns
                  value: [1,2,3]
           log: false
+
+
+        - title: "REPLACE INTO tbl_name SET `hash` = <STRING>, d = new Date('2018-07-05T07:50:15.416Z').getTime() "
+          query: 
+              |
+              REPLACE INTO 
+                  table_hash_string_range_number 
+              SET 
+                  `hash` = 'replace-inexistent-hash', 
+                  `range` = 1, 
+                  d = new Date('2018-07-05T07:50:15.416Z').getTime()
+
+          dataItem: 
+              table: table_hash_string_range_number
+              item: { hash: 'replace-inexistent-hash',  range: 1 }
+          validations:
+               - key: Object.keys(dataItem).length
+                 value: 3
+               - key: dataItem.d
+                 value: 1530777015416
+          log: false
