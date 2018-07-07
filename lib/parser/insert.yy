@@ -102,7 +102,9 @@ def_insert_onecolumn
 		{ $$ = [ $1, $3 ]; }
 	| name EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_date
+
+	/* javascript objects */
+	| name EQ javascript_raw_obj_date
 		{ $$ = [ $1, $3 ]; }
 	;
 
