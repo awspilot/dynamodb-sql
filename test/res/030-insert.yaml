@@ -37,6 +37,18 @@ Tests:
               - key: data[0].bool
                 value: true
 
+
+        - title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, d = new Date('2018-07-05T07:50:15.416Z').getTime()
+          query: INSERT INTO `table_hash_string_range_number` SET `hash` = 'test-insert-date', `range` = 1, d = new Date('2018-07-05T07:50:15.416Z').getTime()
+          dataItem: 
+             table: table_hash_string_range_number
+             item: { hash: 'test-insert-date',  range: 1 }
+          validations:
+             - key: dataItem.d
+               value: 1530777015416
+          log: false
+
+
         - title: INSERT INTO tbl_name VALUES ( <JSON> )
           query: 
             |
