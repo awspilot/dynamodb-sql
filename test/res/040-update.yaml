@@ -71,7 +71,17 @@ Tests:
                - key: data[0].ns
                  value: [1,2,3]
 
-        
+        # test date
+        - title: "UPDATE tbl_name SET d = new Date( 1530777015416 ).toISOString() WHERE `hash` = <STRING> AND `range` = <NUMBER> "
+          query: "UPDATE table_hash_string_range_number SET d = new Date( 1530777015416 ).toISOString() WHERE `hash` = 'hash1' AND `range` = 1 "
+          dataItem: 
+              table: table_hash_string_range_number
+              item: { hash: 'hash1',  range: 1 }
+          validations:
+              - key: dataItem.d
+                value: '"2018-07-05T07:50:15.416Z"'
+          log: false
+
         # test add to stringset
         
         # test remove from stringset
