@@ -1,7 +1,7 @@
 
 
-dynamodb_raw_date
-	: NEW DATE LPAR  dynamodb_raw_date_parameter  RPAR
+javascript_raw_obj_date
+	: NEW DATE LPAR  javascript_raw_date_parameter  RPAR
 		{
 			var date;
 			if ($4)
@@ -19,7 +19,7 @@ dynamodb_raw_date
 				$$ = { N: date.toString() }
 			}
 		}
-	| NEW DATE LPAR  dynamodb_raw_date_parameter  RPAR DOT LITERAL LPAR RPAR
+	| NEW DATE LPAR  javascript_raw_date_parameter  RPAR DOT LITERAL LPAR RPAR
 		{
 			var date;
 			if ($4)
@@ -44,7 +44,7 @@ dynamodb_raw_date
 			}
 		}
 	;
-dynamodb_raw_date_parameter
+javascript_raw_date_parameter
 	:
 		{ $$ = undefined }
 	| dynamodb_data_number
