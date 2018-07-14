@@ -3,24 +3,29 @@ scan_stmt
 		{
 			$$ = {
 				statement: 'SCAN', 
-				dynamodb: {
-				
-				},
+				dynamodb: {},
 			};
-			yy.extend($$.dynamodb, $1 )
-			yy.extend($$.dynamodb,$2);
-			yy.extend($$.dynamodb,$3);
+			yy.extend($$.dynamodb, $1.dynamodb )
+			$$.columns = $1.columns
+			$$.having  = Object.keys($1.having).length ? $1.having : undefined;
+
+			//yy.extend($$.columns, $1.columns )
+			
+			yy.extend($$.dynamodb, $2);
+			yy.extend($$.dynamodb, $3);
 		}
 	;
 def_scan
 	: SCAN def_scan_columns FROM dynamodb_table_name def_scan_use_index def_scan_having
 		{
 			$$ = {
-				TableName: $4,
-				IndexName: $5,
-
-				columns:$2
-			}; //columns
+				dynamodb: {
+					TableName: $4,
+					IndexName: $5,
+				},
+				columns:$2,
+				having: {},
+			}; 
 			yy.extend($$,$6); // filter
 		}
 	;
