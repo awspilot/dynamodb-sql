@@ -3,13 +3,11 @@ scan_stmt
 		{
 			$$ = {
 				statement: 'SCAN', 
-				dynamodb: {},
+				dynamodb: $1.dynamodb,
 			};
-			yy.extend($$.dynamodb, $1.dynamodb )
+
 			$$.columns = $1.columns
 			$$.having  = Object.keys($1.having).length ? $1.having : undefined;
-
-			//yy.extend($$.columns, $1.columns )
 			
 			yy.extend($$.dynamodb, $2);
 			yy.extend($$.dynamodb, $3);
