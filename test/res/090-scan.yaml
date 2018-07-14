@@ -32,3 +32,8 @@ Tests:
 
         - query: SCAN * FROM table_hash_string_range_number
           log: false
+
+        - query: SCAN `hash`,gsi_string FROM table_hash_string_range_number HAVING `range` = 99
+          validations:
+              - key: Object.keys(data[0]).length
+                value: 1
