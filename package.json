@@ -27,7 +27,7 @@
 		"promise": "*"
 	},
 	"devDependencies": {
-		"js-yaml": "3.11.0",
+		"js-yaml": "3.12.0",
 		"memdown": "*",
 		"dynalite": "1.2.0",
 		"mocha": "2.x.x",
