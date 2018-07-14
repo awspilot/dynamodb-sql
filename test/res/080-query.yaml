@@ -70,10 +70,10 @@ Tests:
                 value: 2
 
         - query: SELECT `hash`, *  FROM table_hash_string_range_number  WHERE `hash` = 'query'
-          shouldFail: true
+          shouldFail: false
 
         - query: SELECT `hash` AS h  FROM table_hash_string_range_number  WHERE `hash` = 'query'
-          shouldFail: true
+          shouldFail: false
 
         - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" CONSISTENT_READ
           results: 3
