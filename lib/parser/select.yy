@@ -4,9 +4,8 @@ select_stmt
 		{
 			$$ = {
 				statement: 'SELECT', 
-				dynamodb: $1
+				dynamodb: $1.dynamodb,
 			};
-
 			yy.extend($$.dynamodb,$2);
 			yy.extend($$.dynamodb,$3);
 			yy.extend($$.dynamodb,$4);
@@ -160,13 +159,40 @@ def_select
 	: SELECT distinct_all def_select_columns def_select_from def_select_use_index def_where def_having
 		{
 			$$ = {
-				TableName: $4,
-				IndexName: $5,
+				dynamodb: {
+					TableName: $4,
+					IndexName: $5,
+				},
 				columns:$3
 			};
-			yy.extend($$,$2);
-			yy.extend($$,$6);
-			yy.extend($$,$7);
+			yy.extend($$.dynamodb,$2);
+			yy.extend($$.dynamodb,$6);
+			yy.extend($$.dynamodb,$7);
+
+			// if we have star, then the rest does not matter
+			if ($$.columns.filter(function(c) { return c.type === 'star'}).length === 0) {
+				if (!$$.dynamodb.hasOwnProperty('ExpressionAttributeNames'))
+					$$.dynamodb.ExpressionAttributeNames = {}
+
+				var ExpressionAttributeNames_from_projection = { }
+				var ProjectionExpression = []
+				$$.columns.map(function(c) {
+					if (c.type === "column") {
+						var replaced_name = '#projection_' + c.column.split('-').join('_minus_').split('.').join('_dot_') 
+						ExpressionAttributeNames_from_projection[replaced_name] = c.column;
+						ProjectionExpression.push(replaced_name)
+					}
+					
+				})
+				
+				yy.extend($$.dynamodb.ExpressionAttributeNames,ExpressionAttributeNames_from_projection);
+				
+				if (ProjectionExpression.length)
+					$$.dynamodb.ProjectionExpression = ProjectionExpression.join(' , ')
+			
+			}
+
+
 		}
 	;
 
