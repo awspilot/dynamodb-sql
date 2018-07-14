@@ -25,6 +25,31 @@ def_scan
 				having: {},
 			}; 
 			yy.extend($$,$6); // filter
+
+
+			// if we have star, then the rest does not matter
+			if ($$.columns.filter(function(c) { return c.type === 'star'}).length === 0) {
+				if (!$$.dynamodb.hasOwnProperty('ExpressionAttributeNames'))
+					$$.dynamodb.ExpressionAttributeNames = {}
+
+				var ExpressionAttributeNames_from_projection = { }
+				var ProjectionExpression = []
+				$$.columns.map(function(c) {
+					if (c.type === "column") {
+						var replaced_name = '#projection_' + c.column.split('-').join('_minus_').split('.').join('_dot_') 
+						ExpressionAttributeNames_from_projection[replaced_name] = c.column;
+						ProjectionExpression.push(replaced_name)
+					}	
+				})
+				
+				yy.extend($$.dynamodb.ExpressionAttributeNames,ExpressionAttributeNames_from_projection);
+				
+				if (ProjectionExpression.length)
+					$$.dynamodb.ProjectionExpression = ProjectionExpression.join(' , ')
+			
+			}
+
+
 		}
 	;
 
