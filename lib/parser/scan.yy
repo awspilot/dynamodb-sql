@@ -3,6 +3,7 @@ scan_stmt
 		{
 			$$ = {
 				statement: 'SCAN', 
+				operation: 'scan',
 				dynamodb: $1.dynamodb,
 			};
 

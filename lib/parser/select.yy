@@ -4,6 +4,7 @@ select_stmt
 		{
 			$$ = {
 				statement: 'SELECT', 
+				operation: 'query',
 				dynamodb: $1.dynamodb,
 			};
 			yy.extend($$.dynamodb,$2);
