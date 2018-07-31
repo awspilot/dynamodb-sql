@@ -159,6 +159,7 @@ X(['](\\.|[^']|\\\')*?['])+                     return 'XSTRING'
 'KEYS_ONLY'		return 'KEYS_ONLY'
 'NEW'			return 'NEW'
 
+
 /* dynamodb reserved keywords taken from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html */
 'ALLOCATE'		return 'ALLOCATE'
 'ALTER'			return 'ALTER'
@@ -728,6 +729,7 @@ X(['](\\.|[^']|\\\')*?['])+                     return 'XSTRING'
 
 /* Javascript Objects */
 'JSON'		return 'JSON'
+'MATH'		return 'MATH'
 
 
 [-]?(\d*[.])?\d+[eE]\d+							return 'NUMBER'
@@ -831,6 +833,7 @@ sql_stmt
 	| describe_table_stmt
 	| drop_index_stmt
 	| scan_stmt
+
 	;
 
 name
