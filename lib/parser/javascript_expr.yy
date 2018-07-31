@@ -24,6 +24,8 @@ def_resolvable_expr
 dev_resolvable_value
 	: javascript_data_obj_date
 		{ $$ = $1 }
+	| javascript_data_obj_math
+		{ $$ = $1 }
 	| dynamodb_data_number
 		{ $$ = $1 }
 	| dynamodb_data_string
