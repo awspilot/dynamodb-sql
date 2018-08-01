@@ -30,7 +30,7 @@
 		"js-yaml": "3.12.0",
 		"memdown": "*",
 		"dynalite": "1.2.0",
-		"mocha": "2.x.x",
+		"mocha": "5.2.0",
 		"async": "*",
 		"assert": "*"
 	},
