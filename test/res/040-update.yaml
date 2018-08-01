@@ -82,7 +82,7 @@ Tests:
                     m = Math.round( 5.7 + 2.4 )
                 WHERE
                     `hash` = 'hash1' AND
-                    `range` = 1
+                    `range` = Math.round( 3 - 2 )
           dataItem:
               table: table_hash_string_range_number
               item: { hash: 'hash1',  range: 1 }
@@ -91,7 +91,7 @@ Tests:
                 value: '"2018-07-05T07:50:15.416Z"'
               - key: dataItem.m
                 value: 8
-          log: true
+          log: false
 
         # test add to stringset
 
