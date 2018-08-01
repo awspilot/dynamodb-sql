@@ -3,15 +3,15 @@ replace_stmt
 	: REPLACE INTO dynamodb_table_name SET def_replace_columns
 		{
 			var $kv = {}
-			$5.map(function(v) { 
+			$5.map(function(v) {
 				$kv[v[0]] = v[1]
 			})
 			$$ = {
-				statement: 'REPLACE', 
+				statement: 'REPLACE',
 				operation: 'putItem',
 				dynamodb: {
 					TableName: $3,
-					Item: $kv 
+					Item: $kv
 				},
 			}
 		}
@@ -45,11 +45,6 @@ def_replace_onecolumn
 	/* javascript objects */
 	| name EQ javascript_raw_obj_date
 		{ $$ = [ $1, $3 ]; }
+	| name EQ javascript_raw_obj_math
+		{ $$ = [ $1, $3 ]; }
 	;
-
-
-
-
-
-
-
