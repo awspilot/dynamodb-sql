@@ -5,28 +5,28 @@ Tests:
         - title: REPLACE INTO ... SET `hash` = ...inexistent hash...
           query:
             |
-            REPLACE INTO 
+            REPLACE INTO
                 `table_hash_string_range_number`
             SET
                 `hash`     =  'replace-inexistent-hash',
                 `range`    =  1,
 
-                `string`  = 'text', 
+                `string`  = 'text',
                 `number`  = 1,
                 `boolean` = true,
                 `array`   = ['a',1,true,null],
-                `object`  = { 
+                `object`  = {
                     'string': 'text',
                     'number': 1,
                     'bool'  : true,
-                    'null'  : null, 
+                    'null'  : null,
                 },
                 `null`    = null
           log: false
 
         - title: Checking replaced data
           query: SELECT * FROM `table_hash_string_range_number` WHERE  `hash`     =  'replace-inexistent-hash' AND  `range`    =  1
-          validations: 
+          validations:
               - key: data.length
                 value: 1
 
@@ -42,17 +42,17 @@ Tests:
                 value: {  string: 'text', number: 1, bool  : true, null  : null,  }
               - key: data[0].null
                 value: "null"
-        
+
         # test stringset, numberset
         - title: "REPLACE INTO ... SET `hash` = ...existent hash..., ss = new StringSet(..), ns = new NumberSet(...) "
-          query: 
+          query:
               |
-              REPLACE INTO 
-                  table_hash_string_range_number 
-              SET 
-                  `hash` = 'replace-inexistent-hash' , 
-                  `range` = 1, 
-                  ss = new StringSet(['a','b','c']), 
+              REPLACE INTO
+                  table_hash_string_range_number
+              SET
+                  `hash` = 'replace-inexistent-hash' ,
+                  `range` = 1,
+                  ss = new StringSet(['a','b','c']),
                   ns = new NumberSet([1,2,3])
         - title: Checking replaced data
           query: "SELECT * FROM  table_hash_string_range_number WHERE `hash` = 'replace-inexistent-hash' AND `range` = 1 "
@@ -68,21 +68,24 @@ Tests:
 
 
         - title: "REPLACE INTO tbl_name SET `hash` = <STRING>, d = new Date('2018-07-05T07:50:15.416Z').getTime() "
-          query: 
+          query:
               |
-              REPLACE INTO 
-                  table_hash_string_range_number 
-              SET 
-                  `hash` = 'replace-inexistent-hash', 
-                  `range` = 1, 
-                  d = new Date('2018-07-05T07:50:15.416Z').getTime()
+              REPLACE INTO
+                  table_hash_string_range_number
+              SET
+                  `hash` = 'replace-inexistent-hash',
+                  `range` = 1,
+                  d = new Date('2018-07-05T07:50:15.416Z').getTime(),
+                  m = Math.round( 5.7 + 2.4 )
 
-          dataItem: 
+          dataItem:
               table: table_hash_string_range_number
               item: { hash: 'replace-inexistent-hash',  range: 1 }
           validations:
                - key: Object.keys(dataItem).length
-                 value: 3
+                 value: 4
                - key: dataItem.d
                  value: 1530777015416
+               - key: dataItem.m
+                 value: 8
           log: false
