@@ -6,7 +6,7 @@ delete_stmt
 			$5.map(function(v) { $kv[v.k] = v.v })
 
 			$$ = {
-				statement: 'DELETE', 
+				statement: 'DELETE',
 				operation: 'deleteItem',
 				dynamodb: {
 					TableName: $3,
@@ -29,5 +29,9 @@ def_delete_where_cond
 	: name EQ dynamodb_raw_string
 		{ $$ = {k: $1, v: $3 }; }
 	| name EQ dynamodb_raw_number
+		{ $$ = {k: $1, v: $3 }; }
+	| name EQ javascript_raw_obj_date
+		{ $$ = {k: $1, v: $3 }; }
+	| name EQ javascript_raw_obj_math
 		{ $$ = {k: $1, v: $3 }; }
 	;
