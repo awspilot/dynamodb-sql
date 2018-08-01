@@ -6,15 +6,15 @@ insert_stmt
 			$6.map(function(v) { $kv[v[0]] = v[1] })
 
 			$$ = {
-				statement: 'INSERT', 
+				statement: 'INSERT',
 				operation: 'putItem',
 				ignore: $2,
 				dynamodb: {
 					TableName: $4,
 					Item: $kv,
-					
+
 				},
-				
+
 			};
 
 		}
@@ -22,35 +22,35 @@ insert_stmt
 		{
 			if ($6.length == 1) {
 				$$ = {
-					statement: 'INSERT', 
+					statement: 'INSERT',
 					operation: 'putItem',
 					ignore: $2,
 					dynamodb: {
 						TableName: $4,
 						Item: $6[0].M,
 					},
-					
+
 				};
 			} else {
 				// batch insert
 				$$ = {
-					statement: 'BATCHINSERT', 
+					statement: 'BATCHINSERT',
 					operation: 'batchWriteItem',
 					dynamodb: {
 						RequestItems: {}
 					}
-					
+
 				}
-				
+
 				var RequestItems = {}
-				
+
 				RequestItems[$4] = []
-				
-				$6.map(function(v) { 
+
+				$6.map(function(v) {
 					RequestItems[$4].push({
 						PutRequest: {
 							Item: v.M
-						}	
+						}
 					})
 				})
 				$$.dynamodb.RequestItems = RequestItems;
@@ -75,7 +75,7 @@ def_insert_items
 
 
 def_insert_item
-	: LPAR dynamodb_raw_json RPAR 
+	: LPAR dynamodb_raw_json RPAR
 		{ $$ = $2 }
 	;
 
@@ -106,14 +106,6 @@ def_insert_onecolumn
 	/* javascript objects */
 	| name EQ javascript_raw_obj_date
 		{ $$ = [ $1, $3 ]; }
+	| name EQ javascript_raw_obj_math
+		{ $$ = [ $1, $3 ]; }
 	;
-
-
-
-
-
-
-
-
-
-
