@@ -75,13 +75,7 @@ def_select_use_index
 		{ $$ = $3; }
 	;
 
-/*
-def_where
-	: WHERE where_expr
-		{ $$ = {where: $2}; }
-	|
-	;
-*/
+
 
 def_where
 	: WHERE select_where_hash
