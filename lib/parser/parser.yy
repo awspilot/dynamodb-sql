@@ -158,7 +158,7 @@ X(['](\\.|[^']|\\\')*?['])+                     return 'XSTRING'
 'ALL'			return 'ALL'
 'KEYS_ONLY'		return 'KEYS_ONLY'
 'NEW'			return 'NEW'
-
+'DEBUG'			return 'DEBUG'
 
 /* dynamodb reserved keywords taken from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html */
 'ALLOCATE'		return 'ALLOCATE'
@@ -833,7 +833,7 @@ sql_stmt
 	| describe_table_stmt
 	| drop_index_stmt
 	| scan_stmt
-
+	| debug_stmt
 	;
 
 name
