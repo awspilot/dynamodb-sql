@@ -12,7 +12,7 @@ update_stmt
 				Expected[k.k] = {
 					ComparisonOperator: 'EQ',
 					Value: k.v,
-					
+
 				}
 			})
 
@@ -26,7 +26,7 @@ update_stmt
 
 				if (k[2] === 'delete') {
 					Action = 'DELETE'
-					
+
 				}
 
 				AttributeUpdates[k[0]] = {
@@ -34,15 +34,15 @@ update_stmt
 					Value: Value,
 				}
 			})
-			
+
 			$$ = {
-				statement: 'UPDATE', 
+				statement: 'UPDATE',
 				operation: 'updateItem',
 				dynamodb: {
 					TableName: $2,
 					Key: Key,
 					Expected: Expected,
-					AttributeUpdates: AttributeUpdates, 
+					AttributeUpdates: AttributeUpdates,
 				},
 			}
 		}
@@ -75,6 +75,8 @@ def_update_onecolumn
 
 	/* javascript objects */
 	| name EQ javascript_raw_obj_date
+		{ $$ = [ $1, $3 ]; }
+	| name EQ javascript_raw_obj_math
 		{ $$ = [ $1, $3 ]; }
 
 	| name PLUSEQ dynamodb_raw_number
