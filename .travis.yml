@@ -9,3 +9,16 @@ node_js:
     - "8"
     - "9"
     - "10"
+
+
+deploy:
+  provider: npm
+  email: adrian@databank.ro
+  api_key:
+    secure: "MKSSlCWcKLbXB81mFGIiOWiW8ojbgjmSm0/j4OBmtfkeMJuw20DtyS5+Vf26ZFuZDzrUp3M4lkGoXQXCI1EeaIYpoZrmExXlDVemjk0VNCU6C/4LFBt1G6i+CA5wPNbCAmc52+Je5GEdT5xV6CwNgeBzaWnLzaxcxbGotZMRPrl2vQoX/4kD+NERhetpaevqsjo+EzNx2PTysdY/l/Yz/VNjEJSXnr8zStsd2RpKEfJ5aL5LpufeUdNY4F066KqMA80ACUzOWoJlqwMVF3UWCNet9/qlHmhXq6ukOy/2YxTmDltr8+2PtV58mgbZcCUO6HPH1fMlgP0e0jlxcwgL9ViDY+tlbxFuhxZp1FUIH/goWjavHg3RiaFsM/VKlJsFgzUC0YJT09YvQRUFUUEHcBVjx6zmD3xssTQ2Fick/7nVkpulh4qCcwysxFgt3BBzj8EdJP9rApPSZgS5oCYCmxBkwsBWzjLu/1qfhWPrq+ALFs14kue3H+5C/SCsphe5zKDVTJBvLXW5D19kgQnOy0T0ZyRAwyWSwkwBdHzKjpJ3BHfhYLCFY4oXW/OymBdpkI1YAqhlr4YyNJZ2h6zHPhT/gPuiGrynUAl5n/qlRSHSP3Yeu02Bb4aTWAJmEJhlvKOweVGzVHpI1cfV6a9mageD+UYIVxYtAVvtT+Af5uU="
+  clean_up: false
+  on:
+    tags: true
+    all_branches: true
+    node: '9'
+    repo: awspilot/dynamodb-oop

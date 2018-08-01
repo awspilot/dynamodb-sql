@@ -1,6 +1,6 @@
 {
 	"name": "@awspilot/dynamodb-sql",
-	"version": "1.0.11",
+	"version": "1.0.12",
 	"description": "Execute queries against Amazon DynamoDB using a SQL-like syntax",
 	"main": "./lib/dynamodb",
 	"scripts": {
