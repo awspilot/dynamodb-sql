@@ -1,5 +1,19 @@
 
 
+javascript_raw_expr
+	: def_resolvable_expr
+		{
+			if (typeof $1 === "object") {
+				$$ = { S: $1.toString() }
+			}
+			if (typeof $1 === "string") {
+				$$ = { S: $1 }
+			}
+			if (typeof $1 === "number") {
+				$$ = { N: $1.toString() }
+			}
+		}
+	;
 
 def_resolvable_expr
 	: dev_resolvable_value
@@ -31,3 +45,11 @@ dev_resolvable_value
 	| dynamodb_data_string
 		{ $$ = $1 }
 	;
+
+/*
+def_resolvable_expr
+	[ ] .substr()
+	[ ] .slice()
+	[ ] .chain
+	[ ] .func() math.round()
+*/
