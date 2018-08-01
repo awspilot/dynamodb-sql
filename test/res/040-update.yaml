@@ -6,33 +6,33 @@ Tests:
         - title: UPDATE inexistent item should throw 'ConditionalCheckFailedException'
           query: UPDATE `table_hash_string_range_number` SET  x = 1234 WHERE `hash` = 'inexistent' and `range` = 1
           shouldFail: true
-          validations: 
+          validations:
               - key: err.code
                 value: "'ConditionalCheckFailedException'"
 
         # test update string, number , boolean, array, object, null
         - title: "UPDATE item with: string, number, boolean, array (List), object (Map), null "
-          query: 
+          query:
               |
-              UPDATE 
-                `table_hash_string_range_number` 
-              SET  
-                `string`  = 'text', 
+              UPDATE
+                `table_hash_string_range_number`
+              SET
+                `string`  = 'text',
                 `number`  = 1,
                 `boolean` = true,
                 `array`   = ['a',1,true,null],
-                `object`  = { 
+                `object`  = {
                     'string': 'text',
                     'number': 1,
                     'bool'  : true,
-                    'null'  : null, 
+                    'null'  : null,
                 },
                 `null`    = null
               WHERE
-                `hash` = 'hash1' AND 
+                `hash` = 'hash1' AND
                 `range` = 1
         - query: "SELECT * FROM  table_hash_string_range_number WHERE `hash` = 'hash1' AND `range` = 1 "
-          validations: 
+          validations:
                - key: data[0].string
                  value: "'text'"
                - key: data[0].number
@@ -49,7 +49,7 @@ Tests:
         # test increment number
         - query: "UPDATE table_hash_string_range_number SET `number` += 10 WHERE `hash` = 'hash1' AND `range` = 1 "
         - query: "SELECT `number` FROM  table_hash_string_range_number WHERE `hash` = 'hash1' AND `range` = 1 "
-          validations: 
+          validations:
                - key: data[0].number
                  value: 11
 
@@ -57,7 +57,7 @@ Tests:
         # test delete item
         - query: "UPDATE table_hash_string_range_number SET `number` = undefined WHERE `hash` = 'hash1' AND `range` = 1 "
         - query: "SELECT `number` FROM  table_hash_string_range_number WHERE `hash` = 'hash1' AND `range` = 1 "
-          validations: 
+          validations:
                - key: Object.keys(data[0]).length
                  value: 0
 
@@ -65,7 +65,7 @@ Tests:
         - query: "UPDATE table_hash_string_range_number SET ss = new StringSet(['a','b','c']), ns = new NumberSet([1,2,3]) WHERE `hash` = 'hash1' AND `range` = 1 "
         - query: "SELECT ss,ns FROM  table_hash_string_range_number WHERE `hash` = 'hash1' AND `range` = 1 "
 
-          validations: 
+          validations:
                - key: data[0].ss
                  value: ['a','b','c']
                - key: data[0].ns
@@ -73,20 +73,30 @@ Tests:
 
         # test date
         - title: "UPDATE tbl_name SET d = new Date( 1530777015416 ).toISOString() WHERE `hash` = <STRING> AND `range` = <NUMBER> "
-          query: "UPDATE table_hash_string_range_number SET d = new Date( 1530777015416 ).toISOString() WHERE `hash` = 'hash1' AND `range` = 1 "
-          dataItem: 
+          query:
+                |
+                UPDATE
+                    table_hash_string_range_number
+                SET
+                    d = new Date( 1530777015416 ).toISOString(),
+                    m = Math.round( 5.7 + 2.4 )
+                WHERE
+                    `hash` = 'hash1' AND
+                    `range` = 1
+          dataItem:
               table: table_hash_string_range_number
               item: { hash: 'hash1',  range: 1 }
           validations:
               - key: dataItem.d
                 value: '"2018-07-05T07:50:15.416Z"'
-          log: false
+              - key: dataItem.m
+                value: 8
+          log: true
 
         # test add to stringset
-        
-        # test remove from stringset
-        
-        # test add to numberset
-        
-        # test remove from numberset
 
+        # test remove from stringset
+
+        # test add to numberset
+
+        # test remove from numberset
