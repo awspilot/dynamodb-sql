@@ -39,32 +39,42 @@ Tests:
 
 
         - title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, d = new Date('2018-07-05T07:50:15.416Z').getTime()
-          query: INSERT INTO `table_hash_string_range_number` SET `hash` = 'test-insert-date', `range` = 1, d = new Date('2018-07-05T07:50:15.416Z').getTime()
-          dataItem: 
+          query:
+              |
+              INSERT INTO
+                `table_hash_string_range_number`
+              SET
+                `hash` = 'test-insert-date',
+                `range` = 1,
+                d = new Date('2018-07-05T07:50:15.416Z').getTime(),
+                m = Math.round( 5.7 + 2.4 )
+          dataItem:
              table: table_hash_string_range_number
              item: { hash: 'test-insert-date',  range: 1 }
           validations:
              - key: dataItem.d
                value: 1530777015416
+             - key: dataItem.m
+               value: 8
           log: false
 
 
         - title: INSERT INTO tbl_name VALUES ( <JSON> )
-          query: 
+          query:
             |
-            INSERT INTO 
+            INSERT INTO
                 `table_hash_string_range_number`
-            VALUES ({ 
+            VALUES ({
                 "hash":  'test-insert-sql',
                 'range':  1,
-                'number': 1,  
-                'boolean': true, 
+                'number': 1,
+                'boolean': true,
                 'null': null,
-                'array': [1,2, 3 ], 
-                'object': { 
+                'array': [1,2, 3 ],
+                'object': {
                     "substring": "aaa",
-                    subnumber: 1, 
-                    subobject: {}, 
+                    subnumber: 1,
+                    subobject: {},
                     subarray: []
                 },
             })
@@ -72,22 +82,22 @@ Tests:
 
         - title: INSERT INTO tbl_name VALUES ( <JSON> ), ( <JSON> )
           log: false
-          query: 
+          query:
             |
-            INSERT INTO 
+            INSERT INTO
                 `table_hash_string_range_number`
-            VALUES 
+            VALUES
                 ( { "hash":  'test-batchinsert-sql', 'range':  1 } ),
                 ( { "hash":  'test-batchinsert-sql', 'range':  2 } )
           validations: []
 
         - title: INSERT INTO tbl_name VALUES ( <JSON> ), ( <JSON> )
           log: false
-          query: 
+          query:
             |
-            INSERT INTO 
+            INSERT INTO
                 `table_hash_string_range_number`
-            VALUES 
+            VALUES
                 ( { "hash":  'test-batchinsert-sql', 'range':  1 } ),
                 ( { "hash":  'test-batchinsert-sql', 'range':  2 } ),
                 ( { "hash":  'test-batchinsert-sql', 'range':  3 } ),
