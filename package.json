@@ -4,7 +4,7 @@
 	"description": "Execute queries against Amazon DynamoDB using a SQL-like syntax",
 	"main": "./lib/dynamodb",
 	"scripts": {
-		"test": "mocha --timeout 100000 -S -R spec"
+		"test": "mocha --timeout 100000 -S -R spec --exit"
 	},
 	"repository": {
 		"type": "git",
