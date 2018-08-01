@@ -239,6 +239,10 @@ select_where_hash_value
 		{ $$ = $1 }
 	| dynamodb_raw_string
 		{ $$ = $1 }
+	| javascript_raw_obj_date
+		{ $$ = $1 }
+	| javascript_raw_obj_math
+		{ $$ = $1 }
 	;
 
 
