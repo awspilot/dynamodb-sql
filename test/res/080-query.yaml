@@ -100,7 +100,7 @@ Tests:
           validations:
               - key: data[0].range
                 value: 1
-                
+
         - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING `boolean` = true
           results: 1
           validations:
@@ -120,15 +120,25 @@ Tests:
               - key: data[0].range
                 value: 1
 
-        # - 
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and `range` < new Date().getTime()
+          results: 3
+
+        - query: SELECT * FROM table_hash_string_range_number WHERE `hash` = 'query' and `range` < Math.round( 100 - 1 )
+          results: 2
+
+
+
+
+        # -
         #   query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS 'string'
         #   log: true
-        # 
-        # - 
+        #
+        # -
         #   query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS 777
         #   log: true
-        # 
-        # - 
+        #
+        # -
         #   query: SELECT * FROM table_hash_string_range_number WHERE `hash` = "query" HAVING array CONTAINS true
         #   log: true
 
