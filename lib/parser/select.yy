@@ -3,7 +3,7 @@ select_stmt
 	: def_select select_sort_clause limit_clause def_consistent_read
 		{
 			$$ = {
-				statement: 'SELECT', 
+				statement: 'SELECT',
 				operation: 'query',
 				dynamodb: $1.dynamodb,
 			};
@@ -86,12 +86,12 @@ def_where
 def_where
 	: WHERE select_where_hash
 		{
-			$$ = { 
+			$$ = {
 				//KeyConditionExpression: $2,
 				ExpressionAttributeNames: {},
 				ExpressionAttributeValues: {},
-			}; 
-			
+			};
+
 			$$.ExpressionAttributeNames[ '#partitionKeyName' ] = $2.partition.partitionKeyName
 			$$.ExpressionAttributeValues[ ':partitionKeyValue' ] = $2.partition.partitionKeyValue
 			$$.KeyConditionExpression = ' #partitionKeyName =  :partitionKeyValue '
@@ -99,12 +99,12 @@ def_where
 		}
 	| WHERE select_where_hash AND select_where_range
 		{
-			$$ = { 
+			$$ = {
 				//KeyConditionExpression: $2,
 				ExpressionAttributeNames: {},
 				ExpressionAttributeValues: {},
-			}; 
-			
+			};
+
 			$$.ExpressionAttributeNames[ '#partitionKeyName' ] = $2.partition.partitionKeyName
 			$$.ExpressionAttributeValues[ ':partitionKeyValue' ] = $2.partition.partitionKeyValue
 			$$.KeyConditionExpression = ' #partitionKeyName =  :partitionKeyValue '
@@ -112,7 +112,7 @@ def_where
 
 			if ($4.sort) {
 				$$.ExpressionAttributeNames[ '#sortKeyName' ] = $4.sort.sortKeyName
-				
+
 				switch ($4.sort.op) {
 					case '=':
 					case '>':
@@ -121,7 +121,7 @@ def_where
 					case '<=':
 						$$.ExpressionAttributeValues[ ':sortKeyValue' ] = $4.sort.sortKeyValue
 						$$.KeyConditionExpression += ' AND #sortKeyName ' + $4.sort.op + ' :sortKeyValue '
-						
+
 						break;
 					case 'BETWEEN':
 						$$.ExpressionAttributeValues[ ':sortKeyValue1' ] = $4.sort.sortKeyValue1
@@ -133,15 +133,15 @@ def_where
 						if ($4.sort.sortKeyValue.S.slice(-1) !== '%' )
 							throw "LIKE '%string' must end with a % for sort key "
 
-							
+
 						$4.sort.sortKeyValue.S = $4.sort.sortKeyValue.S.slice(0,-1)
-						
+
 						$$.ExpressionAttributeValues[ ':sortKeyValue' ] = $4.sort.sortKeyValue
 						$$.KeyConditionExpression += ' AND begins_with ( #sortKeyName, :sortKeyValue ) '
 
 						break;
 				}
-				
+
 			}
 
 
@@ -179,18 +179,18 @@ def_select
 				var ProjectionExpression = []
 				$$.columns.map(function(c) {
 					if (c.type === "column") {
-						var replaced_name = '#projection_' + c.column.split('-').join('_minus_').split('.').join('_dot_') 
+						var replaced_name = '#projection_' + c.column.split('-').join('_minus_').split('.').join('_dot_')
 						ExpressionAttributeNames_from_projection[replaced_name] = c.column;
 						ProjectionExpression.push(replaced_name)
 					}
-					
+
 				})
-				
+
 				yy.extend($$.dynamodb.ExpressionAttributeNames,ExpressionAttributeNames_from_projection);
-				
+
 				if (ProjectionExpression.length)
 					$$.dynamodb.ProjectionExpression = ProjectionExpression.join(' , ')
-			
+
 			}
 
 
@@ -230,7 +230,7 @@ where_expr
 
 select_where_hash
 	: name EQ select_where_hash_value
-		{ 
+		{
 			$$ = {
 				partition: {
 					partitionKeyName: $1,
@@ -329,6 +329,11 @@ select_where_range_value
 		{ $$ = $1 }
 	| dynamodb_raw_string
 		{ $$ = $1 }
+
+	| javascript_raw_obj_date
+		{ $$ = $1; }
+	| javascript_raw_obj_math
+		{ $$ = $1; }
 	;
 
 select_where_between
