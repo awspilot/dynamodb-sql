@@ -21,4 +21,4 @@ deploy:
     tags: true
     all_branches: true
     node: '9'
-    repo: awspilot/dynamodb-oop
+    repo: awspilot/dynamodb-sql
