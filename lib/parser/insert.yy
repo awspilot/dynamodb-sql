@@ -86,10 +86,20 @@ def_insert_columns
 		{ $$ = [$1]; }
 	;
 def_insert_onecolumn
+	: name EQ javascript_raw_expr
+		{ $$ = [ $1, $3 ]; }
+/*
 	: name EQ dynamodb_raw_string
 		{ $$ = [ $1, $3 ]; }
 	| name EQ dynamodb_raw_number
 		{ $$ = [ $1, $3 ]; }
+
+	 javascript objects
+	| name EQ javascript_raw_obj_date
+		{ $$ = [ $1, $3 ]; }
+	| name EQ javascript_raw_obj_math
+		{ $$ = [ $1, $3 ]; }
+*/
 	| name EQ dynamodb_raw_boolean
 		{ $$ = [ $1, $3 ]; }
 	| name EQ dynamodb_raw_null
@@ -101,11 +111,5 @@ def_insert_onecolumn
 	| name EQ dynamodb_raw_stringset
 		{ $$ = [ $1, $3 ]; }
 	| name EQ dynamodb_raw_numberset
-		{ $$ = [ $1, $3 ]; }
-
-	/* javascript objects */
-	| name EQ javascript_raw_obj_date
-		{ $$ = [ $1, $3 ]; }
-	| name EQ javascript_raw_obj_math
 		{ $$ = [ $1, $3 ]; }
 	;
