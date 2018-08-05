@@ -100,14 +100,19 @@ def_update_where
 
 
 def_update_where_cond
+	: name EQ javascript_raw_expr
+		{ $$ = {k: $1, v: $3 }; }
+
+	/*
 	: name EQ dynamodb_raw_string
 		{ $$ = {k: $1, v: $3 }; }
 	| name EQ dynamodb_raw_number
 		{ $$ = {k: $1, v: $3 }; }
 
-	/* javascript objects */
+	// javascript objects
 	| name EQ javascript_raw_obj_date
 		{ $$ = {k: $1, v: $3 }; }
 	| name EQ javascript_raw_obj_math
 		{ $$ = {k: $1, v: $3 }; }
+	*/
 	;
