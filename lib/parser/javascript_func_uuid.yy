@@ -20,15 +20,3 @@ javascript_data_func_uuid
 				).replace(/[#]/g, function(c) { var r = Math.random()*16|0, v = c == '#' ? r : (r&0x3|0x8); return v.toString(16); })
 		}
 	;
-
-/*
-javascript_raw_func_uuid
-	: SINGLE_QUOTED_STRING
-		{ $$ = { 'S': eval($1).toString() } }
-	| DOUBLE_QUOTED_STRING
-		{ $$ = { 'S': eval($1).toString() } }
-	;
-*/
-
-/*
-*/
