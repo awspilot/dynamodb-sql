@@ -12,13 +12,14 @@ dynamodb_data_array
 array_list
 	: array_list COMMA array_value
 		{
-			$$ = $1 
-			$$.push($3); 
+			$$ = $1
+			$$.push($3);
 		}
 	| array_value
 		{ $$ = [$1]; }
 	;
 
+/* array should also support expr */
 array_value
 	:
 		{ $$ = "\0" }
@@ -52,8 +53,8 @@ dynamodb_raw_array
 array_list_raw
 	: array_list_raw COMMA array_value_raw
 		{
-			$$ = $1 
-			$$.push($3); 
+			$$ = $1
+			$$.push($3);
 		}
 	| array_value_raw
 		{ $$ = [$1]; }
