@@ -26,6 +26,9 @@ def_delete_where
 
 
 def_delete_where_cond
+	: name EQ javascript_raw_expr
+		{ $$ = {k: $1, v: $3 }; }
+/*
 	: name EQ dynamodb_raw_string
 		{ $$ = {k: $1, v: $3 }; }
 	| name EQ dynamodb_raw_number
@@ -34,4 +37,5 @@ def_delete_where_cond
 		{ $$ = {k: $1, v: $3 }; }
 	| name EQ javascript_raw_obj_math
 		{ $$ = {k: $1, v: $3 }; }
+*/
 	;
