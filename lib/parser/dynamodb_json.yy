@@ -32,29 +32,48 @@ dynamodb_data_json_kv_key
 dynamodb_data_json_kv
 	:
 		{ $$ = undefined; }
-	| dynamodb_data_json_kv_key COLON dynamodb_data_number
+	| name COLON dynamodb_data_number
+		{ $$ = [$1, $3 ] }
+	| SINGLE_QUOTED_STRING COLON dynamodb_data_number
+		{ $$ = [$1, $3 ] }
+	| DOUBLE_QUOTED_STRING COLON dynamodb_data_number
+		{ $$ = [$1, $3 ] }
+
+	| name COLON dynamodb_data_string
+		{ $$ = [$1, $3 ] }
+	| SINGLE_QUOTED_STRING COLON dynamodb_data_string
+		{ $$ = [$1, $3 ] }
+	| DOUBLE_QUOTED_STRING COLON dynamodb_data_string
+		{ $$ = [$1, $3 ] }
+
+	| name COLON dynamodb_data_boolean
+		{ $$ = [$1, $3 ] }
+	| SINGLE_QUOTED_STRING COLON dynamodb_data_boolean
+		{ $$ = [$1, $3 ] }
+	| DOUBLE_QUOTED_STRING COLON dynamodb_data_boolean
 		{ $$ = [$1, $3 ] }
 
 
-	| dynamodb_data_json_kv_key COLON dynamodb_data_string
+	| name COLON dynamodb_data_null
+		{ $$ = [$1, $3 ] }
+	| SINGLE_QUOTED_STRING COLON dynamodb_data_null
+		{ $$ = [$1, $3 ] }
+	| DOUBLE_QUOTED_STRING COLON dynamodb_data_null
 		{ $$ = [$1, $3 ] }
 
-
-	| dynamodb_data_json_kv_key COLON dynamodb_data_boolean
+	| name COLON dynamodb_data_array
+		{ $$ = [$1, $3 ] }
+	| SINGLE_QUOTED_STRING COLON dynamodb_data_array
+		{ $$ = [$1, $3 ] }
+	| DOUBLE_QUOTED_STRING COLON dynamodb_data_array
 		{ $$ = [$1, $3 ] }
 
-
-	| dynamodb_data_json_kv_key COLON dynamodb_data_null
+	| name COLON dynamodb_data_json
 		{ $$ = [$1, $3 ] }
-
-
-	| dynamodb_data_json_kv_key COLON dynamodb_data_array
+	| SINGLE_QUOTED_STRING COLON dynamodb_data_json
 		{ $$ = [$1, $3 ] }
-
-
-	| dynamodb_data_json_kv_key COLON dynamodb_data_json
+	| DOUBLE_QUOTED_STRING COLON dynamodb_data_json
 		{ $$ = [$1, $3 ] }
-
 	;
 
 
@@ -83,50 +102,47 @@ dynamodb_data_json_list_raw
 		{ $$ = [$1]; }
 	;
 
+dynamodb_raw_json_kv_key
+	: name
+		{ $$ = $1 }
+	| SINGLE_QUOTED_STRING
+		{ $$ = eval($1) }
+	| DOUBLE_QUOTED_STRING
+		{ $$ = eval($1) }
+	;
 
 dynamodb_raw_json_kv
 	:
 		{ $$ = undefined; }
-	| name COLON dynamodb_raw_number
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_raw_number
-		{ $$ = [eval($1), $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_raw_number
-		{ $$ = [eval($1), $3 ] }
-
-	| name COLON dynamodb_raw_string
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_raw_string
-		{ $$ = [eval($1), $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_raw_string
-		{ $$ = [eval($1), $3 ] }
-
-	| name COLON dynamodb_raw_boolean
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_raw_boolean
-		{ $$ = [eval($1), $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_raw_boolean
-		{ $$ = [eval($1), $3 ] }
 
 
-	| name COLON dynamodb_raw_null
+	| dynamodb_raw_json_kv_key COLON javascript_raw_expr
 		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_raw_null
-		{ $$ = [eval($1), $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_raw_null
-		{ $$ = [eval($1), $3 ] }
 
-	| name COLON dynamodb_raw_array
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_raw_array
-		{ $$ = [eval($1), $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_raw_array
-		{ $$ = [eval($1), $3 ] }
 
-	| name COLON dynamodb_raw_json
+/*
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_number
 		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_raw_json
-		{ $$ = [eval($1), $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_raw_json
-		{ $$ = [eval($1), $3 ] }
+
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_string
+		{ $$ = [$1, $3 ] }
+*/
+
+
+
+
+
+
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_boolean
+		{ $$ = [$1, $3 ] }
+
+
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_null
+		{ $$ = [$1, $3 ] }
+
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_array
+		{ $$ = [$1, $3 ] }
+
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_json
+		{ $$ = [$1, $3 ] }
 	;
