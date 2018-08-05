@@ -235,6 +235,9 @@ select_where_hash
 	;
 
 select_where_hash_value
+	: javascript_raw_expr
+		{ $$ = $1 }
+/*
 	: dynamodb_raw_number
 		{ $$ = $1 }
 	| dynamodb_raw_string
@@ -243,6 +246,7 @@ select_where_hash_value
 		{ $$ = $1 }
 	| javascript_raw_obj_math
 		{ $$ = $1 }
+*/
 	;
 
 
@@ -323,6 +327,9 @@ select_where_range
 		}
 	;
 select_where_range_value
+	: javascript_raw_expr
+		{ $$ = $1 }
+/*
 	: dynamodb_raw_number
 		{ $$ = $1 }
 	| dynamodb_raw_string
@@ -332,6 +339,7 @@ select_where_range_value
 		{ $$ = $1; }
 	| javascript_raw_obj_math
 		{ $$ = $1; }
+*/
 	;
 
 select_where_between
