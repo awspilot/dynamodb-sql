@@ -1,7 +1,7 @@
 
 dynamodb_data_json
 	: JSONLPAR dynamodb_data_json_list JSONRPAR
-		{ 
+		{
 			var $kv = {}
 			if ($2) {
 				$2.map(function(v) {
@@ -20,51 +20,41 @@ dynamodb_data_json_list
 		{ $$ = [$1]; }
 	;
 
+dynamodb_data_json_kv_key
+	: name
+		{ $$ = $1 }
+	| SINGLE_QUOTED_STRING
+		{ $$ = $1 }
+	| DOUBLE_QUOTED_STRING
+		{ $$ = $1 }
+	;
+
 dynamodb_data_json_kv
 	:
 		{ $$ = undefined; }
-	| name COLON dynamodb_data_number
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_data_number
-		{ $$ = [$1, $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_data_number
-		{ $$ = [$1, $3 ] }
-
-	| name COLON dynamodb_data_string
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_data_string
-		{ $$ = [$1, $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_data_string
-		{ $$ = [$1, $3 ] }
-
-	| name COLON dynamodb_data_boolean
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_data_boolean
-		{ $$ = [$1, $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_data_boolean
+	| dynamodb_data_json_kv_key COLON dynamodb_data_number
 		{ $$ = [$1, $3 ] }
 
 
-	| name COLON dynamodb_data_null
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_data_null
-		{ $$ = [$1, $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_data_null
+	| dynamodb_data_json_kv_key COLON dynamodb_data_string
 		{ $$ = [$1, $3 ] }
 
-	| name COLON dynamodb_data_array
-		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_data_array
-		{ $$ = [$1, $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_data_array
+
+	| dynamodb_data_json_kv_key COLON dynamodb_data_boolean
 		{ $$ = [$1, $3 ] }
 
-	| name COLON dynamodb_data_json
+
+	| dynamodb_data_json_kv_key COLON dynamodb_data_null
 		{ $$ = [$1, $3 ] }
-	| SINGLE_QUOTED_STRING COLON dynamodb_data_json
+
+
+	| dynamodb_data_json_kv_key COLON dynamodb_data_array
 		{ $$ = [$1, $3 ] }
-	| DOUBLE_QUOTED_STRING COLON dynamodb_data_json
+
+
+	| dynamodb_data_json_kv_key COLON dynamodb_data_json
 		{ $$ = [$1, $3 ] }
+
 	;
 
 
@@ -75,7 +65,7 @@ dynamodb_data_json_kv
 
 dynamodb_raw_json
 	: JSONLPAR dynamodb_data_json_list_raw JSONRPAR
-		{ 
+		{
 			var $kv = {}
 			if ($2) {
 				$2.map(function(v) {
