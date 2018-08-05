@@ -15,6 +15,14 @@ javascript_raw_expr
 		}
 	;
 
+
+javascript_data_expr
+	: def_resolvable_expr
+		{ $$ = $1 }
+	;
+
+
+
 def_resolvable_expr
 	: dev_resolvable_value
 		{ $$ = $1 }
@@ -40,6 +48,8 @@ dev_resolvable_value
 		{ $$ = $1 }
 	| javascript_data_obj_math
 		{ $$ = $1 }
+	| javascript_data_func_uuid
+		{ $$ = $1 }
 	| dynamodb_data_number
 		{ $$ = $1 }
 	| dynamodb_data_string
@@ -51,5 +61,5 @@ def_resolvable_expr
 	[ ] .substr()
 	[ ] .slice()
 	[ ] .chain
-	[ ] .func() math.round()
+	[ ] .func()
 */

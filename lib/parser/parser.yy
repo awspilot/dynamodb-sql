@@ -727,9 +727,10 @@ X(['](\\.|[^']|\\\')*?['])+                     return 'XSTRING'
 'YEAR'		return 'YEAR'
 'ZONE'		return 'ZONE'
 
-/* Javascript Objects */
+/* Javascript Objects and Functions */
 'JSON'		return 'JSON'
 'MATH'		return 'MATH'
+'UUID'		return 'UUID'
 
 
 [-]?(\d*[.])?\d+[eE]\d+							return 'NUMBER'
