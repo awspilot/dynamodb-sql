@@ -12,7 +12,7 @@ if (global.awsdynamo ) {
         region:'us-west-1'
     })
     DynamoSQL = require('../../lib/dynamodb')(
-        new AWS.DynamoDB({maxRetries: 0})
+        new AWS.DynamoDB({maxRetries: 10})
     )
 } else {
     console.log("**************** Working With Mock Dynamo *********************")
